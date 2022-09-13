@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attendence;
-use App\Http\Requests\StoreAttendenceRequest;
-use App\Http\Requests\UpdateAttendenceRequest;
+use App\Models\Attendance;
+use App\Http\Requests\StoreAttendanceRequest;
+use App\Http\Requests\UpdateAttendanceRequest;
+use Illuminate\Support\Facades\Auth;
 
-class AttendenceController extends Controller
+class AttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,12 @@ class AttendenceController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::user()->role_id==1){
+            return view('dashboards.admins.attendances');
+        }
+        elseif (Auth::user()->role_id==2){
+            return view('dashboards.users.attendances');
+        }
     }
 
     /**
@@ -31,10 +37,10 @@ class AttendenceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAttendenceRequest  $request
+     * @param  \App\Http\Requests\StoreAttendanceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAttendenceRequest $request)
+    public function store(StoreAttendanceRequest $request)
     {
         //
     }
@@ -42,10 +48,10 @@ class AttendenceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Attendence  $attendence
+     * @param  \App\Models\Attendance  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function show(Attendence $attendence)
+    public function show(Attendance $attendence)
     {
         //
     }
@@ -53,10 +59,10 @@ class AttendenceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Attendence  $attendence
+     * @param  \App\Models\Attendance  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function edit(Attendence $attendence)
+    public function edit(Attendance $attendence)
     {
         //
     }
@@ -64,11 +70,11 @@ class AttendenceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAttendenceRequest  $request
-     * @param  \App\Models\Attendence  $attendence
+     * @param  \App\Http\Requests\UpdateAttendanceRequest  $request
+     * @param  \App\Models\Attendance  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAttendenceRequest $request, Attendence $attendence)
+    public function update(UpdateAttendanceRequest $request, Attendance $attendence)
     {
         //
     }
@@ -76,10 +82,10 @@ class AttendenceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Attendence  $attendence
+     * @param  \App\Models\Attendance  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Attendence $attendence)
+    public function destroy(Attendance $attendence)
     {
         //
     }

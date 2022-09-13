@@ -119,7 +119,7 @@ trait AuthenticatesUsers
                     ? new JsonResponse([], 204)
                     : redirect()->intended($this->redirectPath());
     }
-
+//////////////Save Login Date ///////////////////////////////
     /**
      * The user has been authenticated.
      *

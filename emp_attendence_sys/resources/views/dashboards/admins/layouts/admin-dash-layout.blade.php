@@ -48,21 +48,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="{{ \URL::to('/')}}" class="brand-link">
-      <img src="{{asset('assets/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Your Site</span>
-    </a>
+{{--    <!-- Brand Logo -->--}}
+{{--    <a href="{{ \URL::to('/')}}" class="brand-link">--}}
+{{--      <img src="{{asset('assets/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">--}}
+{{--      <span class="brand-text font-weight-light">Your Site</span>--}}
+{{--    </a>--}}
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ Auth::user()->picture }}" class="img-circle elevation-2 admin_picture" alt="User Image">
-        </div>
+{{--        <div class="image">--}}
+{{--          <img src="{{ Auth::user()->picture }}" class="img-circle elevation-2 admin_picture" alt="User Image">--}}
+{{--        </div>--}}
         <div class="info">
-          <a href="#" class="d-block admin_name">{{ Auth::user()->name }}</a>
+          <a href="#" class="d-block admin_name h4">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -97,6 +97,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.attendance')}}" class="nav-link {{ (request()->is('admin/attendance*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-pen"></i>
+                    <p>
+                       Attendances
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
