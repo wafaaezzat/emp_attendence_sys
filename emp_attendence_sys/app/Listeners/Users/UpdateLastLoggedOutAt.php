@@ -31,7 +31,7 @@ class UpdateLastLoggedOutAt
     {
         Attendance::create([
             'user_id'=>Auth::id(),
-            'sign_in'=>Carbon::now() ,
+            'sign_out'=>Carbon::now() ,
             'status'=>2
         ]);
     }

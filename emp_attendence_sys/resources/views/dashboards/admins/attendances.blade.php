@@ -9,82 +9,27 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>User</th>
                 <th>Date</th>
-                <th>Status</th>
                 <th>Login</th>
                 <th>Logout</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
+            @foreach($adminAttendances as $adminAttendance)
             <tr data-widget="expandable-table" aria-expanded="false">
-                <td>183</td>
-                <td>John Doe</td>
-                <td>11-7-2014</td>
-                <td>Approved</td>
-                <td>dateTime</td>
-                <td>dateTime</td>
+{{--                <?php--}}
+{{--               dd(     $adminAttendance);--}}
+{{--                    ?>--}}
+                <td>{{$adminAttendance->id}}</td>
+                <td>{{$adminAttendance->created_at}}</td>
+                <td>{{$adminAttendance->sign_in}}</td>
+                <td>{{$adminAttendance->sign_out}}</td>
+                <td>{{$adminAttendance->status}}</td>
             </tr>
-
-            <tr data-widget="expandable-table" aria-expanded="true">
-                <td>219</td>
-                <td>Alexander Pierce</td>
-                <td>11-7-2014</td>
-                <td>Pending</td>
-                <td>dateTime</td>
-                <td>dateTime</td>
-            </tr>
-            <tr data-widget="expandable-table" aria-expanded="true">
-                <td>657</td>
-                <td>Alexander Pierce</td>
-                <td>11-7-2014</td>
-                <td>Approved</td>
-                <td>dateTime</td>
-                <td>dateTime</td>
-            </tr>
-            <tr data-widget="expandable-table" aria-expanded="false">
-                <td>175</td>
-                <td>Mike Doe</td>
-                <td>11-7-2014</td>
-                <td>Denied</td>
-                <td>dateTime</td>
-                <td>dateTime</td>
-            </tr>
-            <tr data-widget="expandable-table" aria-expanded="false">
-                <td>134</td>
-                <td>Jim Doe</td>
-                <td>11-7-2014</td>
-                <td>Approved</td>
-                <td>dateTime</td>
-                <td>dateTime</td>
-            </tr>
-            <tr data-widget="expandable-table" aria-expanded="false">
-                <td>494</td>
-                <td>Victoria Doe</td>
-                <td>11-7-2014</td>
-                <td>Pending</td>
-                <td>dateTime</td>
-                <td>dateTime</td>
-            </tr>
-            <tr data-widget="expandable-table" aria-expanded="false">
-                <td>832</td>
-                <td>Michael Doe</td>
-                <td>11-7-2014</td>
-                <td>Approved</td>
-                <td>dateTime</td>
-                <td>dateTime</td>
-            </tr>
-            <tr data-widget="expandable-table" aria-expanded="false">
-                <td>982</td>
-                <td>Rocky Doe</td>
-                <td>11-7-2014</td>
-                <td>Denied</td>
-                <td>dateTime</td>
-                <td>dateTime</td>
-            </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
     <!-- /.card-body -->
-
 @endsection

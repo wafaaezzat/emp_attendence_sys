@@ -16,10 +16,23 @@ class Attendance extends Model
         'status'
     ];
     protected $table = 'attendances';
-    protected $guarded = [];
 
     const STATUS = [
-        'ABSENT'    => '0',
-        'PRESENT'   => '1'
+        'LoggedIn'    => '1',
+        'LoggedOut'   => '2'
     ];
+
+    public function getStatus()
+    {
+        $status = null;
+        switch ($this->status) {
+            case '1':
+                $seen = 'LoggedIn';
+                break;
+            case '2':
+                $seen = 'LoggedOut';
+                break;
+        }
+        return $status;
+    }
 }
