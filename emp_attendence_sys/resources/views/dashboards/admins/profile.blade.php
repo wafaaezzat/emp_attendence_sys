@@ -2,7 +2,7 @@
 @section('title','Profile')
 
 @section('content')
-
+hiiiiiiiiiiiiiiiiiiiiiiiiiii
 
     <!-- Content Header (Page header) -->
     <section class="content-header">

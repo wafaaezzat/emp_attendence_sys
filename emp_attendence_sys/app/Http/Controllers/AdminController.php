@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Validation\Validator;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -61,8 +64,8 @@ class AdminController extends Controller
             $oldPicture = User::find(Auth::user()->id)->getAttributes()['picture'];
 
             if( $oldPicture != '' ){
-                if( \File::exists(public_path($path.$oldPicture))){
-                    \File::delete(public_path($path.$oldPicture));
+                if( File::exists(public_path($path.$oldPicture))){
+                    File::delete(public_path($path.$oldPicture));
                 }
             }
 
@@ -80,10 +83,10 @@ class AdminController extends Controller
 
     function changePassword(Request $request){
         //Validate form
-        $validator = \Validator::make($request->all(),[
+        $validator = Validator::make($request->all(),[
             'oldpassword'=>[
                 'required', function($attribute, $value, $fail){
-                    if( !\Hash::check($value, Auth::user()->password) ){
+                    if( !Hash::check($value, Auth::user()->password) ){
                         return $fail(__('The current password is incorrect'));
                     }
                 },
@@ -107,7 +110,7 @@ class AdminController extends Controller
             return response()->json(['status'=>0,'error'=>$validator->errors()->toArray()]);
         }else{
 
-            $update = User::find(Auth::user()->id)->update(['password'=>\Hash::make($request->newpassword)]);
+            $update = User::find(Auth::user()->id)->update(['password'=>Hash::make($request->newpassword)]);
 
             if( !$update ){
                 return response()->json(['status'=>0,'msg'=>'Something went wrong, Failed to update password in db']);
