@@ -2,6 +2,9 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Events\LoginEvent;
+use App\Models\Attendance;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -129,7 +132,6 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
     }
 
     /**

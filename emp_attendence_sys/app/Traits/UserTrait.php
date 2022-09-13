@@ -3,6 +3,7 @@
 
 namespace App\Traits;
 
+use App\Models\Attendance;
 use App\Models\Project;
 use App\Models\Role;
 use App\Models\User;
@@ -27,5 +28,8 @@ trait UserTrait
     }
 
 
+    public function attendances(){
+        return $this->hasMany(Attendance::class);
+    }
 
 }
