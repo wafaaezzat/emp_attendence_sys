@@ -8,6 +8,7 @@ use \Illuminate\Support\Facades\Auth;
 use  App\Http\Controllers\AdminController;
 use  App\Http\Controllers\UserController;
 use \App\Http\Controllers\HomeController;
+use \App\Http\Controllers\UsersAtendanceController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use \App\Http\Controllers\AttendanceController;
 /*
@@ -34,7 +35,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
     Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
     Route::get('attendances',[AttendanceController::class,'index'])->name('admin.attendance');
-
+    Route::get('usersAttendances',[UsersAtendanceController::class,'index'])->name('users.attendance');
 
 
     Route::post('update-profile-info',[AdminController::class,'updateInfo'])->name('adminUpdateInfo');
@@ -48,6 +49,7 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth','isUser']], function(){
     Route::get('profile',[UserController::class,'profile'])->name('user.profile');
     Route::get('settings',[UserController::class,'settings'])->name('user.settings');
     Route::get('attendances',[AttendanceController::class,'index'])->name('user.attendance');
+
 
 
     Route::post('update-profile-info',[UserController::class,'updateInfo'])->name('userUpdateInfo');

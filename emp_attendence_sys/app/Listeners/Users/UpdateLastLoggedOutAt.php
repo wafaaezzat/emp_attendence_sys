@@ -29,8 +29,8 @@ class UpdateLastLoggedOutAt
      */
     public function handle(Logout $event)
     {
-        Attendance::create([
-            'user_id'=>Auth::id(),
+       $attendance= Attendance::where('user_id',Auth::id())->orderBy('created_at','desc')->first();
+        $attendance->update([
             'sign_out'=>Carbon::now() ,
             'status'=>2
         ]);

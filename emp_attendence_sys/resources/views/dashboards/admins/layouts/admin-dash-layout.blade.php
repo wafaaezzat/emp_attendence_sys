@@ -101,7 +101,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="{{ route('admin.attendance')}}" class="nav-link {{ (request()->is('admin/attendance*')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-pen"></i>
                     <p>
-                       Attendances
+                      My Attendance
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('users.attendance')}}" class="nav-link {{ (request()->is('users/attendance*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-pen"></i>
+                    <p>
+                       Users Attendance
                     </p>
                 </a>
             </li>

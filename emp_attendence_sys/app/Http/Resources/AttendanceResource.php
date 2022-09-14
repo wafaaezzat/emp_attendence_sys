@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceResource extends JsonResource
 {
@@ -15,8 +16,8 @@ class AttendanceResource extends JsonResource
     public function toArray($request)
     {
         return $data =[
-//            'id'=>$this->id,
-            'username'=>$this->user->name,
+            'id'=>$this->id,
+            'username'=>Auth::user()->name,
             'date'=>$this->created_at,
             'login'=>$this->sign_in,
             'logout'=>$this->sign_out,

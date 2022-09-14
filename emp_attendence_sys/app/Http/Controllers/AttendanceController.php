@@ -13,21 +13,19 @@ use Illuminate\Support\Facades\Auth;
 class AttendanceController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
     public function index(Request $request)
     {
         if (Auth::user()->role_id==1){
-            $perPage = $request->get('per_page', 15);
-            $attendance = Attendance::where('user_id',Auth::user()->id)->get();
-            return view('dashboards.admins.attendances')->with(['adminAttendances'=> AttendanceResource::collection($attendance)]);
+            $attendances = Attendance::where('user_id',Auth::user()->id)->get();
         }
         elseif (Auth::user()->role_id==2){
-            $attendance = Attendance::where('user_id',Auth::user()->id)->get();
-            return view('dashboards.users.attendances')->with(['userAttendances'=>AttendanceResource::collection($attendance)]);
+            $attendances = Attendance::where('user_id',Auth::user()->id)->get();
         }
+        return view('dashboards.admins.attendances', compact('attendances'));
+
     }
 
 

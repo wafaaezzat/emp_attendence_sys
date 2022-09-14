@@ -8,6 +8,7 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th>User ID</th>
                 <th>Date</th>
                 <th>Login</th>
                 <th>Logout</th>
@@ -18,6 +19,7 @@
             @foreach($attendances as $attendance)
             <tr data-widget="expandable-table" aria-expanded="false">
                 <td>{{$attendance->id}}</td>
+                <td>{{$attendance->user_id}}</td>
                 <td>{{$attendance->created_at->diffForHumans()}}</td>
                 <td>{{$attendance->sign_in}}</td>
                 <td>{{$attendance->sign_out}}</td>
