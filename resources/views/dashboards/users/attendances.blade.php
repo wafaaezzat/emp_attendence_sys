@@ -8,21 +8,19 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>User</th>
                 <th>Date</th>
+                <th>SignIn</th>
+                <th>SignOut</th>
                 <th>Status</th>
-                <th>Login</th>
-                <th>Logout</th>
-                <th>Total Hours</th>
             </tr>
             </thead>
             <tbody>
             @foreach($attendances as $attendance)
                 <tr data-widget="expandable-table" aria-expanded="false">
                     <td>{{$attendance->id}}</td>
-                    <td>{{$attendance->date}}</td>
-                    <td>{{$attendance->login}}</td>
-                    <td>{{$attendance->logout}}</td>
+                    <td>{{$attendance->created_at}}</td>
+                    <td>{{$attendance->sign_in}}</td>
+                    <td>{{$attendance->sign_out}}</td>
                     <td>{{$attendance->status}}</td>
                 </tr>
             @endforeach

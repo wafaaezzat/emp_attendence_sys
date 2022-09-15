@@ -20,7 +20,7 @@
             <tr data-widget="expandable-table" aria-expanded="false">
                 <td>{{$attendance->id}}</td>
                 <td>{{$attendance->user_id}}</td>
-                <td>{{$attendance->created_at->diffForHumans()}}</td>
+                <td>{{$attendance->created_at}}</td>
                 <td>{{$attendance->sign_in}}</td>
                 <td>{{$attendance->sign_out}}</td>
                 @if($attendance->status==1)

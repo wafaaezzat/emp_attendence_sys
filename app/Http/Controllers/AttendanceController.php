@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateAttendanceRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceController extends Controller
@@ -22,13 +23,16 @@ class AttendanceController extends Controller
      */
     public function index()
     {
+        $users = User::where('id', Auth::id())->get();
+//        $logouts=Attendance::with('user')->select('*',\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\') as date'),\DB::raw('MAX(sign_out) as lastlogout'))->where('user_id',Auth::id())->groupBy('date')->get();
+
         if (Auth::user()->role_id==1){
-            $attendances = Attendance::where('user_id',Auth::user()->id)->get();
+            return view('dashboards.admins.attendances', compact('users'));
         }
         elseif (Auth::user()->role_id==2){
-            $attendances = Attendance::where('user_id',Auth::user()->id)->get();
+            return view('dashboards.users.attendances', compact('users'));
         }
-        return view('dashboards.admins.attendances', compact('attendances'));
+
 
     }
 

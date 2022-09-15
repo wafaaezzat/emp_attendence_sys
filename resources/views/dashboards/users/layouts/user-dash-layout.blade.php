@@ -99,7 +99,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="{{ route('user.attendance')}}" class="nav-link {{ (request()->is('user/attendance*')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-pen"></i>
                     <p>
-                        Attendances
+                       My Attendances
                     </p>
                 </a>
             </li>

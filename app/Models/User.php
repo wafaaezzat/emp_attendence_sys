@@ -15,6 +15,8 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use Notifiable;
     use UserTrait;
+
+    protected $appends = ['attendance_time'];
  //   use TwoFactorAuthenticatable;
 
     /**
