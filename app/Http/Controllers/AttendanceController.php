@@ -23,19 +23,14 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $users = User::where('id', Auth::id())->get();
-//        $logouts=Attendance::with('user')->select('*',\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\') as date'),\DB::raw('MAX(sign_out) as lastlogout'))->where('user_id',Auth::id())->groupBy('date')->get();
-
+        $users = User::where('id',Auth::id())->get();
         if (Auth::user()->role_id==1){
             return view('dashboards.admins.attendances', compact('users'));
         }
         elseif (Auth::user()->role_id==2){
             return view('dashboards.users.attendances', compact('users'));
         }
-
-
     }
-
 
     public function export()
     {

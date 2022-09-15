@@ -6,6 +6,7 @@ use App\Exports\AttendancesExport;
 use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UsersAtendanceController extends Controller
@@ -17,7 +18,8 @@ class UsersAtendanceController extends Controller
     public function index(Request $request)
     {
             $attendances = Attendance::all();
-        return view('dashboards.admins.usersAttendance', compact('attendances'));
+        $users = User::all();
+        return view('dashboards.admins.usersAttendance', compact('attendances','users'));
 
     }
 

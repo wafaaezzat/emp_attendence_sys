@@ -41,13 +41,13 @@ trait UserTrait
     }
 
 
-    public function lastLogout(){
-        return $this->hasMany(Attendance::class);
-   }
-
-    public function lastAttendancesBerDay(){
-        return $this->lastLogout()->select('*',\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '))->groupBy('date');
-    }
+//    public function lastLogout(){
+//        return $this->hasMany(Attendance::class);
+//   }
+//
+//    public function lastAttendancesBerDay(){
+//        return $this->lastLogout()->select('*',\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '))->groupBy('date');
+//    }
 //    public function getAttendanceTimeAttribute(){
 //        return $this->attendancesBerDay()->sum(\DB::raw("TIME_FORMAT(sign_in,'%H %k %h %I %l')"));
 //    }

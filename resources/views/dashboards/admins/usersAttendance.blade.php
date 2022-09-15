@@ -4,6 +4,9 @@
 @section('content')
     <!-- ./card-header -->
     <div class="card-body">
+        <div>
+            <a href="{{ route('allAttendances.export') }}" class="btn btn-block btn-success btn-sm" style="width:120px">Export Excel Sheet</a>
+        </div>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
@@ -16,19 +19,17 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($attendances as $attendance)
-            <tr data-widget="expandable-table" aria-expanded="false">
-                <td>{{$attendance->id}}</td>
-                <td>{{$attendance->user_id}}</td>
-                <td>{{$attendance->created_at}}</td>
-                <td>{{$attendance->sign_in}}</td>
-                <td>{{$attendance->sign_out}}</td>
-                @if($attendance->status==1)
-                <td>Present</td>
-                @elseif($attendance->status==2)
-                    <td>Absent</td>
-                @endif
-            </tr>
+            @foreach($users as $user)
+                @foreach($user->attendancesBerDay as $attendance)
+                    <tr data-widget="expandable-table" aria-expanded="false">
+                        <td>{{$attendance->id}}</td>
+                        <td>{{$attendance->user_id}}</td>
+                        <td>{{$attendance->created_at->format('d/m/Y')}}</td>
+                        <td>{{$attendance->sign_in}}</td>
+                        <td>{{$attendance->lastlogoutTime}}</td>
+                        <td>{{floor($attendance->lastlogout-$attendance->firstlogin)}}</td>
+                    </tr>
+                @endforeach
             @endforeach
             </tbody>
         </table>

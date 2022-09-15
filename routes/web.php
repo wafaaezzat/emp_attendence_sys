@@ -37,7 +37,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('attendances',[AttendanceController::class,'index'])->name('admin.attendance');
     Route::get('usersAttendances',[UsersAtendanceController::class,'index'])->name('users.attendance');
     Route::get('allAttendancesExport',[UsersAtendanceController::class,'export'])->name('allAttendances.export');
-    Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('myAttendance.export');
+    Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('adminAttendance.export');
 
 
 
@@ -52,7 +52,7 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth','isUser']], function(){
     Route::get('profile',[UserController::class,'profile'])->name('user.profile');
     Route::get('settings',[UserController::class,'settings'])->name('user.settings');
     Route::get('attendances',[AttendanceController::class,'index'])->name('user.attendance');
-    Route::get('usersAttendances',[AttendanceController::class,'export'])->name('myAttendance.export');
+    Route::get('usersAttendances',[AttendanceController::class,'export'])->name('userAttendance.export');
 
 
     Route::post('update-profile-info',[UserController::class,'updateInfo'])->name('userUpdateInfo');

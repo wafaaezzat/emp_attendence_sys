@@ -4,6 +4,9 @@
 @section('content')
     <!-- ./card-header -->
     <div class="card-body">
+        <div>
+            <a href="{{ route('adminAttendance.export') }}" class="btn btn-block btn-success btn-sm" style="width:120px">Export Excel Sheet</a>
+        </div>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
@@ -18,7 +21,6 @@
             <tbody>
                 @foreach($users as $user)
                 @foreach($user->attendancesBerDay as $attendance)
-{{--                    @dd($attendance)--}}
             <tr data-widget="expandable-table" aria-expanded="false">
                 <td>{{$attendance->id}}</td>
                 <td>{{$attendance->created_at->format('d/m/Y')}}</td>
