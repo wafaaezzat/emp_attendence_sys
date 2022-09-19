@@ -2,6 +2,29 @@
 @section('title','Attendance')
 
 @section('content')
+
+
+
+    <div class="card-body">
+        <div class="col-md-12">
+            <form class="offset-3" method="GET" action="{{ route('user.filter') }}">
+                <div class="form-row ">
+                    <div class="form-group col-md-4">
+                        <label for="start_date" class="visually-hidden">Start Date</label>
+                        <input type="text" class="form-control" id="start_date" name="start_date" placeholder="Start Date">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="end_date" class="visually-hidden">End Date</label>
+                        <input type="text" class="form-control" id="end_date" name="end_date" placeholder="End Date">
+                    </div>
+                </div>
+                <div class="offset-3">
+                    <button type="submit" class="btn btn-primary mb-3" >Filter</button>
+                    <button type="submit" class="btn btn-primary mb-3" name="clear" >Clear</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <!-- ./card-header -->
     <div class="card-body">
         <div>

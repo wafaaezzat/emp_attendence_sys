@@ -27,6 +27,7 @@ Route::get('/', function () {
 });
 Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('attendances/records', [UsersAtendanceController::class, 'filter'])->name('attendances/records');
 
 
 
@@ -39,6 +40,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('allAttendancesExport',[UsersAtendanceController::class,'export'])->name('allAttendances.export');
     Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('adminAttendance.export');
 
+    Route::get('/users/date/filter', [UsersAtendanceController::class,'filter'])->name('users.filter');
+    Route::get('/admin/date/filter', [AttendanceController::class,'filter'])->name('admin.filter');
 
 
     Route::post('update-profile-info',[AdminController::class,'updateInfo'])->name('adminUpdateInfo');
@@ -53,6 +56,7 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth','isUser']], function(){
     Route::get('settings',[UserController::class,'settings'])->name('user.settings');
     Route::get('attendances',[AttendanceController::class,'index'])->name('user.attendance');
     Route::get('usersAttendances',[AttendanceController::class,'export'])->name('userAttendance.export');
+    Route::get('/user/date/filter', [AttendanceController::class,'filter'])->name('user.filter');
 
 
     Route::post('update-profile-info',[UserController::class,'updateInfo'])->name('userUpdateInfo');

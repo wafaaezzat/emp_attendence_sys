@@ -23,19 +23,43 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $users = User::where('id',Auth::id())->get();
+
+        $users = User::where('id', Auth::id())->get();
         if (Auth::user()->role_id==1){
             return view('dashboards.admins.attendances', compact('users'));
         }
         elseif (Auth::user()->role_id==2){
             return view('dashboards.users.attendances', compact('users'));
         }
+
+
     }
+
+
+
+
+    function filter(Request $request)
+    {
+        $users = User::where('id', Auth::id())->get();
+        if(isset($request->clear)){
+            $request->start_date=" ";
+            $request->end_date=" ";
+        }
+        $start= $request->start_date;
+        $end= $request->end_date;
+        return view('dashboards.admins.attendances', compact('users','start','end'));
+
+    }
+
+
 
     public function export()
     {
         return Excel::download(new UserAttendancesExport(), 'user_attendances.xlsx');
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.

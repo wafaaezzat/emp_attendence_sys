@@ -30,7 +30,7 @@ class UpdateLastLoggedInAt
     {
         Attendance::create([
             'user_id'=>$event->user->id,
-            'sign_in'=>Carbon::now() ,
+            'sign_in'=>Carbon::now(),
             'status'=>1
         ]);
 

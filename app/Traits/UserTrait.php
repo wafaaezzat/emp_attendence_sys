@@ -8,10 +8,12 @@ use App\Models\Project;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 trait UserTrait
 {
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class, 'role_id');
     }
 
@@ -23,11 +25,13 @@ trait UserTrait
         return false;
     }
 
-    public function projects(){
+    public function projects()
+    {
         return $this->hasMany(Project::class);
     }
 
-    public function attendances(){
+    public function attendances()
+    {
         return $this->hasMany(Attendance::class);
     }
 
@@ -36,22 +40,13 @@ trait UserTrait
 //    }
 
 
-    public function attendancesBerDay(){
-        return $this->hasMany(Attendance::class)->select('*',\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '),\DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'),\DB::raw('MAX(sign_out)as lastlogoutTime'),\DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'))->groupBy('date');
+    public function attendancesBerDay()
+    {
+        return $this->hasMany(Attendance::class)->select('*', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '), \DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'), \DB::raw('MAX(sign_out)as lastlogoutTime'), \DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'))->groupBy('date');
     }
 
 
-//    public function lastLogout(){
-//        return $this->hasMany(Attendance::class);
-//   }
-//
-//    public function lastAttendancesBerDay(){
-//        return $this->lastLogout()->select('*',\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '))->groupBy('date');
-//    }
-//    public function getAttendanceTimeAttribute(){
-//        return $this->attendancesBerDay()->sum(\DB::raw("TIME_FORMAT(sign_in,'%H %k %h %I %l')"));
-//    }
-//    public function getAttendanceTimeAttribute(){
-//        return $this->attendancesBerDay();
-//    }
+    public function attendanceFilter(Request $request){
+        return $this->hasMany(Attendance::class)->select('*', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '), \DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'), \DB::raw('MAX(sign_out)as lastlogoutTime'), \DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'))->groupBy('date')->whereBetween('date', [$request->start_date, $request->end_date]);
+    }
 }
