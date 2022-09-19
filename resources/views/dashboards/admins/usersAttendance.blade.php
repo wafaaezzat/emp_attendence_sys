@@ -5,7 +5,7 @@
 
     <div class="card-body">
         <div class="col-md-12">
-            <form class="offset-3" method="GET" action="{{ route('users.filter') }}">
+            <form  method="GET" action="{{ route('users.filter') }}">
                 <div class="form-row ">
                     <div class="form-group col-md-4">
                         <label for="start_date" class="visually-hidden">Start Date</label>
@@ -19,6 +19,12 @@
                 <div class="offset-3">
                     <button type="submit" class="btn btn-primary mb-3" >Filter</button>
                     <button type="submit" class="btn btn-primary mb-3" name="clear" >Clear</button>
+                </div>
+                <div class="form-group input-group col-md-4 offset-8">
+                    <input type="search" id="search" name="user_name" class="form-control" placeholder="Search Name" aria-label="Search" />
+                    <button id="search-button" type="submit" class="btn btn-primary" name="search" >
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
             </form>
         </div>
@@ -42,7 +48,22 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-                @if(isset($start))
+                @if(isset($name))
+                    @foreach($user->where('name','LIKE','%'.$name.'%')->get() as $username)
+{{--                        @dd($username,$username->attendancesBerDay)--}}
+                        @foreach($username->attendancesBerDay as $attendance)
+                            <tr data-widget="expandable-table" aria-expanded="false">
+                                <td>{{$attendance->id}}</td>
+                                <td>{{$username->id}}</td>
+                                <td>{{$username->name}}</td>
+                                <td>{{$attendance->date}}</td>
+                                <td>{{$attendance->sign_in}}</td>
+                                <td>{{$attendance->lastlogoutTime}}</td>
+                                <td>{{floor($attendance->lastlogout-$attendance->firstlogin)}}</td>
+                            </tr>
+                        @endforeach
+                    @endforeach
+                @elseif(isset($start))
                     @foreach($user->attendancesBerDay->whereBetween(('date'),[ $start, $end]) as $attendance)
                         <tr data-widget="expandable-table" aria-expanded="false">
                             <td>{{$attendance->id}}</td>
@@ -58,14 +79,15 @@
                     @foreach($user->attendancesBerDay as $attendance)
                         <tr data-widget="expandable-table" aria-expanded="false">
                             <td>{{$attendance->id}}</td>
-                            <td>{{$attendance->created_at->format('d/m/Y')}}</td>
+                            <td>{{$user->id}}</td>
+                            <td>{{$user->name}}</td>
+                            <td>{{$attendance->date}}</td>
                             <td>{{$attendance->sign_in}}</td>
                             <td>{{$attendance->lastlogoutTime}}</td>
                             <td>{{floor($attendance->lastlogout-$attendance->firstlogin)}}</td>
                         </tr>
                     @endforeach
                 @endif
-
             @endforeach
             </tbody>
         </table>

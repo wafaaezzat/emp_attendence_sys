@@ -1,18 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Exports\AttendancesExport;
 use App\Exports\UserAttendancesExport;
-use App\Exports\UsersExport;
-use App\Http\Resources\AttendanceResource;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceController extends Controller
@@ -35,23 +30,23 @@ class AttendanceController extends Controller
 
     }
 
-
-
-
     function filter(Request $request)
     {
-        $users = User::where('id', Auth::id())->get();
         if(isset($request->clear)){
             $request->start_date=" ";
             $request->end_date=" ";
         }
         $start= $request->start_date;
         $end= $request->end_date;
-        return view('dashboards.admins.attendances', compact('users','start','end'));
+        $users = User::where('id', Auth::id())->get();
+        if (Auth::user()->role_id==1){
+            return view('dashboards.admins.attendances', compact('users','start','end'));
+        }
+        elseif (Auth::user()->role_id==2){
+            return view('dashboards.users.attendances', compact('users','start','end'));
+        }
 
     }
-
-
 
     public function export()
     {

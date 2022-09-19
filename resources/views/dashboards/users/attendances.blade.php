@@ -42,15 +42,27 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-                @foreach($user->attendancesBerDay as $attendance)
-                    <tr data-widget="expandable-table" aria-expanded="false">
-                        <td>{{$attendance->id}}</td>
-                        <td>{{$attendance->created_at->format('d/m/Y')}}</td>
-                        <td>{{$attendance->sign_in}}</td>
-                        <td>{{$attendance->lastlogoutTime}}</td>
-                        <td>{{floor($attendance->lastlogout-$attendance->firstlogin)}}</td>
-                    </tr>
-                @endforeach
+                @if(isset($start))
+                    @foreach($user->attendancesBerDay->whereBetween(('date'),[ $start, $end]) as $attendance)
+                        <tr data-widget="expandable-table" aria-expanded="false">
+                            <td>{{$attendance->id}}</td>
+                            <td>{{$attendance->created_at->format('d/m/Y')}}</td>
+                            <td>{{$attendance->sign_in}}</td>
+                            <td>{{$attendance->lastlogoutTime}}</td>
+                            <td>{{floor($attendance->lastlogout-$attendance->firstlogin)}}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    @foreach($user->attendancesBerDay as $attendance)
+                        <tr data-widget="expandable-table" aria-expanded="false">
+                            <td>{{$attendance->id}}</td>
+                            <td>{{$attendance->created_at->format('d/m/Y')}}</td>
+                            <td>{{$attendance->sign_in}}</td>
+                            <td>{{$attendance->lastlogoutTime}}</td>
+                            <td>{{floor($attendance->lastlogout-$attendance->firstlogin)}}</td>
+                        </tr>
+                    @endforeach
+                @endif
             @endforeach
             </tbody>
         </table>

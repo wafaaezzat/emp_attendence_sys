@@ -35,13 +35,14 @@ class UsersAtendanceController extends Controller
     function filter(Request $request)
     {
         $users = User::all();
+        $name=$request->user_name;
         if(isset($request->clear)){
             $request->start_date=" ";
             $request->end_date=" ";
         }
         $start= $request->start_date;
         $end= $request->end_date;
-        return view('dashboards.admins.usersAttendance', compact('users','start','end'));
+        return view('dashboards.admins.usersAttendance', compact('users','start','end','name'));
 
     }
 
