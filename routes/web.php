@@ -10,6 +10,7 @@ use  App\Http\Controllers\UserController;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\UsersAtendanceController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use \App\Http\Controllers\ProjectController;
 use \App\Http\Controllers\AttendanceController;
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +40,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('usersAttendances',[UsersAtendanceController::class,'index'])->name('users.attendance');
     Route::get('allAttendancesExport',[UsersAtendanceController::class,'export'])->name('allAttendances.export');
     Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('adminAttendance.export');
-
     Route::get('/users/date/filter', [UsersAtendanceController::class,'filter'])->name('users.filter');
-    Route::get('/admin/date/filter', [AttendanceController::class,'filter'])->name('admin.filter');
+    Route::get('date/filter', [AttendanceController::class,'filter'])->name('admin.filter');
+    Route::get('projects',[ProjectController::class,'index'])->name('company.projects');
+    Route::get('add/project',[ProjectController::class,'store'])->name('add.project');
+    Route::post('update/project/{id}',[ProjectController::class,'update'])->name('update.project');
+    Route::get('edit/project/{id}',[ProjectController::class,'edit'])->name('edit.project');
+    Route::delete('destroy/project/{id}',[ProjectController::class,'destroy'])->name('destroy.project');
 
 
     Route::post('update-profile-info',[AdminController::class,'updateInfo'])->name('adminUpdateInfo');
@@ -49,6 +54,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::post('change-password',[AdminController::class,'changePassword'])->name('adminChangePassword');
 
 });
+
+
+
+
 
 Route::group(['prefix'=>'user', 'middleware'=>['auth','isUser']], function(){
     Route::get('dashboard',[UserController::class,'index'])->name('user.dashboard');

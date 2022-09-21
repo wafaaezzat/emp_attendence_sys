@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProjectAttendee;
 use App\Http\Requests\StoreProjectAttendeeRequest;
 use App\Http\Requests\UpdateProjectAttendeeRequest;
+use Illuminate\Http\Request;
 
 class ProjectAttendeeController extends Controller
 {
@@ -15,7 +16,8 @@ class ProjectAttendeeController extends Controller
      */
     public function index()
     {
-        //
+        $projectAttendees=ProjectAttendee::all();
+        return view('dashboards.admins.projectAttendee' ,compact('projectAttendees'));
     }
 
     /**
@@ -34,9 +36,17 @@ class ProjectAttendeeController extends Controller
      * @param  \App\Http\Requests\StoreProjectAttendeeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProjectAttendeeRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'project_id'=> 'required|numeric',
+            'attendance_id' => 'required|numeric'
+        ]);
+        ProjectAttendee::create([
+            'project_id' => $request->project_id,
+            'attendance_id' =>$request->attendance_id
+        ]);
+        return redirect('admin/projectAttendees');
     }
 
     /**
@@ -56,9 +66,10 @@ class ProjectAttendeeController extends Controller
      * @param  \App\Models\ProjectAttendee  $projectAttendee
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProjectAttendee $projectAttendee)
+    public function edit($id)
     {
-        //
+        $project = ProjectAttendee::find($id);
+        return view('dashboards.admins.projectAttendees.edit', compact('project'));
     }
 
     /**
@@ -68,9 +79,18 @@ class ProjectAttendeeController extends Controller
      * @param  \App\Models\ProjectAttendee  $projectAttendee
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectAttendeeRequest $request, ProjectAttendee $projectAttendee)
+    public function update(Request $request,$id)
     {
-        //
+        $projectAttendee = ProjectAttendee::find($id);
+        $request->validate([
+            'project_id'=> 'required|numeric',
+            'attendance_id' => 'required|numeric'
+        ]);
+        $projectAttendee->project_id =  $request->get('project_id');
+        $projectAttendee->attendance_id = $request->get('attendance_id');
+        $projectAttendee->save();
+
+        return redirect('admin/projectAttendees');
     }
 
     /**
@@ -79,8 +99,11 @@ class ProjectAttendeeController extends Controller
      * @param  \App\Models\ProjectAttendee  $projectAttendee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProjectAttendee $projectAttendee)
+    public function destroy($id)
     {
-        //
+         $projectAttendee = ProjectAttendee::find($id);
+         $projectAttendee->delete();
+
+        return redirect('admin/projectAttendees');
     }
 }

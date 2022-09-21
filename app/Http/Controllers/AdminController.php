@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -50,34 +49,18 @@ class AdminController extends Controller
     }
 
     function updatePicture(Request $request){
-        $path = 'users/images/';
-        $file = $request->file('admin_image');
-        $new_name = 'UIMG_'.date('Ymd').uniqid().'.jpg';
 
-        //Upload new image
-        $upload = $file->move(public_path($path), $new_name);
 
-        if( !$upload ){
-            return response()->json(['status'=>0,'msg'=>'Something went wrong, upload new picture failed.']);
-        }else{
-            //Get Old picture
-            $oldPicture = User::find(Auth::user()->id)->getAttributes()['picture'];
-
-            if( $oldPicture != '' ){
-                if( File::exists(public_path($path.$oldPicture))){
-                    File::delete(public_path($path.$oldPicture));
-                }
-            }
-
-            //Update DB
-            $update = User::find(Auth::user()->id)->update(['picture'=>$new_name]);
-
-            if( !$upload ){
-                return response()->json(['status'=>0,'msg'=>'Something went wrong, updating picture in db failed.']);
-            }else{
-                return response()->json(['status'=>1,'msg'=>'Your profile picture has been updated successfully']);
-            }
+        $user= User::find(Auth::id());
+        if($request->file('image')){
+            $file= $request->file('image');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('public/Image'), $filename);
+            $user['picture']= $filename;
         }
+        $user->save();
+        return  redirect('admin/profile');
+
     }
 
 
@@ -106,18 +89,10 @@ class AdminController extends Controller
             'cnewpassword.same'=>'New password and Confirm new password must match'
         ]);
 
-        if( !$validator->passes() ){
-            return response()->json(['status'=>0,'error'=>$validator->errors()->toArray()]);
-        }else{
-
-            $update = User::find(Auth::user()->id)->update(['password'=>Hash::make($request->newpassword)]);
-
-            if( !$update ){
-                return response()->json(['status'=>0,'msg'=>'Something went wrong, Failed to update password in db']);
-            }else{
-                return response()->json(['status'=>1,'msg'=>'Your password has been changed successfully']);
-            }
+        if( $validator->passes() ){
+             User::find(Auth::user()->id)->update(['password'=>Hash::make($request->newpassword)]);
         }
+        return redirect('admin/profile');
     }
 
 }

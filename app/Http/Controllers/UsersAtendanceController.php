@@ -13,16 +13,16 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UsersAtendanceController extends Controller
 {
+
     /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
-        $attendances = Attendance::all();
+        $start=null;
+        $end=null;
         $users = User::all();
-        return view('dashboards.admins.usersAttendance', compact('attendances','users'));
-
+        return view('dashboards.admins.usersAttendance', compact('users','start','end'));
     }
 
     public function export()
@@ -31,18 +31,23 @@ class UsersAtendanceController extends Controller
     }
 
 
-
     function filter(Request $request)
     {
-        $users = User::all();
-        $name=$request->user_name;
-        if(isset($request->clear)){
-            $request->start_date=" ";
-            $request->end_date=" ";
+        $users = new User();
+        $start=$request->start_date;
+        $end=$request->end_date;
+        if (isset($request->user_name)){
+            $users = $users->where('name','LIKE','%'.$request->user_name.'%');
         }
-        $start= $request->start_date;
-        $end= $request->end_date;
-        return view('dashboards.admins.usersAttendance', compact('users','start','end','name'));
+
+//        if (isset($request->start_date) && isset($request->end_date)){
+//            $users = $users->whereHas('attendancesBerDay', function ($query) use ($request){
+//                $query->whereBetween('attendances.created_at', [$request->start_date, $request->end_date]);
+//            });
+//        }
+
+        $users = $users->get();
+        return view('dashboards.admins.usersAttendance', compact('users','start','end'));
 
     }
 

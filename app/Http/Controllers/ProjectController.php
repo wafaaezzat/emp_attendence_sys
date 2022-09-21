@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
@@ -15,19 +17,20 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects=Project::all();
+        return view('dashboards.admins.projects' ,compact('projects'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Create a new user instance after a valid registration.
      *
-     * @return \Illuminate\Http\Response
+     * @param  array  $data
+     * @return \App\Models\User
      */
-    public function create()
+    protected function create(array $data)
     {
-        //
+       //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -36,7 +39,18 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+         $request->validate([
+            'project_name'=> 'required|unique:projects|string|max:255',
+            'client_name' => 'required|string|max:255',
+            'project_country'=>'required|string|max:255'
+        ]);
+        Project::create([
+            'project_name' => $request->project_name,
+            'client_name' =>$request->client_name,
+            'project_country' =>$request->project_country,
+            'status'=>1,
+        ]);
+        return redirect('admin/projects');
     }
 
     /**
@@ -56,9 +70,10 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit(Project $project,$id)
     {
-        //
+        $project = Project::find($id);
+        return view('dashboards.admins.projects.edit', compact('project'));
     }
 
     /**
@@ -68,9 +83,20 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(Request $request,$id)
     {
-        //
+        $project = Project::find($id);
+        $request->validate([
+            'project_name'=> 'required|string|max:255',
+            'client_name' => 'required|string|max:255',
+            'project_country'=>'required|string|max:255'
+        ]);
+        $project->project_name =  $request->get('project_name');
+        $project->client_name = $request->get('client_name');
+        $project->project_country = $request->get('project_country');
+        $project->save();
+
+        return redirect('admin/projects')->with('success', 'Stock updated.');
     }
 
     /**
@@ -79,8 +105,11 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project, $id)
     {
-        //
+        $project = Project::find($id);
+        $project->delete();
+
+        return redirect('admin/projects')->with('success', 'Stock removed.');
     }
 }

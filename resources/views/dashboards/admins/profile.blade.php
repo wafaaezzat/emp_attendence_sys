@@ -2,8 +2,6 @@
 @section('title','Profile')
 
 @section('content')
-hiiiiiiiiiiiiiiiiiiiiiiiiiii
-
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -27,26 +25,28 @@ hiiiiiiiiiiiiiiiiiiiiiiiiiii
           <div class="row">
             <div class="col-md-3">
 
-              <!-- Profile Image -->
-              <div class="card card-primary card-outline">
-                <div class="card-body box-profile">
-                  <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle admin_picture" src="{{ Auth::user()->picture }}" alt="User profile picture">
-                  </div>
 
-                  <h3 class="profile-username text-center admin_name">{{Auth::user()->name}}</h3>
+                <form method="post" action="{{ route('adminPictureUpdate') }}"
+                      enctype="multipart/form-data">
+                    @csrf
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle admin_picture" src="{{ url('public/Image/'.Auth::user()->picture) }}" alt="User profile picture">
+                            </div>
+                            <h3 class="profile-username text-center admin_name">{{Auth::user()->name}}</h3>
+                            <p class="text-muted text-center">Admin</p>
+                            <div class="image">
+                            <label><h4>Add image</h4></label>
+                            <input type="file" class="form-control" required name="image" >
+                        </div>
 
-                  <p class="text-muted text-center">Admin</p>
-
-                  <input type="file" name="admin_image" id="admin_image" style="opacity: 0;height:1px;display:none">
-                  <a href="javascript:void(0)" class="btn btn-primary btn-block" id="change_picture_btn"><b>Change picture</b></a>
-
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-
-
+                        <div class="post_button">
+                             <button type="submit" class="btn btn-success">Add</button>
+                        </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <!-- /.col -->
             <div class="col-md-9">
@@ -76,13 +76,13 @@ hiiiiiiiiiiiiiiiiiiiiiiiiiii
                             <span class="text-danger error-text email_error"></span>
                           </div>
                         </div>
-                        <div class="form-group row">
-                          <label for="inputName2" class="col-sm-2 col-form-label">Favorite Color</label>
-                          <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputName2" placeholder="Favorite color" value="{{ Auth::user()->favoriteColor }}" name="favoritecolor">
-                            <span class="text-danger error-text favoritecolor_error"></span>
-                          </div>
-                        </div>
+{{--                        <div class="form-group row">--}}
+{{--                          <label for="inputName2" class="col-sm-2 col-form-label">Favorite Color</label>--}}
+{{--                          <div class="col-sm-10">--}}
+{{--                            <input type="text" class="form-control" id="inputName2" placeholder="Favorite color" value="{{ Auth::user()->favoriteColor }}" name="favoritecolor">--}}
+{{--                            <span class="text-danger error-text favoritecolor_error"></span>--}}
+{{--                          </div>--}}
+{{--                        </div>--}}
                         <div class="form-group row">
                           <div class="offset-sm-2 col-sm-10">
                             <button type="submit" class="btn btn-danger">Save Changes</button>
@@ -93,7 +93,8 @@ hiiiiiiiiiiiiiiiiiiiiiiiiiii
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="change_password">
                         <form class="form-horizontal" action="{{ route('adminChangePassword') }}" method="POST" id="changePasswordAdminForm">
-                          <div class="form-group row">
+                          @csrf
+                            <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Old Passord</label>
                             <div class="col-sm-10">
                               <input type="password" class="form-control" id="inputName" placeholder="Enter current password" name="oldpassword">

@@ -1,5 +1,5 @@
 @extends('dashboards.admins.layouts.admin-dash-layout')
-@section('title','Attendance')
+@section('title','My Attendance')
 
 @section('content')
 

@@ -7,6 +7,11 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+
+    protected $commands=[
+        Commands\flushSession::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *
@@ -15,7 +20,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('flush:session')->everyMinute();
+//        $schedule->command('flush:session')->days([0,1,2,3,4])->dailyAt('19:00');
     }
 
     /**
@@ -26,7 +32,6 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-
         require base_path('routes/console.php');
     }
 }
