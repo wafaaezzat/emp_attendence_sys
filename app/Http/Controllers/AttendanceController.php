@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Exports\MyExport;
+use App\Exports\UserAttendanceExport;
 use App\Exports\UserAttendancesExport;
+use App\Exports\UsersExport;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,13 +22,15 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-
+        $projects=Project::all();
+        $start=null;
+        $end=null;
         $users = User::where('id', Auth::id())->get();
         if (Auth::user()->role_id==1){
-            return view('dashboards.admins.attendances', compact('users'));
+            return view('dashboards.admins.attendances', compact('users','start','end'));
         }
         elseif (Auth::user()->role_id==2){
-            return view('dashboards.users.attendances', compact('users'));
+            return view('dashboards.users.attendances', compact('users','start','end','projects'));
         }
 
 
@@ -32,25 +38,20 @@ class AttendanceController extends Controller
 
     function filter(Request $request)
     {
-        if(isset($request->clear)){
-            $request->start_date=" ";
-            $request->end_date=" ";
-        }
-        $start= $request->start_date;
-        $end= $request->end_date;
-        $users = User::where('id', Auth::id())->get();
-        if (Auth::user()->role_id==1){
-            return view('dashboards.admins.attendances', compact('users','start','end'));
-        }
-        elseif (Auth::user()->role_id==2){
+
+        $users = new User();
+        $start=$request->start_date;
+        $end=$request->end_date;
+        $users = $users->where('id', Auth::id())->get();
             return view('dashboards.users.attendances', compact('users','start','end'));
-        }
 
     }
 
+
+
     public function export()
     {
-        return Excel::download(new UserAttendancesExport(), 'user_attendances.xlsx');
+        return Excel::download(new MyExport(), 'my_attendances.xlsx');
     }
 
 

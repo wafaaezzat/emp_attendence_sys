@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -12,8 +13,8 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     function index(){
-
-        return view('dashboards.admins.index');
+        $projects=Project::all();
+        return view('dashboards.admins.index' ,compact('projects'));
     }
 
     function profile(){

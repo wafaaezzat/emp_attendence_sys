@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\AttendancesExport;
+use App\Exports\UserAttendanceExport;
 use App\Models\Attendance;
 use App\Models\User;
 use Carbon\Carbon;
@@ -25,12 +26,10 @@ class UsersAtendanceController extends Controller
         return view('dashboards.admins.usersAttendance', compact('users','start','end'));
     }
 
-    public function export()
+    public function export(User $user)
     {
-        return Excel::download(new AttendancesExport(), 'attendances.xlsx');
+        return Excel::download(new UserAttendanceExport(), 'attendances.xlsx');
     }
-
-
     function filter(Request $request)
     {
         $users = new User();
@@ -39,16 +38,8 @@ class UsersAtendanceController extends Controller
         if (isset($request->user_name)){
             $users = $users->where('name','LIKE','%'.$request->user_name.'%');
         }
-
-//        if (isset($request->start_date) && isset($request->end_date)){
-//            $users = $users->whereHas('attendancesBerDay', function ($query) use ($request){
-//                $query->whereBetween('attendances.created_at', [$request->start_date, $request->end_date]);
-//            });
-//        }
-
         $users = $users->get();
         return view('dashboards.admins.usersAttendance', compact('users','start','end'));
-
     }
 
 

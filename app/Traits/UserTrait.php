@@ -35,7 +35,7 @@ trait UserTrait
         return $this->hasMany(Attendance::class);
     }
 
-    public function attendancesBerDay()
+    public function attendancesBerDays()
     {
         return $this->hasMany(Attendance::class)->select('*', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '), \DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'), \DB::raw('MAX(sign_out)as lastlogoutTime'), \DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'))->groupBy('date');
     }

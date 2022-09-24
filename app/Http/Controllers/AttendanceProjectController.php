@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\AttendanceProject;
 use App\Http\Requests\StoreAttendanceProjectRequest;
 use App\Http\Requests\UpdateAttendanceProjectRequest;
+use App\Models\Project;
+use App\Models\ProjectAttendee;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceProjectController extends Controller
 {
@@ -15,7 +21,8 @@ class AttendanceProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects=Project::all();
+        return  view('dashboards.admins.projects.attendance',compact('projects'));
     }
 
     /**
@@ -34,9 +41,26 @@ class AttendanceProjectController extends Controller
      * @param  \App\Http\Requests\StoreAttendanceProjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAttendanceProjectRequest $request)
+    public function store(Request $request)
     {
-        //
+        $project=Project::find($request->project_id);
+        $request->validate([
+            'project_id'=> 'required',
+        ]);
+        Attendance::create([
+            'user_id'=>Auth::id(),
+            'sign_in'=>Carbon::now(),
+            'status'=>1
+        ]);
+        $attendance= \DB::table('attendances')->where('user_id', Auth::id())->latest()->first();
+        $project->attendances()->attach(Attendance::find($attendance->id));
+
+        if(Auth::user()->role_id==1){
+            return redirect('admin/dashboard');
+        }
+        else{
+            return redirect('user/dashboard');
+        }
     }
 
     /**

@@ -28,11 +28,6 @@ class UpdateLastLoggedInAt
      */
     public function handle(Login $event)
     {
-        Attendance::create([
-            'user_id'=>$event->user->id,
-            'sign_in'=>Carbon::now(),
-            'status'=>1
-        ]);
 
     }
 }
