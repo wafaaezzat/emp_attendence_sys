@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AllUsersviewExport;
 use App\Exports\AttendancesExport;
 use App\Exports\UserAttendanceExport;
 use App\Models\Attendance;
@@ -26,9 +27,9 @@ class UsersAtendanceController extends Controller
         return view('dashboards.admins.usersAttendance', compact('users','start','end'));
     }
 
-    public function export(User $user)
+    public function export()
     {
-        return Excel::download(new UserAttendanceExport(), 'attendances.xlsx');
+        return Excel::download(new AllUsersviewExport(), 'attendances.xlsx');
     }
     function filter(Request $request)
     {
