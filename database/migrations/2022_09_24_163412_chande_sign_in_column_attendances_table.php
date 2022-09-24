@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('attendances', function (Blueprint $table) {
-            $table->time('sign_in')->change();
-            $table->time('sign_out')->change();
+            //
         });
     }
 
@@ -27,8 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('attendances', function (Blueprint $table) {
-            $table->time('sign_in')->nullable()->change();
-            $table->time('sign_out')->nullable()->change();
+            //
         });
     }
 };
