@@ -27,26 +27,28 @@
             <div class="row">
                 <div class="col-md-3">
 
-                    <!-- Profile Image -->
-                    <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
-                            <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle user_picture" src="{{ Auth::user()->picture }}" alt="User profile picture">
+
+                    <form method="post" action="{{ route('userPictureUpdate') }}"
+                          enctype="multipart/form-data">
+                        @csrf
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle user_picture" src="{{ url('public/Image/'.Auth::user()->picture) }}" alt="User profile picture">
+                                </div>
+                                <h3 class="profile-username text-center user_name">{{Auth::user()->name}}</h3>
+                                <p class="text-muted text-center">User</p>
+                                <div class="image">
+                                    <label><h4>Add image</h4></label>
+                                    <input type="file" class="form-control" required name="image" >
+                                </div>
+
+                                <div class="post_button">
+                                    <button type="submit" class="btn btn-success">Add</button>
+                                </div>
                             </div>
-
-                            <h3 class="profile-username text-center user_name">{{Auth::user()->name}}</h3>
-
-                            <p class="text-muted text-center">User</p>
-
-                            <input type="file" name="user_image" id="user_image" style="opacity: 0;height:1px;display:none">
-                            <a href="javascript:void(0)" class="btn btn-primary btn-block" id="change_picture_btn"><b>Change picture</b></a>
-
                         </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-
-
+                    </form>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-9">
@@ -61,6 +63,7 @@
                             <div class="tab-content">
                                 <div class="active tab-pane" id="personal_info">
                                     <form class="form-horizontal" method="POST" action="{{ route('userUpdateInfo') }}" id="UserInfoForm">
+                                       @csrf
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                             <div class="col-sm-10">
@@ -77,13 +80,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputName2" class="col-sm-2 col-form-label">Favorite Color</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputName2" placeholder="Favorite color" value="{{ Auth::user()->favoriteColor }}" name="favoritecolor">
-                                                <span class="text-danger error-text favoritecolor_error"></span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
                                                 <button type="submit" class="btn btn-danger">Save Changes</button>
                                             </div>
@@ -93,6 +89,7 @@
                                 <!-- /.tab-pane -->
                                 <div class="tab-pane" id="change_password">
                                     <form class="form-horizontal" action="{{ route('userChangePassword') }}" method="POST" id="changePasswordUserForm">
+                                        @csrf
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-2 col-form-label">Old Passord</label>
                                             <div class="col-sm-10">

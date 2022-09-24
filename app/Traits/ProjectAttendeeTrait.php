@@ -11,8 +11,9 @@ trait ProjectAttendeeTrait
     public function projects(){
         return $this->belongsTo(Project::class, 'project_id');
     }
-    public function attendances(){
-        return $this->belongsTo(Attendance::class);
+
+    public function users(){
+        return $this->belongsToMany(User::class);
     }
 }
 

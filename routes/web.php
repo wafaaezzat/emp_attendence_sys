@@ -12,6 +12,7 @@ use \App\Http\Controllers\UsersAtendanceController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use \App\Http\Controllers\ProjectController;
 use \App\Http\Controllers\AttendanceController;
+use \App\Http\Controllers\AttendanceProjectController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,15 +26,16 @@ use \App\Http\Controllers\AttendanceController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('verified');
 Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('attendances/records', [UsersAtendanceController::class, 'filter'])->name('attendances/records');
+Route::get('store/project',[AttendanceProjectController::class,'store'])->name('project.signin')->middleware('auth');
 
 
 
 Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
-    Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+    Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('verified');
     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
     Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
     Route::get('attendances',[AttendanceController::class,'index'])->name('admin.attendance');
@@ -47,6 +49,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::post('update/project/{id}',[ProjectController::class,'update'])->name('update.project');
     Route::get('edit/project/{id}',[ProjectController::class,'edit'])->name('edit.project');
     Route::delete('destroy/project/{id}',[ProjectController::class,'destroy'])->name('destroy.project');
+    Route::get('projects/attendance',[AttendanceProjectController::class,'index'])->name('projects.attendance');
 
 
     Route::post('update-profile-info',[AdminController::class,'updateInfo'])->name('adminUpdateInfo');
@@ -60,7 +63,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
 
 
 Route::group(['prefix'=>'user', 'middleware'=>['auth','isUser']], function(){
-    Route::get('dashboard',[UserController::class,'index'])->name('user.dashboard');
+    Route::get('dashboard',[UserController::class,'index'])->name('user.dashboard')->middleware('verified');
     Route::get('profile',[UserController::class,'profile'])->name('user.profile');
     Route::get('settings',[UserController::class,'settings'])->name('user.settings');
     Route::get('attendances',[AttendanceController::class,'index'])->name('user.attendance');

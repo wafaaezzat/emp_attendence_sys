@@ -15,17 +15,16 @@
                         <label for="end_date" class="visually-hidden">End Date</label>
                         <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request()->end_date }}" placeholder="End Date">
                     </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="search" class="visually-hidden">Search Name</label>
+                        <input type="search" id="search" name="user_name" value="{{ request()->user_name }}" class="form-control" placeholder="Search Name" aria-label="Search" />
+                    </div>
                 </div>
-                <div class="offset-3">
-                    <button type="submit" class="btn btn-primary mb-3" >Filter</button>
-                    <button type="submit" class="btn btn-primary mb-3" name="clear" >Clear</button>
+                <div class="offset-6">
+                    <button type="submit" class="btn btn-primary mb-4" >Submit</button>
                 </div>
-                <div class="form-group input-group col-md-4 offset-8">
-                    <input type="search" id="search" name="user_name" value="{{ request()->user_name }}" class="form-control" placeholder="Search Name" aria-label="Search" />
-                    <button id="search-button" type="submit" class="btn btn-primary" name="search" >
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+
             </form>
         </div>
     </div>
@@ -49,7 +48,7 @@
             <tbody>
             @foreach($users as $user)
                 <?php
-                    $attendances = $start && $end != null ? ($user->attendancesBerDay->whereBetween(('date'),[$start, $end])) : $user->attendancesBerDay;
+                    $attendances = $start && $end != null ? ($user->attendancesBerDays->whereBetween(('date'),[$start, $end])) : $user->attendancesBerDays;
                     ?>
                 @foreach($attendances as $attendance)
                     <tr data-widget="expandable-table" aria-expanded="false">

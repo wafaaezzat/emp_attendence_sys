@@ -85,23 +85,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="{{ route('admin.profile')}}" class="nav-link {{ (request()->is('admin/profile*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-user"></i>
                   <p>
-                   Profile
+                   Profile Settings
                   </p>
                 </a>
               </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.settings')}}" class="nav-link {{ (request()->is('admin/settings*')) ? 'active' : '' }}">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-               Settings
-              </p>
-            </a>
-          </li>
+
             <li class="nav-item">
                 <a href="{{ route('company.projects')}}" class="nav-link {{ (request()->is('admin/projects*')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
                     <p>
                         Projects
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('projects.attendance')}}" class="nav-link {{ (request()->is('admin/projectsAttendance*')) ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                        Project Attendance
                     </p>
                 </a>
             </li>
