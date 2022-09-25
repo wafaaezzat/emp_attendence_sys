@@ -43,7 +43,6 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-{{--                @dd($user->attendancesBerDays)--}}
                     <?php
                     $attendances = $start && $end != null ? ($user->attendancesBerDays->whereBetween(('date'),[$start, $end])) : $user->attendancesBerDays;
                     ?>

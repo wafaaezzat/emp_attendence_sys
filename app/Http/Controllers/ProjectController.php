@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MyExport;
+use App\Exports\ProjectExport;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProjectController extends Controller
 {
@@ -52,6 +55,17 @@ class ProjectController extends Controller
         ]);
         return redirect('admin/projects');
     }
+
+
+
+    public function export()
+    {
+        return Excel::download(new ProjectExport(), 'projects.xlsx');
+    }
+
+
+
+
 
     /**
      * Display the specified resource.

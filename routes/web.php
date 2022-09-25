@@ -50,6 +50,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('edit/project/{id}',[ProjectController::class,'edit'])->name('edit.project');
     Route::delete('destroy/project/{id}',[ProjectController::class,'destroy'])->name('destroy.project');
     Route::get('projects/attendance',[AttendanceProjectController::class,'index'])->name('projects.attendance');
+    Route::get('projectAttendance/export',[AttendanceProjectController::class,'export'])->name('projects.attendance.export');
+    Route::get('project/export',[ProjectController::class,'export'])->name('project.export');
 
 
     Route::post('update-profile-info',[AdminController::class,'updateInfo'])->name('adminUpdateInfo');

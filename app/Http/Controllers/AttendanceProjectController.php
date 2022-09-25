@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MyExport;
+use App\Exports\ProjectAttendanceExport;
 use App\Models\Attendance;
 use App\Models\AttendanceProject;
 use App\Http\Requests\StoreAttendanceProjectRequest;
@@ -11,6 +13,7 @@ use App\Models\ProjectAttendee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceProjectController extends Controller
 {
@@ -62,6 +65,19 @@ class AttendanceProjectController extends Controller
             return redirect('user/dashboard');
         }
     }
+
+
+
+
+    public function export()
+    {
+        return Excel::download(new ProjectAttendanceExport(), 'project_attendances.xlsx');
+    }
+
+
+
+
+
 
     /**
      * Display the specified resource.

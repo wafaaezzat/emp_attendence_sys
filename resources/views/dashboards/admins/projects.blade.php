@@ -46,7 +46,7 @@
     <!-- ./card-header -->
     <div class="card-body">
         <div>
-            <a href="#" class="btn btn-block btn-success btn-sm" style="width:100px">Export Excel Sheet</a>
+            <a href="{{route('project.export')}}" class="btn btn-block btn-success btn-sm" style="width:100px">Export Excel Sheet</a>
         </div>
         <table class="table table-bordered table-hover">
             <thead>
