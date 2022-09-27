@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Exports\MyExport;
 use App\Exports\ProjectExport;
+use App\Models\Client;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,7 +23,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projects=Project::all();
-        return view('dashboards.admins.projects' ,compact('projects'));
+        $clients=Client::all();
+        return view('dashboards.admins.projects' ,compact('projects','clients'));
     }
 
     /**
@@ -44,16 +47,16 @@ class ProjectController extends Controller
     {
          $request->validate([
             'project_name'=> 'required|unique:projects|string|max:255',
-            'client_name' => 'required|string|max:255',
-            'project_country'=>'required|string|max:255'
+            'client_id' => 'required',
+            'project_country'=>'required'
         ]);
         Project::create([
             'project_name' => $request->project_name,
-            'client_name' =>$request->client_name,
+            'client_id' =>$request->client_id,
             'project_country' =>$request->project_country,
             'status'=>1,
         ]);
-        return redirect('admin/projects');
+        return redirect('admin/projects')->with('success','Project Created Successfully');
     }
 
 
@@ -110,7 +113,7 @@ class ProjectController extends Controller
         $project->project_country = $request->get('project_country');
         $project->save();
 
-        return redirect('admin/projects')->with('success', 'Stock updated.');
+        return redirect('admin/projects')->with('success', 'Project updated.');
     }
 
     /**
@@ -124,6 +127,6 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $project->delete();
 
-        return redirect('admin/projects')->with('success', 'Stock removed.');
+        return redirect('admin/projects')->with('success', 'Project removed.');
     }
 }

@@ -3,19 +3,37 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '213122fad32dab02b10e98439c953cae2d12bd09',
+        'reference' => 'bda0dd7ef973913f40d13313070c782cb7142b05',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'balping/json-raw-encoder' => array(
+            'pretty_version' => 'v1.0.1',
+            'version' => '1.0.1.0',
+            'reference' => 'e2b0ab888342b0716f1f0628e2fa13b345c5f276',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../balping/json-raw-encoder',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'brick/math' => array(
             'pretty_version' => '0.10.2',
             'version' => '0.10.2.0',
             'reference' => '459f2781e1a08d52ee56b0b1444086e038561e3f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../brick/math',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'consoletvs/charts' => array(
+            'pretty_version' => '6.5.6',
+            'version' => '6.5.6.0',
+            'reference' => '6914e85086749ac90832b0b14479642fe0337cf4',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../consoletvs/charts',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -439,7 +457,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '213122fad32dab02b10e98439c953cae2d12bd09',
+            'reference' => 'bda0dd7ef973913f40d13313070c782cb7142b05',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -853,8 +871,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(

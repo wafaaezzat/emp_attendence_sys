@@ -42,7 +42,13 @@ class AttendanceController extends Controller
         $start=$request->start_date;
         $end=$request->end_date;
         $users = $users->where('id', Auth::id())->get();
+
+        if (Auth::user()->role_id==1){
             return view('dashboards.admins.attendances', compact('users','start','end'));
+        }
+        elseif (Auth::user()->role_id==2){
+            return view('dashboards.users.attendances', compact('users','start','end'));
+        }
     }
 
 

@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use \App\Http\Controllers\ProjectController;
 use \App\Http\Controllers\AttendanceController;
 use \App\Http\Controllers\AttendanceProjectController;
+use \App\Http\Controllers\ClientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +54,19 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('projects/attendance',[AttendanceProjectController::class,'index'])->name('projects.attendance');
     Route::get('projectAttendance/export',[AttendanceProjectController::class,'export'])->name('projects.attendance.export');
     Route::get('project/export',[ProjectController::class,'export'])->name('project.export');
+///////////////clients/////////////////////////////
+    Route::get('clients',[ClientController::class,'index'])->name('company.clients');
+    Route::get('add/client',[ClientController::class,'store'])->name('add.client');
+    Route::post('update/client/{id}',[ClientController::class,'update'])->name('update.client');
+    Route::get('edit/client/{id}',[ClientController::class,'edit'])->name('edit.client');
+    Route::delete('destroy/client/{id}',[ClientController::class,'destroy'])->name('destroy.client');
+
+
+
+
+
+
+
 
 
     Route::post('update-profile-info',[AdminController::class,'updateInfo'])->name('adminUpdateInfo');

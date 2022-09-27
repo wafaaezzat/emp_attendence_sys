@@ -13,11 +13,11 @@
             </td>
             <td>
                 <ul>
-                    @foreach($project->attendances as $attendance)
-                        <li>
-                            {{$attendance->user->name}} , {{$attendance->created_at}}
-                        </li>
-                    @endforeach
+                        @foreach($project->UserProjectAttendances as $attendance)
+                            <li>
+                                {{$users->find($attendance->user_id)->name}} , {{floor($attendance->sum)}} Hours
+                            </li>
+                        @endforeach
                 </ul>
             </td>
         </tr>

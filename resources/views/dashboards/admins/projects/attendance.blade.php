@@ -12,7 +12,7 @@
             <thead>
             <tr>
                 <th>Project Name</th>
-                <th>Attendees  &&  Joined Date</th>
+                <th>Attendees  &&  Total Hours</th>
             </tr>
             </thead>
             <tbody>
@@ -22,9 +22,9 @@
                     </td>
                     <td>
                         <ul>
-                            @foreach($project->attendances as $attendance)
+                            @foreach($project->UserProjectAttendances as $attendance)
                                 <li>
-                                    {{$attendance->user->name}} , {{$attendance->created_at}}
+                                    {{$users->find($attendance->user_id)->name}} , {{floor($attendance->sum)}} Hours
                                 </li>
                             @endforeach
                         </ul>

@@ -132,5 +132,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets/js/adminlte.min.js')}}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+
 </body>
 </html>

@@ -26,7 +26,8 @@ class AttendanceProjectController extends Controller
     public function index()
     {
         $projects=Project::all();
-        return  view('dashboards.admins.projects.attendance',compact('projects'));
+        $users=User::all();
+        return  view('dashboards.admins.projects.attendance',compact('projects','users'));
     }
 
     /**

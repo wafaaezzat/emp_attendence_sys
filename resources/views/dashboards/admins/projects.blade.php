@@ -1,6 +1,24 @@
 @extends('dashboards.admins.layouts.admin-dash-layout')
 @section('title','Projects')
 @section('content')
+    @if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            <strong>Success !</strong> {{ session('success') }}
+        </div>
+    @endif
+
+    @if (Session::has('error'))
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            <strong>Error !</strong> {{ session('error') }}
+        </div>
+    @endif
+
     <div class="card-body">
         <div class="tab-content">
             <div class="active tab-pane" id="personal_info">
@@ -16,12 +34,16 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="client_name" class="col-sm-2 col-form-label">Client Name</label>
+                        <label for="client_id" class="col-sm-2 col-form-label">Clients</label>
                         <div class="col-sm-4">
-                            <input type="text" placeholder="Client Name"  class="form-control @error('client_name') is-invalid @enderror" name="client_name">
-                            @error('client_name')
-                            <span class="text-danger error-text">{{$message}}</span>
-                            @enderror
+                        <select class="form-control"  name="client_id" id="client_id">
+                            <option value="option_select" disabled selected>clients</option>
+                            @foreach($clients as $client)
+                                <option value="{{$client->id}}">
+                                    {{$client->name}}
+                                </option>
+                            @endforeach
+                        </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -66,7 +88,7 @@
                     <tr data-widget="expandable-table" aria-expanded="false">
                         <td>{{$project->id}}</td>
                         <td>{{$project->project_name}}</td>
-                        <td>{{$project->client_name}}</td>
+                        <td>{{$project->client->name}}</td>
                         <td>{{$project->project_country}}</td>
                         <td>{{$project->status}}</td>
                         <td>{{$project->created_at->format('d/m/Y')}}</td>

@@ -18,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use UserTrait;
     use Sortable;
 
-    protected $appends = ['attendancesBerDay'];
+//    protected $appends = ['attendancesBerDays'];
  //   use TwoFactorAuthenticatable;
 
     /**
