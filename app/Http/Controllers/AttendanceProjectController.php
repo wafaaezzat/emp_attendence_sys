@@ -10,6 +10,7 @@ use App\Http\Requests\StoreAttendanceProjectRequest;
 use App\Http\Requests\UpdateAttendanceProjectRequest;
 use App\Models\Project;
 use App\Models\ProjectAttendee;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,12 @@ class AttendanceProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $user=User::find(Auth::id());
+//dd(isset($user->attendances()->latest()->first()->sign_out));
+        if(!isset($user->attendances()->latest()->first()->sign_out)){
+            return redirect('admin/dashboard')->with('error','you should sign out first ');
+        }
+
         $project=Project::find($request->project_id);
         $request->validate([
             'project_id'=> 'required',
@@ -59,10 +66,10 @@ class AttendanceProjectController extends Controller
         $project->attendances()->attach(Attendance::find($attendance->id));
 
         if(Auth::user()->role_id==1){
-            return redirect('admin/dashboard');
+            return redirect('admin/dashboard')->with('success','you are signed in');
         }
         else{
-            return redirect('user/dashboard');
+            return redirect('user/dashboard')->with('success','you are signed in ');
         }
     }
 
@@ -74,7 +81,28 @@ class AttendanceProjectController extends Controller
         return Excel::download(new ProjectAttendanceExport(), 'project_attendances.xlsx');
     }
 
+    public function signout(Request $request){
+        $user=User::find(Auth::id());
+//dd(isset($user->attendances()->latest()->first()->sign_out));
+        $attendance=$user->attendances()->latest()->first();
+        $sign_in= date_parse($attendance->sign_in);
+        $sign_out= date_parse($attendance->sign_out);
+//        dd($sign_in,$sign_out);
+        $seconds_in = $sign_in['hour'] * 3600 + $sign_in['minute'] * 60 + $sign_in['second'];
+        $seconds_out = $sign_out['hour'] * 3600 + $sign_out['minute'] * 60 + $sign_out['second'];
+//        dd($seconds_in-$seconds_out);
+        $attendance->update([
+            'sign_out'=>Carbon::now(),
+            'total_hours'=>$seconds_in-$seconds_out
+        ]);
 
+        return redirect('admin/dashboard')->with('success','you are signed Out');
+
+
+//        if(!isset($user->attendances()->latest()->first()->sign_out)){
+//            return redirect('admin/dashboard')->with('error','you should sign out first ');
+//        }
+    }
 
 
 

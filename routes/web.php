@@ -30,7 +30,8 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('attendances/records', [UsersAtendanceController::class, 'filter'])->name('attendances/records');
-Route::get('store/project',[AttendanceProjectController::class,'store'])->name('project.signin')->middleware('auth');
+Route::get('signin/project',[AttendanceProjectController::class,'store'])->name('project.signin')->middleware('auth');
+Route::get('signout/project',[AttendanceProjectController::class,'signout'])->name('project.signout')->middleware('auth');
 
 
 

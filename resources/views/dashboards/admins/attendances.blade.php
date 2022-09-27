@@ -31,36 +31,65 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th>#</th>
+                <th>ID</th>
+                <th>Project</th>
                 <th>Date</th>
-                <th>First SignIN</th>
-                <th>Last SignOut</th>
+                <th>Sign In</th>
+                <th>Sign Out</th>
                 <th>Total Hours</th>
 
             </tr>
             </thead>
             <tbody>
-                @foreach($users as $user)
-                        <?php
-                        $attendances = $start && $end != null ? ($user->attendancesBerDays->whereBetween(('date'),[$start, $end])) : $user->attendancesBerDays;
-                        ?>
-                        @foreach($attendances as $attendance)
-                             <tr data-widget="expandable-table" aria-expanded="false">
-                                <td>{{$attendance->id}}</td>
-                                 <td>
-                                     <ul>
-                                         @foreach($attendance->projects as $project)
-                                             {{$project->project_name}}
-                                         @endforeach
-                                     </ul>
-                                 </td>
-                                <td>{{$attendance->created_at->format('d/m/Y')}}</td>
-                                <td>{{$attendance->sign_in}}</td>
-                                <td>{{$attendance->lastlogoutTime}}</td>
-                                <td>{{floor($attendance->lastlogout-$attendance->firstlogin)}}</td>
-                             </tr>
-                        @endforeach
-                @endforeach
+{{--                @foreach($users as $user)--}}
+{{--                        <?php--}}
+{{--                        $attendances = $start && $end != null ? ($user->attendancesBerDays->whereBetween(('date'),[$start, $end])) : $user->attendancesBerDays;--}}
+{{--                        ?>--}}
+{{--                    @dd($user->attendances)--}}
+
+{{--                        @foreach($attendances as $attendance)--}}
+{{--                             <tr data-widget="expandable-table" aria-expanded="false">--}}
+{{--                                <td>{{$attendance->id}}</td>--}}
+{{--                                 <td>--}}
+{{--                                     <ul>--}}
+{{--                                         @foreach($attendance->projects as $project)--}}
+{{--                                             {{$project->project_name}}--}}
+{{--                                         @endforeach--}}
+{{--                                     </ul>--}}
+{{--                                 </td>--}}
+{{--                                <td>{{$attendance->created_at->format('d/m/Y')}}</td>--}}
+{{--                                <td>{{$attendance->sign_in}}</td>--}}
+{{--                                <td>{{$attendance->lastlogoutTime}}</td>--}}
+{{--                                <td>{{floor($attendance->lastlogout-$attendance->firstlogin)}}</td>--}}
+{{--                             </tr>--}}
+{{--                        @endforeach--}}
+{{--                @endforeach--}}
+
+
+
+@foreach($users as $user)
+{{--        <?php--}}
+{{--        $attendances = $start && $end != null ? ($user->attendances->whereBetween(('date'),[$start, $end])) : $user->attendances;--}}
+{{--        ?>--}}
+{{--    @dd($user->attendances)--}}
+
+    @foreach($user->attendances as $attendance)
+        <tr data-widget="expandable-table" aria-expanded="false">
+            <td>{{$attendance->id}}</td>
+            <td>
+                <ul>
+                    @foreach($attendance->projects as $project)
+                        {{$project->project_name}}
+                    @endforeach
+                </ul>
+            </td>
+            <td>{{$attendance->created_at->format('d/m/Y')}}</td>
+            <td>{{$attendance->sign_in}}</td>
+            <td>{{$attendance->sign_out}}</td>
+            <td>{{floor($attendance->total_hours)}}</td>
+        </tr>
+    @endforeach
+@endforeach
             </tbody>
         </table>
     </div>
