@@ -3,8 +3,11 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Laravel\Ui\AuthCommand;
 
 
 class flushSession extends Command
@@ -30,7 +33,15 @@ class flushSession extends Command
      */
     public function handle()
     {
-        File::cleanDirectory(storage_path().'/framework/sessions');
-        User::query()->update(['remember_token' => '']);
+
+        $users=User::all();
+       foreach ($users as $user){
+           $attendance=$user->attendances()->latest()->first();
+           if (!isset($attendance->sign_out)){
+               $attendance->update([
+                   'sign_out'=>Carbon::now(),
+               ]);
+           }
+       }
     }
 }
