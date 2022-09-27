@@ -41,6 +41,12 @@ trait UserTrait
     }
 
 
+    public function filter($start,$end){
+
+        return $this->hasMany(Attendance::class)->whereBetween(\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')'),[$start, $end]);
+    }
+
+
 //    public function scopeFilter($query, $request){
 //        return $this->hasMany(Attendance::class)->select('*', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '), \DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'), \DB::raw('MAX(sign_out)as lastlogoutTime'), \DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'))->groupBy('date');
 //

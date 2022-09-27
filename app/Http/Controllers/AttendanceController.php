@@ -38,13 +38,11 @@ class AttendanceController extends Controller
 
     function filter(Request $request)
     {
-
         $users = new User();
         $start=$request->start_date;
         $end=$request->end_date;
         $users = $users->where('id', Auth::id())->get();
-            return view('dashboards.users.attendances', compact('users','start','end'));
-
+            return view('dashboards.admins.attendances', compact('users','start','end'));
     }
 
 
