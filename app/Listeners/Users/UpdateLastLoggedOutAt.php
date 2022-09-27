@@ -29,10 +29,10 @@ class UpdateLastLoggedOutAt
      */
     public function handle(Logout $event)
     {
-       $attendance= Attendance::where('user_id',Auth::id())->orderBy('created_at','desc')->first();
-        $attendance->update([
-            'sign_out'=>Carbon::now() ,
-            'status'=>2
-        ]);
+//       $attendance= Attendance::where('user_id',Auth::id())->orderBy('created_at','desc')->first();
+//        $attendance->update([
+//            'sign_out'=>Carbon::now() ,
+//            'status'=>2
+//        ]);
     }
 }
