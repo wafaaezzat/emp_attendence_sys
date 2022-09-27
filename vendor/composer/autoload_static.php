@@ -355,8 +355,8 @@ class ComposerStaticInited5b17ab3d5b55f92c7693e9ad9d7378
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -478,8 +478,8 @@ class ComposerStaticInited5b17ab3d5b55f92c7693e9ad9d7378
         ),
         'Fruitcake\\Cors\\' => 
         array (
-            0 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
-            1 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
+            1 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
         ),
         'Fideloper\\Proxy\\' => 
         array (
@@ -588,8 +588,11 @@ class ComposerStaticInited5b17ab3d5b55f92c7693e9ad9d7378
         'App\\Console\\Commands\\flushSession' => __DIR__ . '/../..' . '/app/Console/Commands/flushSession.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Exports\\AllUsersviewExport' => __DIR__ . '/../..' . '/app/Exports/AllUsersviewExport.php',
         'App\\Exports\\AttendancesExport' => __DIR__ . '/../..' . '/app/Exports/AttendancesExport.php',
         'App\\Exports\\MyExport' => __DIR__ . '/../..' . '/app/Exports/MyExport.php',
+        'App\\Exports\\ProjectAttendanceExport' => __DIR__ . '/../..' . '/app/Exports/ProjectAttendanceExport.php',
+        'App\\Exports\\ProjectExport' => __DIR__ . '/../..' . '/app/Exports/ProjectExport.php',
         'App\\Exports\\UserAttendanceExport' => __DIR__ . '/../..' . '/app/Exports/UserAttendanceExport.php',
         'App\\Exports\\UsersExport' => __DIR__ . '/../..' . '/app/Exports/UsersExport.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
@@ -607,7 +610,6 @@ class ComposerStaticInited5b17ab3d5b55f92c7693e9ad9d7378
         'App\\Http\\Controllers\\ProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\UsersAtendanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersAtendanceController.php',
-        'App\\Http\\Controllers\\xyz' => __DIR__ . '/../..' . '/app/Http/Controllers/xyz.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
