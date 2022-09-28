@@ -24,8 +24,6 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-3">
-
-
                 <form method="post" action="{{ route('adminPictureUpdate') }}"
                       enctype="multipart/form-data">
                     @csrf
