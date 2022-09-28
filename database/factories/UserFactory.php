@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
             'bio' => $this->faker->title,
-            'role_d' =>$this->faker->randomElement($roles),
+            'role_id' =>$this->faker->randomElement($roles),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attendance;
+use Database\Factories\AttendanceFactory;
+use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AttendenceSeeder extends Seeder
+class AttendanceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +17,7 @@ class AttendenceSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Attendance::factory()->count(20)->create();
+
     }
 }

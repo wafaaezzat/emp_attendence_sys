@@ -11,12 +11,8 @@ class Attendance extends Model
 {
      use HasFactory, AttendanceTrait ,Sortable
 ;
-    protected $fillable = [
-       'sign_in',
-        'sign_out',
-        'user_id',
-        'status'
-    ];
+    protected $guarded = [];
+
     protected $table = 'attendances';
     protected $appends = ['date'];
 

@@ -2,13 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
-use Database\Factories\RoleFactory;
+use App\Models\User;
+use Database\Factories\UserFactory;
 use Faker\Factory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RoleSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,7 +16,6 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::factory()->count(2)->create();
-
+        User::factory()->count(10)->create();
     }
 }

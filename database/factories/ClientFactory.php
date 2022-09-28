@@ -31,7 +31,7 @@ class ClientFactory extends Factory
 
         return [
             'name' => $this->faker->company(),
-            'country' => $this->faker->country()
+            'client_country' => $this->faker->country()
         ];
     }
 }

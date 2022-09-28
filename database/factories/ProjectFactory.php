@@ -29,10 +29,10 @@ class ProjectFactory extends Factory
     {
         $clients = Client::pluck('id')->toArray();
         return [
-            'name' => $this->faker->company(),
-            'country' => $this->faker->country(),
+            'project_name' => $this->faker->company(),
+            'project_country' => $this->faker->country(),
             'status' => 1,
-            'client_id' =>$this->faker->randomElement($clients),
+            'client_id'=>$this->faker->randomElement($clients),
         ];
     }
 }
