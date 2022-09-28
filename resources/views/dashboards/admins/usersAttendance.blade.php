@@ -37,12 +37,12 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Project</th>
                 <th>User ID</th>
                 <th>User Name</th>
-                <th>Date</th>
+                <th>Project</th>
                 <th>Sign In</th>
                 <th>Sign Out</th>
+                <th>Date</th>
                 <th>Total Hours</th>
             </tr>
             </thead>
@@ -61,9 +61,9 @@
                                     {{$project->project_name}}
                                 @endforeach
                             </td>
-                            <td>{{$attendance->created_at->format('d/m/Y')}}</td>
                             <td>{{$attendance->sign_in}}</td>
                             <td>{{$attendance->sign_out}}</td>
+                            <td>{{$attendance->created_at->format('d/m/Y')}}</td>
                             <td>{{floor($attendance->total_hours)}}</td>
                         </tr>
                     @endforeach

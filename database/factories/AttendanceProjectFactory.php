@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Attendance;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,13 @@ class AttendanceProjectFactory extends Factory
      */
     public function definition()
     {
+        $projects = Project::pluck('id')->toArray();
+        $attendances = Attendance::pluck('id')->toArray();
+
         return [
-            //
+            'project_id' =>$this->faker->randomElement($projects),
+            'attendance_id' =>$this->faker->randomElement($attendances),
+
         ];
     }
 }

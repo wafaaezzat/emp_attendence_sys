@@ -79,8 +79,8 @@
                 <th>Project Country</th>
                 <th>Status</th>
                 <th>Start Date</th>
-                <th>##</th>
-                <th>##</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -93,13 +93,13 @@
                         <td>{{$project->status}}</td>
                         <td>{{$project->created_at->format('d/m/Y')}}</td>
                         <td>
-                            <a href="{{ route('edit.project',$project->id)}}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('edit.project',$project->id)}}" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                         </td>
                         <td>
                             <form action="{{ route('destroy.project', $project->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger" type="submit">Delete</button>
+                                <button class="btn btn-danger" type="submit"><i class="fa-sharp fa-solid fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>
