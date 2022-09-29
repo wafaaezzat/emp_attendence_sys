@@ -3,7 +3,7 @@
 
 @section('content')
     @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
+        <div class="alert alert-secondary alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert">
                 <i class="fa fa-times"></i>
             </button>
@@ -30,9 +30,9 @@
                         <div class="text-center">
                             <select class="form-select form-select-lg @error('project_id') is-invalid @enderror " name="project_id" id="project_id">
                                 <option value="option_select" disabled selected>Projects</option>
-                                @foreach($projects as $project)
-                                    <option value="{{$project->id}}">
-                                        {{$project->project_name}}
+                                @foreach($projects as $projectx)
+                                    <option value="{{$projectx->id}}">
+                                        {{$projectx->project_name}}
                                     </option>
                                 @endforeach
                                 </select>
@@ -53,12 +53,6 @@
 
 
 
-
-
-
-
-
-
     <div class="col-md-3">
         <form method="GET" action="{{ route('project.signout')}}">
             @csrf
@@ -68,42 +62,23 @@
                         <label for="project_name" class="visually-hidden h5" style="color:#343a40">Sign Out Your Project</label>
                     </div>
                     <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-secondary mb-4 " >Sign Out</button>
+                        <button type="submit" class="btn btn-secondary mb-4" >Sign Out</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 
+    <div class="col-md-3">
+        <div class="card card-secondary card-outline text-center">
+            <h1>{{$project->project_name}}</h1>
+            <div class="card-body box-profile">
+                {!! $chart->container() !!}
+                {!! $chart->script() !!}
+            </div>
+        </div>
+    </div>
 
 
 
-
-
-
-
-
-
-
-
-
-{{--    <div class="card-body">--}}
-{{--        <div class="col-md-12">--}}
-{{--            <form method="GET" action="{{ route('project.signout') }}">--}}
-{{--                @csrf--}}
-{{--                <div class="form-row ">--}}
-{{--                    <div class="form-group col-md-12">--}}
-{{--                        <div class="form-group col-md-6">--}}
-{{--                            <div class="form-row col-md-6 ">--}}
-{{--                                <label for="project_name" class="visually-hidden h5" style="color: blue">Sign Out Your Current Project</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-md-6">--}}
-{{--                            <button type="submit" class="btn btn-primary mb-4" >Sign Out</button>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </form>--}}
-{{--        </div>--}}
-{{--    </div>--}}
 @endsection

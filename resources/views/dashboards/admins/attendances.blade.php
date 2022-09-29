@@ -16,7 +16,7 @@
                 <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request()->end_date }}" placeholder="End Date">
             </div>
         <div class="offset-4">
-            <button type="submit" class="btn btn-primary mb-4" >Submit</button>
+            <button type="submit" class="btn btn-secondary mb-4" >Submit</button>
         </div>
         </div>
     </form>
@@ -25,7 +25,7 @@
     <!-- ./card-header -->
     <div class="card-body">
         <div>
-            <a href="{{ route('adminAttendance.export') }}" class="btn btn-block btn-success btn-sm" style="width:120px">Export Excel Sheet</a>
+            <a href="{{ route('adminAttendance.export') }}" class="btn btn-block btn-secondary btn-sm" style="width:120px">Export Excel Sheet</a>
         </div>
         <table class="table table-bordered table-hover">
             <thead>

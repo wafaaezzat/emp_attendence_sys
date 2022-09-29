@@ -69,6 +69,7 @@ class AttendanceProjectController extends Controller
             else{
                 return redirect('user/dashboard')->with('success','you are signed in ');
             }
+
         }
 
 
@@ -108,11 +109,21 @@ class AttendanceProjectController extends Controller
     public function signout(){
         $user=User::find(Auth::id());
         $attendance=$user->attendances()->latest()->first();
-        $attendance->update([
-            'sign_out'=>Carbon::now(),
-        ]);
-
-        return redirect('admin/dashboard')->with('success','you are signed Out');
+        if(!isset($attendance->sign_out)){
+            $attendance->update([
+                'sign_out'=>Carbon::now(),
+            ]);
+            if(Auth::user()->role_id==1){
+                return redirect('admin/dashboard')->with('success','you are signed Out');            }
+            else{
+                return redirect('user/dashboard')->with('success','you are signed Out');            }
+        }
+        else{
+            if(Auth::user()->role_id==1){
+                return redirect('admin/dashboard')->with('error','you are already signed Out');            }
+            else{
+                return redirect('user/dashboard')->with('error','you are already signed Out');            }
+        }
 
     }
 

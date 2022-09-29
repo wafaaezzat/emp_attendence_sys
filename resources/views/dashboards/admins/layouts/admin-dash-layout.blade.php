@@ -18,6 +18,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
    <link rel="stylesheet" href="{{asset('assets/plugins/ijaboCropTool/ijaboCropTool.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('assets/css/adminlte.min.css')}}">
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js charset=utf-8></script>
+
 </head>
 <body class="sidebar-mini layout-fixed text-sm">
 <div class="wrapper">
@@ -62,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="{{ url('public/Image/'.Auth::user()->picture) }}" class="img-circle elevation-2 admin_picture" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block admin_name h4">{{ Auth::user()->name }}</a>
+          <a href="{{route('admin.profile')}}" class="d-block admin_name h4">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -98,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('company.projects')}}" class="nav-link {{ (request()->is('admin/projects*')) ? 'active' : '' }}">
+                <a href="{{ route('company.projects')}}" class="nav-link {{ (request()->is('admin/projects')) ? 'active' : '' }}">
                     <i class="nav-icon fas fa-book"></i>
                     <p>
                         Projects
@@ -106,7 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('projects.attendance')}}" class="nav-link {{ (request()->is('admin/projectsAttendance*')) ? 'active' : '' }}">
+                <a href="{{ route('projects.attendance')}}" class="nav-link {{ (request()->is('admin/projects/attendance*')) ? 'active' : '' }}">
                     <i class="nav-icon  fa-solid fa-clipboard-user"></i>
                     <p>
                         Project Attendance

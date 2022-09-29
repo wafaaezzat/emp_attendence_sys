@@ -2,7 +2,7 @@
 @section('title','Projects')
 @section('content')
     @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
+        <div class="alert alert-secondary alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert">
                 <i class="fa fa-times"></i>
             </button>
@@ -60,7 +60,7 @@
 
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-danger">Add Project</button>
+                            <button type="submit" class="btn btn-secondary">Add Project</button>
                         </div>
                     </div>
                 </form>
@@ -68,7 +68,7 @@
     <!-- ./card-header -->
     <div class="card-body">
         <div>
-            <a href="{{route('project.export')}}" class="btn btn-block btn-success btn-sm" style="width:100px">Export Excel Sheet</a>
+            <a href="{{route('project.export')}}" class="btn btn-block btn-secondary btn-sm" style="width:100px">Export Excel Sheet</a>
         </div>
         <table class="table table-bordered table-hover">
             <thead>
@@ -93,7 +93,7 @@
                         <td>{{$project->status}}</td>
                         <td>{{$project->created_at->format('d/m/Y')}}</td>
                         <td>
-                            <a href="{{ route('edit.project',$project->id)}}" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="{{ route('edit.project',$project->id)}}" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
                         </td>
                         <td>
                             <form action="{{ route('destroy.project', $project->id)}}" method="post">

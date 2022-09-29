@@ -11,7 +11,7 @@
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard')}}">Home</a></li>
                 <li class="breadcrumb-item active">User Profile</li>
               </ol>
             </div>
@@ -27,20 +27,20 @@
                 <form method="post" action="{{ route('adminPictureUpdate') }}"
                       enctype="multipart/form-data">
                     @csrf
-                    <div class="card card-primary card-outline">
+                    <div class="card card-secondary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle admin_picture" src="{{ url('public/Image/'.Auth::user()->picture) }}" alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center admin_name">{{Auth::user()->name}}</h3>
                             <p class="text-muted text-center">Admin</p>
-                            <div class="image">
+                            <div class="image text-center">
                             <label><h4>Add image</h4></label>
                             <input type="file" class="form-control" required name="image" >
                         </div>
 
-                        <div class="post_button">
-                             <button type="submit" class="btn btn-success">Add</button>
+                        <div class="post_button text-center">
+                             <button type="submit" class="btn btn-secondary mt-3">Add</button>
                         </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
 {{--                        </div>--}}
                         <div class="form-group row">
                           <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-danger">Save Changes</button>
+                            <button type="submit" class="btn btn-secondary">Save Changes</button>
                           </div>
                         </div>
                       </form>
@@ -115,7 +115,7 @@
                           </div>
                           <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
-                              <button type="submit" class="btn btn-danger">Update Password</button>
+                              <button type="submit" class="btn btn-secondary">Update Password</button>
                             </div>
                           </div>
                         </form>

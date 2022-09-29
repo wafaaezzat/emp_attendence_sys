@@ -14,7 +14,7 @@ class Attendance extends Model
     protected $guarded = [];
 
     protected $table = 'attendances';
-    protected $appends = ['date'];
+//    protected $appends = ['date'];
 
     const STATUS = [
         'LoggedIn'    => '1',

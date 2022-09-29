@@ -48,7 +48,7 @@
 
                     <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-danger">Add Client</button>
+                            <button type="submit" class="btn btn-secondary">Add Client</button>
                         </div>
                     </div>
                 </form>
@@ -77,7 +77,7 @@
                             <td>{{$client->client_country}}</td>
                             <td>{{$client->created_at->format('d/m/Y')}}</td>
                             <td>
-                                <a href="{{ route('edit.client',$client->id)}}" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="{{ route('edit.client',$client->id)}}" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i></a>
                             </td>
                             <td>
                                 <form action="{{ route('destroy.client', $client->id)}}" method="post">

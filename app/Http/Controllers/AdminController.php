@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Charts\AttendeeTotalHours;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -12,9 +13,19 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    function index(){
+    function index(Request $request){
         $projects=Project::all();
-        return view('dashboards.admins.index' ,compact('projects'));
+        $user=User::find(Auth::id());
+        $attendance=$user->attendances()->latest()->first();
+        $project=$attendance->projects;
+        $project=Project::find($project[0]->id);
+        $attendancesBerDays=$project->ProjectAttendancesBerDays()->pluck('sum','date');
+        $attendancesBerDays->values();
+        $attendancesBerDays->keys();
+        $chart=new AttendeeTotalHours();
+        $chart->labels($attendancesBerDays->keys());
+        $chart->dataset('total hours ber day','bar',$attendancesBerDays->values());
+        return view('dashboards.admins.index' ,compact('projects','chart','project'));
     }
 
     function profile(){
