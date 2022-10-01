@@ -44,6 +44,7 @@ return array(
     'Spatie\\Backtrace\\' => array($vendorDir . '/spatie/backtrace/src'),
     'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),
     'Ramsey\\Collection\\' => array($vendorDir . '/ramsey/collection/src'),
+    'Pusher\\' => array($vendorDir . '/pusher/pusher-php-server/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src'),
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
@@ -99,5 +100,6 @@ return array(
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
     'Balping\\JsonRaw\\' => array($vendorDir . '/balping/json-raw-encoder/src'),
-    'App\\' => array($baseDir . '/app', $vendorDir . '/laravel/pint/app'),
+    'Astatroth\\LaravelTimer\\' => array($vendorDir . '/astatroth/laravel-timer/src'),
+    'App\\' => array($baseDir . '/app', $vendorDir . '/astatroth/laravel-timer/app', $vendorDir . '/laravel/pint/app'),
 );

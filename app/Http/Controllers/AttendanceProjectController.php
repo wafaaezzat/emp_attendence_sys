@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\MyExport;
 use App\Exports\ProjectAttendanceExport;
 use App\Models\Attendance;
 use App\Models\AttendanceProject;
-use App\Http\Requests\StoreAttendanceProjectRequest;
 use App\Http\Requests\UpdateAttendanceProjectRequest;
 use App\Models\Project;
-use App\Models\ProjectAttendee;
 use App\Models\User;
+use Astatroth\LaravelTimer\Timer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,8 +46,9 @@ class AttendanceProjectController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $user=User::find(Auth::id());
-//dd(isset($user->attendances()->latest()->first()->sign_out));
         if(!isset($user->attendances()->latest()->first()->sign_in)){
             $project=Project::find($request->project_id);
             $request->validate([
@@ -88,6 +87,9 @@ class AttendanceProjectController extends Controller
         ]);
         $attendance= \DB::table('attendances')->where('user_id', Auth::id())->latest()->first();
         $project->attendances()->attach(Attendance::find($attendance->id));
+
+
+
 
         if(Auth::user()->role_id==1){
             return redirect('admin/dashboard')->with('success','you are signed in');

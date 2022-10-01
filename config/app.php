@@ -181,6 +181,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Astatroth\LaravelTimer\LaravelTimerServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -212,5 +213,6 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
+//    'Timer' => Astatroth\LaravelTimer\Timer::class,
 
 ];

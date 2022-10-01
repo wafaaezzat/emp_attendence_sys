@@ -39,6 +39,12 @@ trait UserTrait
 //    {
 //        return $this->hasMany(Attendance::class)->select('*', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '), \DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'), \DB::raw('MAX(sign_out)as lastlogoutTime'), \DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'))->groupBy('date');
 //    }
+    public function attendancesBerDays()
+    {
+        return $this->hasMany(Attendance::class)->select('user_id', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '))->where(\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')'),'=',Carbon::yesterday()->toDateString())->groupBy('user_id');
+    }
+
+
 
 
 //    public function filter($start,$end){

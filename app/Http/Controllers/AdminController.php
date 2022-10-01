@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     function index(Request $request){
+        $count = 0;
+        $users=User::all();
+        foreach($users as $user){
+                $count = $user->attendancesBerDays->count() + $count;
+            }
+        $signin_timer=null;
         $projects=Project::all();
         $user=User::find(Auth::id());
         $attendance=$user->attendances()->latest()->first();
@@ -25,7 +31,7 @@ class AdminController extends Controller
         $chart=new AttendeeTotalHours();
         $chart->labels($attendancesBerDays->keys());
         $chart->dataset('total hours ber day','bar',$attendancesBerDays->values());
-        return view('dashboards.admins.index' ,compact('projects','chart','project'));
+        return view('dashboards.admins.index' ,compact('projects','chart','project','users','count'));
     }
 
     function profile(){
