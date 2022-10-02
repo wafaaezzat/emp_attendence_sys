@@ -41,7 +41,7 @@ trait UserTrait
 //    }
     public function attendancesBerDays()
     {
-        return $this->hasMany(Attendance::class)->select('user_id', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '))->where(\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')'),'=',Carbon::yesterday()->toDateString())->groupBy('user_id');
+        return $this->hasMany(Attendance::class)->select('user_id', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '))->where(\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')'),'=',Carbon::today()->toDateString())->groupBy('user_id','date');
     }
 
 

@@ -16,22 +16,24 @@ class AdminController extends Controller
     function index(Request $request){
         $count = 0;
         $users=User::all();
+        $projects=Project::all();
         foreach($users as $user){
                 $count = $user->attendancesBerDays->count() + $count;
-            }
-        $signin_timer=null;
-        $projects=Project::all();
+        }
+
         $user=User::find(Auth::id());
         $attendance=$user->attendances()->latest()->first();
         $project=$attendance->projects;
         $project=Project::find($project[0]->id);
+        $effort=$project->UserProjectAttendances()->pluck('sum','user_id');
         $attendancesBerDays=$project->ProjectAttendancesBerDays()->pluck('sum','date');
-        $attendancesBerDays->values();
-        $attendancesBerDays->keys();
         $chart=new AttendeeTotalHours();
+        $chart_effort=new AttendeeTotalHours();
         $chart->labels($attendancesBerDays->keys());
+        $chart_effort->labels($effort->keys());
+        $chart_effort->dataset('total hours for each user','line',$effort->values());
         $chart->dataset('total hours ber day','bar',$attendancesBerDays->values());
-        return view('dashboards.admins.index' ,compact('projects','chart','project','users','count'));
+        return view('dashboards.admins.index' ,compact('projects','chart','project','users','count','chart_effort'));
     }
 
     function profile(){

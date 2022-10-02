@@ -30,9 +30,9 @@
                         <div class="text-center">
                             <select class="form-select form-select-lg @error('project_id') is-invalid @enderror " name="project_id" id="project_id">
                                 <option value="option_select" disabled selected>Projects</option>
-                                @foreach($projects as $project)
-                                    <option value="{{$project->id}}">
-                                        {{$project->project_name}}
+                                @foreach($projects as $projectxx)
+                                    <option value="{{$projectxx->id}}">
+                                        {{$projectxx->project_name}}
                                     </option>
                                 @endforeach
                                 </select>
@@ -82,6 +82,8 @@
 
 
 </div>
+
+    <div class="row col-lg-12">
     <div class="col-md-3">
         <form method="GET" action="{{ route('project.signout')}}">
             @csrf
@@ -100,7 +102,7 @@
 
     <div class="col-md-3">
         <div class="card card-secondary card-outline text-center">
-            <h1>{{$project->project_name}}</h1>
+            <h3>{{$project->project_name}}</h3>
             <div class="card-body box-profile">
                 {!! $chart->container() !!}
                 {!! $chart->script() !!}
@@ -108,20 +110,28 @@
         </div>
     </div>
 
+        <div class="col-md-3">
+        <div class="card card-secondary card-outline text-center">
+            <h3> {{$project->project_name}} </h3>
+            <div class="card-body box-profile">
+                {!! $chart_effort->container() !!}
+                {!! $chart_effort->script() !!}
+            </div>
+        </div>
 
 
 
-
-    <section id="stopWatch">
-        <h5>Watch - Count Up Timer</h5>
-        <h6>Hour : Minutes : Seconds</h6>
-        <p id="timer"> 00:00:00 </p>
-        <button id="start"> Start </button>
-        <button id="stop"> Stop </button>
-        <button id="pause"> Pause </button>
-        <button id="continue" hidden> Continue </button>
-        <p id="fulltime" class="fulltime"> </p>
-    </section>
+            <section id="stopWatch">
+                <h5>Watch - Count Up Timer</h5>
+                <h6>Hour : Minutes : Seconds</h6>
+                <p id="timer"> 00:00:00 </p>
+                <button id="start"> Start </button>
+                <button id="stop"> Stop </button>
+                <button id="pause"> Pause </button>
+                <button id="continue" hidden> Continue </button>
+                <p id="fulltime" class="fulltime"> </p>
+            </section>
+    </div>
 
     <script>
         /* initialization of different variables
