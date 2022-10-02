@@ -55,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <img src="{{ url('public/Image/'.Auth::user()->picture) }}" class="img-circle elevation-2 admin_picture" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <a href="{{route('user.profile')}}" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-                <a href="{{ route('admin.dashboard')}}" class="nav-link {{ (request()->is('user/dashboard*')) ? 'active' : '' }}">
+                <a href="{{ route('user.dashboard')}}" class="nav-link {{ (request()->is('user/dashboard*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-home"></i>
                   <p>
                     Dashboard

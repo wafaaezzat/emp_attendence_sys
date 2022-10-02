@@ -36,7 +36,6 @@
                     <th>Sign In</th>
                     <th>Sign Out</th>
                     <th>Total Hours</th>
-
                 </tr>
             </thead>
             <tbody>

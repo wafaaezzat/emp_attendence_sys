@@ -21,6 +21,7 @@
     @endif
 <div class="row col-lg-12">
     <div class="col-md-3">
+        @if($user->active==0)
         <form method="GET" action="{{ route('project.signin') }}">
             @csrf
             <div class="card card-secondary card-outline text-center">
@@ -30,9 +31,9 @@
                         <div class="text-center">
                             <select class="form-select form-select-lg @error('project_id') is-invalid @enderror " name="project_id" id="project_id">
                                 <option value="option_select" disabled selected>Projects</option>
-                                @foreach($projects as $projectxx)
-                                    <option value="{{$projectxx->id}}">
-                                        {{$projectxx->project_name}}
+                                @foreach($projects as $projectx)
+                                    <option value="{{$projectx->id}}">
+                                        {{$projectx->project_name}}
                                     </option>
                                 @endforeach
                                 </select>
@@ -49,8 +50,22 @@
                 </div>
             </div>
         </form>
+            @elseif($user->active==1)
+                <form method="GET" action="{{ route('project.signout')}}">
+                    @csrf
+                    <div class="card card-secondary card-outline text-center">
+                        <div class="card-body box-profile ">
+                            <div class="text-center">
+                                <label for="project_name" class="visually-hidden h5" style="color:#343a40">Sign Out Your Project</label>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-secondary mb-4" name="sign_out" >Sign Out</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            @endif
     </div>
-
 
 
     <div class="col-lg-3 col-md-3 ">
@@ -58,7 +73,7 @@
         <div class="small-box bg-secondary">
             <div class="inner">
                 <h3>{{$users->count()}}</h3>
-                <p>User Registrations</p>
+                <p>Registered User</p>
             </div>
             <div class="icon">
                 <i class="nav-icon  fa-solid fa-user"></i>
@@ -71,7 +86,7 @@
         <div class="small-box bg-secondary">
             <div class="inner">
                 <h3>{{$count}}</h3>
-                <p>User Present</p>
+                <p>Active Users</p>
             </div>
             <div class="icon">
                 <i class="nav-icon  fa-solid fa-clipboard-user"></i>
@@ -85,19 +100,15 @@
 
     <div class="row col-lg-12">
     <div class="col-md-3">
-        <form method="GET" action="{{ route('project.signout')}}">
-            @csrf
-            <div class="card card-secondary card-outline text-center">
-                <div class="card-body box-profile ">
-                    <div class="text-center">
-                        <label for="project_name" class="visually-hidden h5" style="color:#343a40">Sign Out Your Project</label>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-secondary mb-4" name="sign_out" >Sign Out</button>
-                    </div>
-                </div>
-            </div>
-        </form>
+        <section id="stopWatch">
+            <h6>Hour : Minutes : Seconds</h6>
+            <p id="timer"> 00:00:00 </p>
+            <button id="start"> Start </button>
+            <button id="stop"> Stop </button>
+            <button id="pause"> Pause </button>
+            <button id="continue" hidden> Continue </button>
+            <p id="fulltime" class="fulltime"> </p>
+        </section>
     </div>
 
     <div class="col-md-3">
@@ -118,19 +129,6 @@
                 {!! $chart_effort->script() !!}
             </div>
         </div>
-
-
-
-            <section id="stopWatch">
-                <h5>Watch - Count Up Timer</h5>
-                <h6>Hour : Minutes : Seconds</h6>
-                <p id="timer"> 00:00:00 </p>
-                <button id="start"> Start </button>
-                <button id="stop"> Stop </button>
-                <button id="pause"> Pause </button>
-                <button id="continue" hidden> Continue </button>
-                <p id="fulltime" class="fulltime"> </p>
-            </section>
     </div>
 
     <script>

@@ -18,9 +18,8 @@ class AdminController extends Controller
         $users=User::all();
         $projects=Project::all();
         foreach($users as $user){
-                $count = $user->attendancesBerDays->count() + $count;
+                $count = $user->active + $count;
         }
-
         $user=User::find(Auth::id());
         $attendance=$user->attendances()->latest()->first();
         $project=$attendance->projects;
@@ -31,9 +30,9 @@ class AdminController extends Controller
         $chart_effort=new AttendeeTotalHours();
         $chart->labels($attendancesBerDays->keys());
         $chart_effort->labels($effort->keys());
-        $chart_effort->dataset('total hours for each user','line',$effort->values());
-        $chart->dataset('total hours ber day','bar',$attendancesBerDays->values());
-        return view('dashboards.admins.index' ,compact('projects','chart','project','users','count','chart_effort'));
+        $chart_effort->dataset('user_id total hours on project','bar',$effort->values());
+        $chart->dataset('total hours ber day on project','bar',$attendancesBerDays->values());
+        return view('dashboards.admins.index' ,compact('projects','chart','project','users','count','chart_effort','user'));
     }
 
     function profile(){

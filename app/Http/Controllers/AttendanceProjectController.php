@@ -89,6 +89,8 @@ class AttendanceProjectController extends Controller
         $project->attendances()->attach(Attendance::find($attendance->id));
 
 
+        $user->active=1;
+        $user->save();
 
 
         if(Auth::user()->role_id==1){
@@ -110,6 +112,8 @@ class AttendanceProjectController extends Controller
 
     public function signout(){
         $user=User::find(Auth::id());
+        $user->active=0;
+        $user->save();
         $attendance=$user->attendances()->latest()->first();
         if(!isset($attendance->sign_out)){
             $attendance->update([

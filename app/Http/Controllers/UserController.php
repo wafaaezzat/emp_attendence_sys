@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\AttendeeTotalHours;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,9 +13,27 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     function index(){
-
+        $count = 0;
+        $users=User::all();
         $projects=Project::all();
-        return view('dashboards.users.index' ,compact('projects'));    }
+        foreach($users as $user){
+            $count = $user->active + $count;
+        }
+        $user=User::find(Auth::id());
+        $attendance=$user->attendances()->latest()->first();
+        $project=$attendance->projects;
+        $project=Project::find($project[0]->id);
+        $effort=$project->UserProjectAttendances()->pluck('sum','user_id');
+        $attendancesBerDays=$project->ProjectAttendancesBerDays()->pluck('sum','date');
+        $chart=new AttendeeTotalHours();
+        $chart_effort=new AttendeeTotalHours();
+        $chart->labels($attendancesBerDays->keys());
+        $chart_effort->labels($effort->keys());
+        $chart_effort->dataset('user_id total hours on project','bar',$effort->values());
+        $chart->dataset('total hours ber day on project','bar',$attendancesBerDays->values());
+        return view('dashboards.users.index' ,compact('projects','chart','project','users','count','chart_effort','user'));
+        $projects=Project::all();
+    }
 
     function profile(){
         return view('dashboards.users.profile');
