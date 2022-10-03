@@ -27,7 +27,7 @@ use \App\Http\Controllers\ClientController;
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware('verified');
+});
 Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('attendances/records', [UsersAtendanceController::class, 'filter'])->name('attendances/records');

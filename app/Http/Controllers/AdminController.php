@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     function index(Request $request){
-        $count = 0;
         $users=User::all();
         $projects=Project::all();
+        $count = 0;
         foreach($users as $user){
                 $count = $user->active + $count;
         }
@@ -46,8 +46,7 @@ class AdminController extends Controller
 
         $validator = Validator::make($request->all(),[
             'name'=>'required',
-            'email'=> 'required|email|unique:users,email,'.Auth::user()->id,
-            'favoritecolor'=>'required',
+            'email'=> 'required|email|unique:users,email,'.Auth::user()->id
         ]);
 
         if(!$validator->passes()){
