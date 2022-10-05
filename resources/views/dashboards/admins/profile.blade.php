@@ -74,13 +74,7 @@
                             <span class="text-danger error-text email_error"></span>
                           </div>
                         </div>
-{{--                        <div class="form-group row">--}}
-{{--                          <label for="inputName2" class="col-sm-2 col-form-label">Favorite Color</label>--}}
-{{--                          <div class="col-sm-10">--}}
-{{--                            <input type="text" class="form-control" id="inputName2" placeholder="Favorite color" value="{{ Auth::user()->favoriteColor }}" name="favoritecolor">--}}
-{{--                            <span class="text-danger error-text favoritecolor_error"></span>--}}
-{{--                          </div>--}}
-{{--                        </div>--}}
+
                         <div class="form-group row">
                           <div class="offset-sm-2 col-sm-10">
                             <button type="submit" class="btn btn-secondary">Save Changes</button>

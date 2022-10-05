@@ -16,26 +16,6 @@ class Attendance extends Model
     protected $table = 'attendances';
 //    protected $appends = ['date'];
 
-    const STATUS = [
-        'LoggedIn'    => '1',
-        'LoggedOut'   => '2'
-    ];
 
-    public function getStatus()
-    {
-        $status = null;
-        switch ($this->status) {
-            case '1':
-                $seen = 'LoggedIn';
-                break;
-            case '2':
-                $seen = 'LoggedOut';
-                break;
-        }
-        return $status;
-    }
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
 }

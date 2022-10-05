@@ -70,6 +70,11 @@
             @endforeach
             </tbody>
         </table>
+        <div>
+            @if(!(isset($user_name)||isset($user_id)||isset($start)||isset($end)))
+                {!!$users->links("pagination::bootstrap-5")!!}
+            @endif
+        </div>
     </div>
     <!-- /.card-body -->
 @endsection

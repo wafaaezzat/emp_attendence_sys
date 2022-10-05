@@ -42,9 +42,11 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
     Route::get('attendances',[AttendanceController::class,'index'])->name('admin.attendance');
     Route::get('usersAttendances',[UsersAtendanceController::class,'index'])->name('users.attendance');
+    Route::get('usersusersBerDAY',[UsersAtendanceController::class,'attendanceBerday'])->name('users.berDAY');
     Route::get('allAttendancesExport',[UsersAtendanceController::class,'export'])->name('allAttendances.export');
     Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('adminAttendance.export');
-    Route::get('/users/date/filter', [UsersAtendanceController::class,'filter'])->name('users.filter');
+    Route::get('/users/attendances/filter', [UsersAtendanceController::class,'filter'])->name('users.filter');
+    Route::get('/users/filter', [UsersAtendanceController::class,'usersBerDayFilter'])->name('usersBerDay.filter');
     Route::get('date/filter', [AttendanceController::class,'filter'])->name('admin.filter');
     Route::get('projects',[ProjectController::class,'index'])->name('company.projects');
     Route::get('add/project',[ProjectController::class,'store'])->name('add.project');
@@ -54,6 +56,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('projects/attendance',[AttendanceProjectController::class,'index'])->name('projects.attendance');
     Route::get('projectAttendance/export',[AttendanceProjectController::class,'export'])->name('projects.attendance.export');
     Route::get('project/export',[ProjectController::class,'export'])->name('project.export');
+    Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('update.attendance');
+    Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('edit.attendance');
+
 ///////////////clients/////////////////////////////
     Route::get('clients',[ClientController::class,'index'])->name('company.clients');
     Route::get('add/client',[ClientController::class,'store'])->name('add.client');

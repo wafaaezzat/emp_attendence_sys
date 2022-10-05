@@ -5,20 +5,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>@yield('title')</title>
-  <base href="{{ \URL::to('/') }}">
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
-   <link rel="stylesheet" href="{{asset('assets/plugins/ijaboCropTool/ijaboCropTool.min.css')}}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('assets/css/adminlte.min.css')}}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title')</title>
+    <base href="{{ \URL::to('/') }}">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/ijaboCropTool/ijaboCropTool.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('assets/css/adminlte.min.css')}}">
     <script src=https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js charset=utf-8></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    {{--full calender--}}
+    <link href="{{asset('assets/plugins/fullcalendar/main.css')}}" rel='stylesheet' />
+    <script src="{{asset('assets/plugins/fullcalendar/main.js')}}"></script>
+
 
 </head>
 <body class="sidebar-mini layout-fixed text-sm">
@@ -67,9 +75,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="{{route('admin.profile')}}" class="d-block admin_name h4">{{ Auth::user()->name }}</a>
         </div>
       </div>
-
-
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-compact nav-child-indent nav-collapse-hide-child nav-flat" data-widget="treeview" role="menu" data-accordion="false">
@@ -108,28 +113,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('projects.attendance')}}" class="nav-link {{ (request()->is('admin/projects/attendance*')) ? 'active' : '' }}">
-                    <i class="nav-icon  fa-solid fa-clipboard-user"></i>
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
                     <p>
-                        Project Attendance
+                        Time Tracking
+                        <i class="fas fa-angle-left right"></i>
                     </p>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.attendance')}}" class="nav-link {{ (request()->is('admin/attendance*')) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-pen"></i>
-                    <p>
-                      My Attendance
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('users.attendance')}}" class="nav-link {{ (request()->is('admin/usersAttendance*')) ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-pen"></i>
-                    <p>
-                       Users Attendance
-                    </p>
-                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('projects.attendance')}}" class="nav-link {{ (request()->is('admin/projects/attendance*')) ? 'active' : '' }}">
+                            <i class="nav-icon  fa-solid fa-clipboard-user"></i>
+                            <p>
+                                Project Attendance
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.attendance')}}" class="nav-link {{ (request()->is('admin/attendance*')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-pen"></i>
+                            <p>
+                                My Attendance
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('users.attendance')}}" class="nav-link {{ (request()->is('admin/usersAttendance*')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-pen"></i>
+                            <p>
+                                Users Attendance
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('users.berDAY')}}" class="nav-link {{ (request()->is('admin/usersBerDAY*')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-pen"></i>
+                            <p>
+                                Users Attendance Ber Day
+                            </p>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
       </nav>
@@ -571,7 +595,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 <script src="https://kit.fontawesome.com/f933b20416.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
 </body>
 </html>

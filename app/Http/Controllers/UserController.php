@@ -29,7 +29,7 @@ class UserController extends Controller
         $chart_effort=new AttendeeTotalHours();
         $chart->labels($attendancesBerDays->keys());
         $chart_effort->labels($effort->keys());
-        $chart_effort->dataset('user_id total hours on project','bar',$effort->values());
+        $chart_effort->dataset('user_id total hours on project','line',$effort->values());
         $chart->dataset('total hours ber day on project','bar',$attendancesBerDays->values());
         return view('dashboards.users.index' ,compact('projects','chart','project','users','count','chart_effort','user'));
         $projects=Project::all();

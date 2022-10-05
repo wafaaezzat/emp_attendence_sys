@@ -47,16 +47,17 @@ class AttendanceProjectController extends Controller
     public function store(Request $request)
     {
 
-
         $user=User::find(Auth::id());
         if(!isset($user->attendances()->latest()->first()->sign_in)){
             $project=Project::find($request->project_id);
             $request->validate([
                 'project_id'=> 'required',
+                'type'=> 'required',
             ]);
             Attendance::create([
                 'user_id'=>Auth::id(),
                 'sign_in'=>Carbon::now(),
+                'type'=>$request->type,
                 'status'=>1
             ]);
             $attendance= \DB::table('attendances')->where('user_id', Auth::id())->latest()->first();
@@ -79,9 +80,11 @@ class AttendanceProjectController extends Controller
         $project=Project::find($request->project_id);
         $request->validate([
             'project_id'=> 'required',
+            'type'=> 'required',
         ]);
         Attendance::create([
             'user_id'=>Auth::id(),
+            'type'=>$request->type,
             'sign_in'=>Carbon::now(),
             'status'=>1
         ]);

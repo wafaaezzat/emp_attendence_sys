@@ -29,9 +29,12 @@ class AdminController extends Controller
         $chart=new AttendeeTotalHours();
         $chart_effort=new AttendeeTotalHours();
         $chart->labels($attendancesBerDays->keys());
+
+
+
         $chart_effort->labels($effort->keys());
-        $chart_effort->dataset('user_id total hours on project','bar',$effort->values());
-        $chart->dataset('total hours ber day on project','bar',$attendancesBerDays->values());
+        $chart_effort->dataset('user_id total hours on project','pie',$effort->values());
+        $chart->dataset('total hours ber day on project','line',$attendancesBerDays->values());
         return view('dashboards.admins.index' ,compact('projects','chart','project','users','count','chart_effort','user'));
     }
 

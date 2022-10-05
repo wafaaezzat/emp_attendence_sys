@@ -6,9 +6,8 @@ namespace App\Traits;
 use App\Models\Attendance;
 use App\Models\Project;
 use App\Models\Role;
-use App\Models\User;
+use App\Models\Team;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 trait UserTrait
 {
@@ -16,7 +15,9 @@ trait UserTrait
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
-
+    public function teams(){
+        return $this->belongsTo(Team::class);
+    }
     public function isAdmin()
     {
         if ($this->role->id == Role::NAME['ADMIN']) {
@@ -35,16 +36,26 @@ trait UserTrait
         return $this->hasMany(Attendance::class);
     }
 
-//    public function attendancesBerDays()
-//    {
-//        return $this->hasMany(Attendance::class)->select('*', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '), \DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'), \DB::raw('MAX(sign_out)as lastlogoutTime'), \DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'))->groupBy('date');
-//    }
+    public function userAttendanceBerDays()
+    {
+        return $this->hasMany(Attendance::class)->select('*', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '),\DB::raw('sum(total_hours)as totalHours'), \DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'), \DB::raw('MAX(sign_out)as lastlogoutTime'), \DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'))->groupBy('date','user_id')->orderBy('date','desc');
+    }
     public function attendancesBerDays()
     {
         return $this->hasMany(Attendance::class)->select('user_id', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '))->where(\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')'),'=',Carbon::today()->toDateString())->groupBy('user_id','date');
     }
 
 
+    public function userAttendancesBerDays()
+    {
+        return $this->hasMany(Attendance::class)->select('*','user_id', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '),\DB::raw('sum(total_hours)as totalHours'))->where(\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')'),'=',Carbon::today()->toDateString())->groupBy('date','user_id');
+    }
+
+
+//    public function userAttendanceBerDays()
+//    {
+//        return $this->hasMany(Attendance::class)->select('*','user_id', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '),\DB::raw('sum(total_hours)as totalHours'))->groupBy('user_id','date');
+//    }
 
 
 //    public function filter($start,$end){

@@ -17,6 +17,11 @@ trait ProjectTrait
     }
 
 
+//    public function UserProjectAttendancesBerdays(){
+//      return $this->attendances()->select('user_id',\DB::raw('sum(attendances.total_hours) as sum'))->groupBy('user_id');
+//    }
+
+
     public function ProjectAttendancesBerDays(){
       return $this->attendances()->select(\DB::raw('DATE_FORMAT(attendances.created_at, \'%Y-%m-%d\')as date '),\DB::raw('sum(attendances.total_hours) as sum'))->groupBy('date');
     }
