@@ -14,6 +14,7 @@ use \App\Http\Controllers\ProjectController;
 use \App\Http\Controllers\AttendanceController;
 use \App\Http\Controllers\AttendanceProjectController;
 use \App\Http\Controllers\ClientController;
+use \App\Http\Controllers\TeamController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,6 +59,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('project/export',[ProjectController::class,'export'])->name('project.export');
     Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('update.attendance');
     Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('edit.attendance');
+    Route::get('teams',[TeamController::class,'index'])->name('teams');
+    Route::get('teams/{id}',[TeamController::class,'show'])->name('show.team');
 
 ///////////////clients/////////////////////////////
     Route::get('clients',[ClientController::class,'index'])->name('company.clients');

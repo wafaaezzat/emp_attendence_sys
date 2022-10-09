@@ -47,6 +47,7 @@
             <th>Punch Out</th>
             <th>Date</th>
             <th>Total Hours</th>
+            <th>Status</th>
             <th>Edit</th>
         </tr>
         </thead>
@@ -74,13 +75,14 @@
                     </td>
                     <td>
                         @foreach($attendance->projects as $project)
-                            {{$project->project_name}}&&
+                            <h6><span class="badge badge-dark">{{$project->project_name}}</span></h6>
                         @endforeach
                     </td>
-                    <td>{{$attendance->sign_in}}</td>
-                    <td>{{$attendance->lastlogoutTime}}</td>
+                    <td><h6><span class="badge badge-info">{{$attendance->sign_in}}</span></h6></td>
+                    <td><h6><span class="badge badge-info">{{$attendance->lastlogoutTime}}</span></h6></td>
                     <td>{{$attendance->created_at->format('d/m/Y')}}</td>
                     <td>{{(int)$attendance->lastlogoutTime-(int)$attendance->firstlogin}}</td>
+                    <td><h6><span class="badge badge-secondary">{{$attendance->type}}</span></h6></td>
                     <td>
                         <button type="button" value="{{$attendance->id}}" id="editbtn"  class="btn btn-block btn-secondary btn-sm" data-toggle="modal"  data-target="#demoModal">
                             <i class="fa-sharp fa-solid fa-pen"></i>

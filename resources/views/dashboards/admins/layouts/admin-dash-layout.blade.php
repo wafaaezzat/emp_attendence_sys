@@ -114,6 +114,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('teams')}}" class="nav-link {{ (request()->is('admin/teams')) ? 'active' : '' }}">
+                    <i class="nav-icon fa-solid fa-people-group"></i>
+                    <p>
+                        Teams
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>
                     <p>

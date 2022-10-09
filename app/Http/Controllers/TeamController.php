@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
+use App\Models\User;
 
 class TeamController extends Controller
 {
@@ -15,7 +16,9 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        $teams=Team::all();
+        $users=User::all();
+        return view('dashboards.admins.teams.teams',compact('teams','users'));
     }
 
     /**
@@ -45,9 +48,11 @@ class TeamController extends Controller
      * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function show(Team $team)
+    public function show($id)
     {
-        //
+        $team=Team::find($id);
+        $users=User::all();
+        return view('dashboards.admins.teams.team',compact('team','users'));
     }
 
     /**

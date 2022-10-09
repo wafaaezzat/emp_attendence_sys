@@ -28,7 +28,7 @@ trait UserTrait
 
     public function projects()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class);
     }
 
     public function attendances()

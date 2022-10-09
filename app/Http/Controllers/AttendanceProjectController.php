@@ -62,6 +62,7 @@ class AttendanceProjectController extends Controller
             ]);
             $attendance= \DB::table('attendances')->where('user_id', Auth::id())->latest()->first();
             $project->attendances()->attach(Attendance::find($attendance->id));
+            $user->projects()->attach($project);
 
             if(Auth::user()->role_id==1){
                 return redirect('admin/dashboard')->with('success','you are signed in');
@@ -90,6 +91,8 @@ class AttendanceProjectController extends Controller
         ]);
         $attendance= \DB::table('attendances')->where('user_id', Auth::id())->latest()->first();
         $project->attendances()->attach(Attendance::find($attendance->id));
+        $user->projects()->attach($project);
+
 
 
         $user->active=1;
