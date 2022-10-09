@@ -117,6 +117,7 @@
                                             <button type="submit" class="btn btn-secondary mb-4 " style="width: 150px"  id="start-btn"  name="sign_in" >Sign In</button>
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
                             </form>
                         @elseif($user->active==1)
@@ -146,7 +147,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @if(isset($project,$chart,$chart_effort))
                             <div class="col-md-3">
                                 <div class="card card-secondary card-outline text-center">
                                     <h3>{{$project->project_name}}</h3>
@@ -166,6 +167,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <!-- /.tab-pane -->

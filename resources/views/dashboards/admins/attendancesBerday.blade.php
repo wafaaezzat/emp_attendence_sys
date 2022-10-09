@@ -39,7 +39,7 @@
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th>ID</th>
+{{--            <th>ID</th>--}}
             <th>User ID</th>
             <th>User Name</th>
             <th>Projects</th>
@@ -56,10 +56,22 @@
                 $attendances = $start && $end != null ? ($user->userAttendanceBerDays->whereBetween('created_at',[$start,$end])) : $user->userAttendanceBerDays;
                 ?>
             @foreach($attendances as $attendance)
+{{--                @dd($attendance)--}}
                 <tr data-widget="expandable-table" aria-expanded="false">
-                    <td>{{$attendance->id}}</td>
+{{--                    <td>{{$attendance->id}}</td>--}}
                     <td>{{$user->id}}</td>
-                    <td>{{$user->name}}</td>
+                    <td>{{$user->name}}
+                        @if($attendance->firstSignIN==36000)
+                        <h6><span class="badge badge-success">OnTime</span></h6>
+                        @endif
+                        @if($attendance->firstSignIN>36000)
+                        <h6><span class="badge badge-warning"> {{\Carbon\CarbonInterval::seconds($attendance->firstSignIN-36000)->cascade()->forHumans()}} Late</span></h6>
+                        @endif
+                        @if($attendance->lastSignOut<68400)
+                        <h6><span class="badge badge-danger">Left {{\Carbon\CarbonInterval::seconds(68400-$attendance->lastSignOut)->cascade()->forHumans()}} Hours Earlier</span></h6>
+                        @endif
+
+                    </td>
                     <td>
                         @foreach($attendance->projects as $project)
                             {{$project->project_name}}&&
@@ -102,7 +114,9 @@
                     <div class="modal-body">
                         <form class="form-horizontal" method="POST" action="{{ route('update.attendance') }}">
                         @csrf
-                            <input type="hidden" id="attendance_id" name="attendance_id">
+                            <input type="text" id="attendance_id" name="attendance_id">
+                            <input type="text" id="date" name="date">
+                            <input type="text" id="user_id" name="user_id">
                             <div class="form-group row">
                                 <label for="punch_in" class="col-sm-2 col-form-label">Punch In</label>
                                 <div class="col-sm-4">
@@ -165,7 +179,9 @@
                     $('#sign_in').val(response.attendance.sign_in);
                     $('#sign_out').val(response.attendance.sign_out);
                     $('#attendance_id').val(response.attendance.id);
-                    console.log(response.attendance.id);
+                    $('#user_id').val(response.attendance.user_id);
+                    $('#date').val(new Date(response.attendance.created_at).toISOString().split('T')[0]);
+                    console.log( new Date(response.attendance.created_at).toISOString().split('T')[0],response.attendance.id,response.attendance.user_id);
                 }
 
             });

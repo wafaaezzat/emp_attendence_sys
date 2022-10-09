@@ -42,7 +42,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
     Route::get('attendances',[AttendanceController::class,'index'])->name('admin.attendance');
     Route::get('usersAttendances',[UsersAtendanceController::class,'index'])->name('users.attendance');
-    Route::get('usersusersBerDAY',[UsersAtendanceController::class,'attendanceBerday'])->name('users.berDAY');
+    Route::get('usersBerDAY',[UsersAtendanceController::class,'attendanceBerday'])->name('users.berDAY');
     Route::get('allAttendancesExport',[UsersAtendanceController::class,'export'])->name('allAttendances.export');
     Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('adminAttendance.export');
     Route::get('/users/attendances/filter', [UsersAtendanceController::class,'filter'])->name('users.filter');

@@ -90,7 +90,8 @@ class ProjectController extends Controller
     public function edit(Project $project,$id)
     {
         $project = Project::find($id);
-        return view('dashboards.admins.projects.edit', compact('project'));
+        $clients=Client::all();
+        return view('dashboards.admins.projects.edit', compact('project','clients'));
     }
 
     /**
@@ -105,11 +106,11 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $request->validate([
             'project_name'=> 'required|string|max:255',
-            'client_name' => 'required|string|max:255',
-            'project_country'=>'required|string|max:255'
+            'client_id' => 'required',
+            'project_country'=>'required'
         ]);
         $project->project_name =  $request->get('project_name');
-        $project->client_name = $request->get('client_name');
+        $project->client_id = $request->get('client_id');
         $project->project_country = $request->get('project_country');
         $project->save();
 

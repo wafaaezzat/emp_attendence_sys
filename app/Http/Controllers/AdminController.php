@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 
 use App\Charts\AttendeeTotalHours;
+use App\Models\Attendance;
 use App\Models\Project;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class AdminController extends Controller
 {
@@ -21,20 +25,40 @@ class AdminController extends Controller
                 $count = $user->active + $count;
         }
         $user=User::find(Auth::id());
-        $attendance=$user->attendances()->latest()->first();
-        $project=$attendance->projects;
-        $project=Project::find($project[0]->id);
-        $effort=$project->UserProjectAttendances()->pluck('sum','user_id');
-        $attendancesBerDays=$project->ProjectAttendancesBerDays()->pluck('sum','date');
-        $chart=new AttendeeTotalHours();
-        $chart_effort=new AttendeeTotalHours();
-        $chart->labels($attendancesBerDays->keys());
+        if($user->attendances->count()!=0){
+            $attendance=$user->attendances()->latest()->first();
+            if($attendance->projects->count()!=0){
+                $project=$attendance->projects;
+                $project=Project::find($project[0]?->id);
+                $effort=$project->UserProjectAttendances()->pluck('sum','user_id');
+                $attendancesBerDays=$project->ProjectAttendancesBerDays()->pluck('sum','date');
+                $chart=new AttendeeTotalHours();
+                $chart_effort=new AttendeeTotalHours();
+                $chart->labels($attendancesBerDays->keys());
+                $chart_effort->labels($effort->keys());
+                $chart_effort->dataset('user_id total hours on project','pie',$effort->values());
+                $chart->dataset('total hours ber day on project','line',$attendancesBerDays->values());
+            }
+            else{
+                $chart=null;
+                $project=null;
+                $chart_effort=null;
+            }
 
+        }
+        if($user->attendances->count()==0){
+            Attendance::create([
+                'user_id'=>$user->id,
+                'status'=>2,
+                'sign_in'=>Carbon::now(),
+                'sign_out'=>null,
+                'type'=>null
+            ]);
+            $chart=null;
+            $project=null;
+            $chart_effort=null;
+        }
 
-
-        $chart_effort->labels($effort->keys());
-        $chart_effort->dataset('user_id total hours on project','pie',$effort->values());
-        $chart->dataset('total hours ber day on project','line',$attendancesBerDays->values());
         return view('dashboards.admins.index' ,compact('projects','chart','project','users','count','chart_effort','user'));
     }
 

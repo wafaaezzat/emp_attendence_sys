@@ -36,10 +36,23 @@ trait UserTrait
         return $this->hasMany(Attendance::class);
     }
 
+
+
+
+    ////////////////////first sign_in && last sign_out//////////sign_in && (max(sign_out))//////////////////////
     public function userAttendanceBerDays()
     {
-        return $this->hasMany(Attendance::class)->select('*', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '),\DB::raw('sum(total_hours)as totalHours'), \DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'), \DB::raw('MAX(sign_out)as lastlogoutTime'), \DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'))->groupBy('date','user_id')->orderBy('date','desc');
+        return $this->hasMany(Attendance::class)->select('*', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '),\DB::raw('sum(total_hours)as totalHours'), \DB::raw('MAX(time_to_sec(sign_out) / (60 * 60)) as lastlogout'), \DB::raw('MAX(time_to_sec(sign_out)) as lastSignOut'), \DB::raw('MAX(sign_out)as lastlogoutTime'), \DB::raw('time_to_sec(sign_in) / (60 * 60) as firstlogin'),\DB::raw('time_to_sec(sign_in) as firstSignIN'))->groupBy('date','user_id')->orderBy('date','desc');
     }
+/////////////////////last attendance ber day///////////////////////////////
+    public function lastuserAttendanceBerDays($date)
+    {
+        return $this->hasMany(Attendance::class)->select('*')->where(\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')'),'=',$date)->orderBy('attendances.created_at','desc');
+    }
+
+
+
+
     public function attendancesBerDays()
     {
         return $this->hasMany(Attendance::class)->select('user_id', \DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')as date '))->where(\DB::raw('DATE_FORMAT(created_at, \'%Y-%m-%d\')'),'=',Carbon::today()->toDateString())->groupBy('user_id','date');

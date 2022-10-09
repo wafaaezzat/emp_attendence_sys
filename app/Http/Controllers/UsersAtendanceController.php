@@ -89,30 +89,19 @@ class UsersAtendanceController extends Controller
 
     public function update(Request $request)
     {
-        $id=$request->input('attendance_id');
-        $attendance = Attendance::find($id);
-//        dd($attendance);
-//        dd($request->punch_in);
-//        $request->validate([
-//            'punch_in'=> 'required',
-//            'punch_out' => 'required',
-//        ]);
-
-
-//        $users=User::all();
-//        $user=$users->where('id','=',$attendance->user_id);
-//        $user->userAttendanceBerDays->first()->update([
-//            'sign_in'=>$request->punch_in,
-//            'lastlogoutTime'=>$request->punch_out
-//        ]);
-//        $user->userAttendanceBerDays()->latest()->first()->update([
-//            'sign_in'=>$request->punch_in
-//        ]);
-
-        $attendance->sign_in =  $request->get('punch_in');
-        $attendance->sign_out = $request->get('punch_out');
-        $attendance->save();
-
+        $date=$request->date;
+        $user=User::find($request->user_id);
+        $attendance = Attendance::find($request->attendance_id);
+        $request->validate([
+            'punch_in'=> 'required',
+            'punch_out' => 'required',
+        ]);
+        $user->lastuserAttendanceBerDays($date)->first()->update([
+            'sign_out'=>$request->punch_out,
+        ]);
+        $attendance->update([
+            'sign_in'=>$request->punch_in,
+        ]);
         return Redirect::back();
     }
 

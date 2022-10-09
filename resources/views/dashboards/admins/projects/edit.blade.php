@@ -18,10 +18,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="client_name" class="col-sm-2 col-form-label">Client Name</label>
+                        <label for="client_id" class="col-sm-2 col-form-label">Clients</label>
                         <div class="col-sm-4">
-                            <input type="text" placeholder="Client Name"  class="form-control @error('client_name') is-invalid @enderror" name="client_name">
-                            @error('client_name')
+                            <select class="form-control  @error('client_id') is-invalid @enderror"  name="client_id" id="client_id">
+                                <option value="option_select" disabled selected>clients</option>
+                                @foreach($clients as $client)
+                                    <option value="{{$client->id}}">
+                                        {{$client->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('client_id')
                             <span class="text-danger error-text">{{$message}}</span>
                             @enderror
                         </div>
