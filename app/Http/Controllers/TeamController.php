@@ -28,13 +28,6 @@ class TeamController extends Controller
             $user=Auth::user();
             $teams=Team::all();
             $teams=$teams->where('team_leader',$user->id);
-//            foreach ($teams->first()->members as $member){
-//                foreach ($member->userAttendanceBerDays as $attendance){
-//                    dd($attendance);
-//                }
-//
-//            }
-//            $members= $teams->first()->members->first()->attendances;
             return view('dashboards.TeamLeaders.teams.teams',compact('teams','users'));
         }
     }

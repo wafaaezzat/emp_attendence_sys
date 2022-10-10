@@ -16,6 +16,7 @@ use \App\Http\Controllers\AttendanceController;
 use \App\Http\Controllers\AttendanceProjectController;
 use \App\Http\Controllers\ClientController;
 use \App\Http\Controllers\TeamController;
+use \App\Http\Controllers\ExportsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,7 +82,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
 
 
 
-
+///////////////////exports////////////////
+    Route::get('exports',[ExportsController::class,'index'])->name('admin.exports');
+    Route::get('UserAttendanceBerDayExport',[UsersAtendanceController::class,'exportone'])->name('UserAttendanceBerDayExport.export');
+    Route::get('MyAttendanceBerDayExport',[UsersAtendanceController::class,'exporttwo'])->name('MyAttendanceBerDayExport.export');
 
 
 
@@ -117,11 +121,13 @@ Route::group(['prefix'=>'TeamLeader', 'middleware'=>['auth','isTeamLeader']], fu
     Route::get('edit/team/{id}',[TeamController::class,'edit'])->name('edit.team');
     Route::post('update/member',[TeamController::class,'updateMember'])->name('update.teamMember');
     Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('edit.teamMember');
-    Route::get('teams',[TeamController::class,'index'])->name('teams');
+    Route::get('teams',[TeamController::class,'index'])->name('teamLeader.teams');
     Route::get('teams/{id}',[TeamController::class,'show'])->name('show.team');
     Route::post('add/team',[TeamController::class,'store'])->name('add.team');
     Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('destroy.member');
 
+    Route::get('projects/attendances',[AttendanceProjectController::class,'index'])->name('TeamLeader.projects.attendance');
+    Route::get('show/project',[ProjectController::class,'show'])->name('leader.show.project');
 
     Route::post('update-profile-info',[TeamLeaderController::class,'updateInfo'])->name('TeamLeaderUpdateInfo');
     Route::post('change-profile-picture',[TeamLeaderController::class,'updatePicture'])->name('TeamLeaderPictureUpdate');

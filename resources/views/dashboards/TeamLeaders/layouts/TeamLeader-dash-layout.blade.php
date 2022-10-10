@@ -137,22 +137,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-{{--                    <li class="nav-item">--}}
-{{--                        <a href="{{ route('projects.attendance')}}" class="nav-link {{ (request()->is('TeamLeader/projects/attendance*')) ? 'active' : '' }}">--}}
-{{--                            <i class="nav-icon  fa-solid fa-clipboard-user"></i>--}}
-{{--                            <p>--}}
-{{--                                Project Attendance--}}
-{{--                            </p>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
                     <li class="nav-item">
-                        <a href="{{ route('TeamLeader.attendance')}}" class="nav-link {{ (request()->is('TeamLeader/attendance*')) ? 'active' : '' }}">
+                        <a href="{{ route('TeamLeader.attendance')}}" class="nav-link {{ (request()->is('TeamLeader/attendance')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-pen"></i>
                             <p>
                                 My Attendance
                             </p>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('TeamLeader.projects.attendance')}}" class="nav-link {{ (request()->is('TeamLeader/projects/attendances')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-pen"></i>
+                            <p>
+                                Project Attendance
+                            </p>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
         </ul>

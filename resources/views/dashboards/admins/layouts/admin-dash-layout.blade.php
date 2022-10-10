@@ -121,6 +121,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </p>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="{{ route('admin.exports')}}" class="nav-link {{ (request()->is('admin/exports')) ? 'active' : '' }}">
+                    <i class="nav-icon fa-solid fa-download"></i>
+                    <p>
+                        Exports
+                    </p>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>

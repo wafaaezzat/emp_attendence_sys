@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exports\AllUsersviewExport;
 use App\Exports\AttendancesExport;
+use App\Exports\MyAttendanceBerDayExport;
+use App\Exports\UserAttendanceBerDayExport;
 use App\Exports\UserAttendanceExport;
 use App\Models\Attendance;
 use App\Models\User;
@@ -42,6 +44,17 @@ class UsersAtendanceController extends Controller
     public function export()
     {
         return Excel::download(new AllUsersviewExport(), 'attendances.xlsx');
+    }
+
+
+    public function exportone()
+    {
+        return Excel::download(new UserAttendanceBerDayExport(), 'attendancesBerDay.xlsx');
+    }
+
+    public function exporttwo()
+    {
+        return Excel::download(new MyAttendanceBerDayExport(), 'attendancesBerDay.xlsx');
     }
     function filter(Request $request)
     {

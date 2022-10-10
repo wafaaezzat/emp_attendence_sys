@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('flush:session')->everyMinute();
+        $schedule->command('get:exports')->monthly();
 //        $schedule->command('flush:session')->days([0,1,2,3,4])->dailyAt('19:00');
     }
 

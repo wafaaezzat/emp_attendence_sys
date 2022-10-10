@@ -8,10 +8,9 @@ use App\Models\AttendanceProject;
 use App\Http\Requests\UpdateAttendanceProjectRequest;
 use App\Models\Project;
 use App\Models\User;
-use Astatroth\LaravelTimer\Timer;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceProjectController extends Controller
@@ -25,7 +24,13 @@ class AttendanceProjectController extends Controller
     {
         $projects=Project::all();
         $users=User::all();
-        return  view('dashboards.admins.projects.attendance',compact('projects','users'));
+
+        if(Auth::user()->role_id==1){
+            return  view('dashboards.admins.projects.attendance',compact('projects','users'));
+        }
+        elseif (Auth::user()->role_id==3){
+            return  view('dashboards.TeamLeaders.Teams.projectsAttendance',compact('projects','users'));
+        }
     }
 
     /**
@@ -153,6 +158,7 @@ class AttendanceProjectController extends Controller
                 return redirect('TeamLeader/dashboard')->with('error','you are already signed Out');
             }
         }
+
     }
 
 

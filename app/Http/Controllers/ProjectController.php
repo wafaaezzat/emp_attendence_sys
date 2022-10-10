@@ -11,6 +11,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -22,13 +23,19 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $projects=Project::all();
+    {   $projects=Project::all();
         $clients=Client::all();
         $users=User::all();
         $project=null;
         $sum=0;
-        return view('dashboards.admins.projects' ,compact('projects','clients','project','users','sum'));
+
+        if(Auth::user()->role_id==1){
+            return view('dashboards.admins.projects' ,compact('projects','clients','project','users','sum'));
+        }
+
+        elseif (Auth::user()->role_id==3){
+            return view('dashboards.TeamLeaders.Teams.projectsAttendance' ,compact('projects','clients','project','users','sum'));
+        }
     }
 
     /**
@@ -84,7 +91,6 @@ class ProjectController extends Controller
     {
         $keys=[];
         $sum=0;
-        $projects=Project::all();
         $users=User::all();
         $project=Project::find($request->project_id);
         $chart=new ProjectChart();
@@ -98,7 +104,19 @@ class ProjectController extends Controller
         }
         $chart->labels($keys);
         $chart->dataset('project info','pie',$effort->values())->backgroundColor(["MidnightBlue", "MediumVioletRed", "Magenta", "MediumOrchid", "HotPink", "blue","black","Fuchsia","Crimson"]);
-        return view('dashboards.admins.projects.attendance',compact('chart','sum','project','projects','users'));
+
+
+        if(Auth::user()->role_id==1){
+            $projects=Project::all();
+            return view('dashboards.admins.projects.attendance',compact('chart','sum','project','projects','users'));
+        }
+
+        elseif (Auth::user()->role_id==3){
+            $projects=Project::all();
+//            $projects=$projects->where();
+            return view('dashboards.TeamLeaders.Teams.projectsAttendance',compact('chart','sum','project','projects','users'));
+        }
+
     }
 
     /**
