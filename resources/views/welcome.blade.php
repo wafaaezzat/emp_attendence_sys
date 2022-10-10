@@ -36,6 +36,10 @@
                     <a href="{{ route('user.dashboard') }}" class="text-sm text-gray-700 underline">Home</a>
 
                 @endif
+                @if ( Auth::user()->role_id == 3)
+                    <a href="{{ route('TeamLeader.dashboard') }}" class="text-sm text-gray-700 underline">Home</a>
+
+                @endif
             @else
                 <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
 

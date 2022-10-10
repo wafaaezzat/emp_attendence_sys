@@ -24,7 +24,7 @@ class UsersAtendanceController extends Controller
     {
         $start=null;
         $end=null;
-        $users = User::paginate(15);
+        $users = User::paginate(5);
         return view('dashboards.admins.usersAttendance', compact('users','start','end'));
     }
 
@@ -34,7 +34,7 @@ class UsersAtendanceController extends Controller
     public function attendanceBerday(){
         $start=null;
         $end=null;
-        $users = User::paginate(25);
+        $users = User::paginate(5);
         return view('dashboards.admins.attendancesBerDay', compact('users','start','end'));
     }
 
@@ -45,7 +45,7 @@ class UsersAtendanceController extends Controller
     }
     function filter(Request $request)
     {
-        $users = User::paginate(25);
+        $users = User::paginate(5);
         $start=$request->start_date;
         $end=$request->end_date;
         $user_id=$request->user_id;
@@ -61,7 +61,7 @@ class UsersAtendanceController extends Controller
 
     function usersBerDayFilter(Request $request)
     {
-        $users = User::paginate(25);
+        $users = User::paginate(5);
         $start=$request->start_date;
         $end=$request->end_date;
         $user_id=$request->user_id;

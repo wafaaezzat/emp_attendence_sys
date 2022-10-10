@@ -32,6 +32,9 @@ class AttendanceController extends Controller
         elseif (Auth::user()->role_id==2){
             return view('dashboards.users.attendances', compact('users','start','end','projects'));
         }
+        elseif (Auth::user()->role_id==3){
+            return view('dashboards.TeamLeaders.attendances', compact('users','start','end','projects'));
+        }
 
 
     }
@@ -48,6 +51,9 @@ class AttendanceController extends Controller
         }
         elseif (Auth::user()->role_id==2){
             return view('dashboards.users.attendances', compact('users','start','end'));
+        }
+        elseif (Auth::user()->role_id==3){
+            return view('dashboards.TeamLeaders.attendances', compact('users','start','end'));
         }
     }
 

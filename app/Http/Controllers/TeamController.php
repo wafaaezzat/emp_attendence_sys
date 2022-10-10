@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\Team;
-use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class TeamController extends Controller
@@ -19,9 +19,24 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams=Team::all();
         $users=User::all();
-        return view('dashboards.admins.teams.teams',compact('teams','users'));
+        if (Auth::user()->role_id==1){
+            $teams=Team::all();
+            return view('dashboards.admins.teams.teams',compact('teams','users'));
+        }
+        elseif (Auth::user()->role_id==3){
+            $user=Auth::user();
+            $teams=Team::all();
+            $teams=$teams->where('team_leader',$user->id);
+//            foreach ($teams->first()->members as $member){
+//                foreach ($member->userAttendanceBerDays as $attendance){
+//                    dd($attendance);
+//                }
+//
+//            }
+//            $members= $teams->first()->members->first()->attendances;
+            return view('dashboards.TeamLeaders.teams.teams',compact('teams','users'));
+        }
     }
 
     /**
@@ -32,6 +47,27 @@ class TeamController extends Controller
     public function create()
     {
         //
+    }
+
+
+
+    public function attendance()
+    {
+        $start=null;
+        $end=null;
+        $users=User::all();
+        $user=Auth::user();
+        $teams=Team::all();
+        $teams=$teams->where('team_leader',$user->id);
+//            foreach ($teams->first()->members as $member){
+//                foreach ($member->userAttendanceBerDays as $attendance){
+//                    dd($attendance);
+//                }
+//
+//            }
+//        $members= $teams->first()->members->first()->attendances;
+        $members= $teams->first()->members;
+        return view('dashboards.TeamLeaders.teams.attendance',compact('teams','members','start','end'));
     }
 
 
@@ -62,8 +98,12 @@ class TeamController extends Controller
         $team=Team::find($id);
         $users=User::all();
         $roles=Role::all();
-
-        return view('dashboards.admins.teams.team',compact('team','users','roles'));
+        if (Auth::user()->role_id==1){
+            return view('dashboards.admins.teams.team',compact('team','users','roles'));
+        }
+        elseif (Auth::user()->role_id==3){
+            return view('dashboards.TeamLeaders.teams.team',compact('team','users','roles'));
+        }
     }
 
 

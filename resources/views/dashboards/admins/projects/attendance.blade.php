@@ -47,9 +47,9 @@
                         <div class="text-center">
                             <select class="form-select form-select-sm @error('project_id') is-invalid @enderror " name="project_id" id="project_id">
                             <option value="option_select" disabled selected>Projects</option>
-                                @foreach($projects as $project)
-                                    <option value="{{$project->id}}">
-                                        {{$project->project_name}}
+                                @foreach($projects as $projectx)
+                                    <option value="{{$projectx->id}}">
+                                        {{$projectx->project_name}}
                                     </option>
                                  @endforeach
                             </select>
@@ -62,16 +62,23 @@
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-secondary mb-4 " style="width: 150px">Show</button>
                         </div>
+                        @if(isset($sum))
+                            <div>
+                                <h2>Total Hours</h2>
+                                <h3>{{\Carbon\CarbonInterval::seconds($sum*60*60)->cascade()->forHumans()}}</h3>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </form>
     </div>
-
+@if(isset($project))
     <div class="row">
         <div class="card card-secondary card-outline text-center" style="display: flex">
             <di class="card-title"><h4>Employees Involved</h4></di>
             @foreach($project->UserProjectAttendances as $attendance)
+{{--                @dd($project->UserProjectAttendances)--}}
                 <div class="col-sm-3">
                     <div class="card">
                         <div class="card-body">
@@ -81,13 +88,10 @@
                     </div>
                 </div>
             @endforeach
-                <div>
-                    <h2>Total Hours</h2>
-                    <h3>{{\Carbon\CarbonInterval::seconds($sum*60*60)->cascade()->forHumans()}}</h3>
-                </div>
+
         </div>
     </div >
-
+    @endif
     @if(isset($project,$chart))
     <div class="row">
         <div class="card card-secondary card-outline text-center">
@@ -100,7 +104,6 @@
     </div>
     @endif
 </div>
-
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>

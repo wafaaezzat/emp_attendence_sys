@@ -67,8 +67,11 @@ class AttendanceProjectController extends Controller
             if(Auth::user()->role_id==1){
                 return redirect('admin/dashboard')->with('success','you are signed in');
             }
-            else{
+            elseif (Auth::user()->role_id==2){
                 return redirect('user/dashboard')->with('success','you are signed in ');
+            }
+            elseif (Auth::user()->role_id==3){
+                return redirect('TeamLeader/dashboard')->with('success','you are signed in ');
             }
 
         }
@@ -102,8 +105,11 @@ class AttendanceProjectController extends Controller
         if(Auth::user()->role_id==1){
             return redirect('admin/dashboard')->with('success','you are signed in');
         }
-        else{
+        elseif(Auth::user()->role_id==2){
             return redirect('user/dashboard')->with('success','you are signed in ');
+        }
+        elseif(Auth::user()->role_id==3){
+            return redirect('TeamLeader/dashboard')->with('success','you are signed in ');
         }
 
     }
@@ -121,22 +127,32 @@ class AttendanceProjectController extends Controller
         $user->active=0;
         $user->save();
         $attendance=$user->attendances()->latest()->first();
-        if(!isset($attendance->sign_out)){
+        if(!isset($attendance->sign_out)) {
             $attendance->update([
-                'sign_out'=>Carbon::now(),
+                'sign_out' => Carbon::now(),
             ]);
-            if(Auth::user()->role_id==1){
-                return redirect('admin/dashboard')->with('success','you are signed Out');            }
-            else{
-                return redirect('user/dashboard')->with('success','you are signed Out');            }
+
+            if (Auth::user()->role_id == 1) {
+                return redirect('admin/dashboard')->with('success', 'you are signed Out');
+            } elseif (Auth::user()->role_id == 2) {
+                return redirect('user/dashboard')->with('success', 'you are signed Out');
+            } elseif (Auth::user()->role_id == 3) {
+                return redirect('TeamLeader/dashboard')->with('success', 'you are signed Out');
+            }
+
         }
         else{
-            if(Auth::user()->role_id==1){
-                return redirect('admin/dashboard')->with('error','you are already signed Out');            }
-            else{
-                return redirect('user/dashboard')->with('error','you are already signed Out');            }
-        }
 
+            if(Auth::user()->role_id==1){
+                return redirect('admin/dashboard')->with('error','you are already signed Out');
+            }
+            elseif(Auth::user()->role_id==2){
+                return redirect('user/dashboard')->with('error','you are already signed Out');
+            }
+            elseif(Auth::user()->role_id==3){
+                return redirect('TeamLeader/dashboard')->with('error','you are already signed Out');
+            }
+        }
     }
 
 

@@ -27,7 +27,8 @@ class ProjectController extends Controller
         $clients=Client::all();
         $users=User::all();
         $project=null;
-        return view('dashboards.admins.projects' ,compact('projects','clients','project','users'));
+        $sum=0;
+        return view('dashboards.admins.projects' ,compact('projects','clients','project','users','sum'));
     }
 
     /**
@@ -92,7 +93,6 @@ class ProjectController extends Controller
             $name=User::find($key)->name;
             array_push($keys, $name);
         }
-
         foreach ($effort->values() as $value){
             $sum=$sum+$value;
         }

@@ -7,6 +7,7 @@ use \App\Http\Controllers\Auth\LogoutController;
 use \Illuminate\Support\Facades\Auth;
 use  App\Http\Controllers\AdminController;
 use  App\Http\Controllers\UserController;
+use  App\Http\Controllers\TeamLeaderController;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\UsersAtendanceController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -88,6 +89,43 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::post('update-profile-info',[AdminController::class,'updateInfo'])->name('adminUpdateInfo');
     Route::post('change-profile-picture',[AdminController::class,'updatePicture'])->name('adminPictureUpdate');
     Route::post('change-password',[AdminController::class,'changePassword'])->name('adminChangePassword');
+
+});
+
+
+
+
+
+
+
+Route::group(['prefix'=>'TeamLeader', 'middleware'=>['auth','isTeamLeader']], function(){
+    Route::get('dashboard',[TeamLeaderController::class,'index'])->name('TeamLeader.dashboard')->middleware('verified');
+    Route::get('profile',[TeamLeaderController::class,'profile'])->name('TeamLeader.profile');
+    Route::get('settings',[TeamLeaderController::class,'settings'])->name('TeamLeader.settings');
+    Route::get('attendances',[AttendanceController::class,'index'])->name('TeamLeader.attendance');
+//    Route::get('usersAttendances',[UsersAtendanceController::class,'index'])->name('users.attendance');
+//    Route::get('usersBerDAY',[UsersAtendanceController::class,'attendanceBerday'])->name('users.berDAY');
+//    Route::get('allAttendancesExport',[UsersAtendanceController::class,'export'])->name('allAttendances.export');
+//    Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('TeamLeaderAttendance.export');
+//    Route::get('/users/attendances/filter', [UsersAtendanceController::class,'filter'])->name('users.filter');
+//    Route::get('/users/filter', [UsersAtendanceController::class,'usersBerDayFilter'])->name('usersBerDay.filter');
+    Route::get('date/filter', [AttendanceController::class,'filter'])->name('TeamLeader.filter');
+    Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('update.attendance');
+    Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('edit.attendance');
+    Route::get('teamAttendance',[TeamController::class,'attendance'])->name('team.attendance');
+    Route::post('update/team',[TeamController::class,'update'])->name('update.team');
+    Route::get('edit/team/{id}',[TeamController::class,'edit'])->name('edit.team');
+    Route::post('update/member',[TeamController::class,'updateMember'])->name('update.teamMember');
+    Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('edit.teamMember');
+    Route::get('teams',[TeamController::class,'index'])->name('teams');
+    Route::get('teams/{id}',[TeamController::class,'show'])->name('show.team');
+    Route::post('add/team',[TeamController::class,'store'])->name('add.team');
+    Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('destroy.member');
+
+
+    Route::post('update-profile-info',[TeamLeaderController::class,'updateInfo'])->name('TeamLeaderUpdateInfo');
+    Route::post('change-profile-picture',[TeamLeaderController::class,'updatePicture'])->name('TeamLeaderPictureUpdate');
+    Route::post('change-password',[TeamLeaderController::class,'changePassword'])->name('TeamLeaderChangePassword');
 
 });
 
