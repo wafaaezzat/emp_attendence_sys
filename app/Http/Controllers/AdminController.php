@@ -36,7 +36,7 @@ class AdminController extends Controller
                 $chart_effort=new AttendeeTotalHours();
                 $chart->labels($attendancesBerDays->keys());
                 $chart_effort->labels($effort->keys());
-                $chart_effort->dataset('user_id total hours on project','pie',$effort->values());
+                $chart_effort->dataset('user_id total hours on project','pie',$effort->values())->backgroundColor(["red", "blue", "green", "blue", "red", "blue","black","maroon"]);
                 $chart->dataset('total hours ber day on project','line',$attendancesBerDays->values());
             }
             else{

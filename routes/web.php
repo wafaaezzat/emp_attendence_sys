@@ -51,6 +51,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('date/filter', [AttendanceController::class,'filter'])->name('admin.filter');
     Route::get('projects',[ProjectController::class,'index'])->name('company.projects');
     Route::get('add/project',[ProjectController::class,'store'])->name('add.project');
+    Route::get('show/project',[ProjectController::class,'show'])->name('show.project');
     Route::post('update/project/{id}',[ProjectController::class,'update'])->name('update.project');
     Route::get('edit/project/{id}',[ProjectController::class,'edit'])->name('edit.project');
     Route::delete('destroy/project/{id}',[ProjectController::class,'destroy'])->name('destroy.project');
@@ -59,8 +60,15 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('project/export',[ProjectController::class,'export'])->name('project.export');
     Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('update.attendance');
     Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('edit.attendance');
+    Route::post('update/team',[TeamController::class,'update'])->name('update.team');
+    Route::get('edit/team/{id}',[TeamController::class,'edit'])->name('edit.team');
+    Route::post('update/member',[TeamController::class,'updateMember'])->name('update.teamMember');
+    Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('edit.teamMember');
     Route::get('teams',[TeamController::class,'index'])->name('teams');
     Route::get('teams/{id}',[TeamController::class,'show'])->name('show.team');
+    Route::post('add/team',[TeamController::class,'store'])->name('add.team');
+    Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('destroy.member');
+
 
 ///////////////clients/////////////////////////////
     Route::get('clients',[ClientController::class,'index'])->name('company.clients');

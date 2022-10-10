@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     use HasFactory,TeamTrait;
+    protected $table = 'teams';
+    protected $guarded = [];
 }

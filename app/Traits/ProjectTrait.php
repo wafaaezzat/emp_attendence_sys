@@ -13,7 +13,7 @@ trait ProjectTrait
     }
 
     public function UserProjectAttendances(){
-      return $this->attendances()->select('user_id',\DB::raw('sum(attendances.total_hours) as sum'))->groupBy('user_id');
+      return $this->attendances()->select('*','user_id',\DB::raw('sum(attendances.total_hours) as sum'))->groupBy('user_id');
     }
 
 

@@ -116,9 +116,9 @@
                     <div class="modal-body">
                         <form class="form-horizontal" method="POST" action="{{ route('update.attendance') }}">
                         @csrf
-                            <input type="text" id="attendance_id" name="attendance_id">
-                            <input type="text" id="date" name="date">
-                            <input type="text" id="user_id" name="user_id">
+                            <input type="hidden" id="attendance_id" name="attendance_id">
+                            <input type="hidden" id="date" name="date">
+                            <input type="hidden" id="user_id" name="user_id">
                             <div class="form-group row">
                                 <label for="punch_in" class="col-sm-2 col-form-label">Punch In</label>
                                 <div class="col-sm-4">

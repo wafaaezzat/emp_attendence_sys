@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\ProjectChart;
 use App\Exports\MyExport;
 use App\Exports\ProjectExport;
 use App\Models\Client;
@@ -24,7 +25,9 @@ class ProjectController extends Controller
     {
         $projects=Project::all();
         $clients=Client::all();
-        return view('dashboards.admins.projects' ,compact('projects','clients'));
+        $users=User::all();
+        $project=null;
+        return view('dashboards.admins.projects' ,compact('projects','clients','project','users'));
     }
 
     /**
@@ -76,9 +79,26 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Request $request)
     {
-        //
+        $keys=[];
+        $sum=0;
+        $projects=Project::all();
+        $users=User::all();
+        $project=Project::find($request->project_id);
+        $chart=new ProjectChart();
+        $effort=$project->UserProjectAttendances()->pluck('sum','user_id');
+        foreach ($effort->keys() as $key){
+            $name=User::find($key)->name;
+            array_push($keys, $name);
+        }
+
+        foreach ($effort->values() as $value){
+            $sum=$sum+$value;
+        }
+        $chart->labels($keys);
+        $chart->dataset('project info','pie',$effort->values())->backgroundColor(["MidnightBlue", "MediumVioletRed", "Magenta", "MediumOrchid", "HotPink", "blue","black","Fuchsia","Crimson"]);
+        return view('dashboards.admins.projects.attendance',compact('chart','sum','project','projects','users'));
     }
 
     /**
