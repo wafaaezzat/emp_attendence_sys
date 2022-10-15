@@ -20,13 +20,10 @@ class UserActivity
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            $expiresAt = now()->addMinutes(1); /* already given time here we already set 2 min. */
+            $expiresAt = now()->addMinutes(2);
             Cache::put('user-is-online-' . Auth::user()->id, true, $expiresAt);
-
-            /* user last seen */
             User::where('id', Auth::user()->id)->update(['last_seen' => now()]);
         }
-
         return $next($request);
     }
 }

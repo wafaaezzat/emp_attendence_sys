@@ -25,15 +25,15 @@ class AttendanceController extends Controller
         $projects=Project::all();
         $start=null;
         $end=null;
-        $users = User::where('id', Auth::id())->get();
+        $user = User::find(Auth::id());
         if (Auth::user()->role_id==1){
-            return view('dashboards.admins.attendances', compact('users','start','end'));
+            return view('dashboards.admins.attendances', compact('user','start','end'));
         }
         elseif (Auth::user()->role_id==2){
-            return view('dashboards.users.attendances', compact('users','start','end','projects'));
+            return view('dashboards.users.attendances', compact('user','start','end','projects'));
         }
         elseif (Auth::user()->role_id==3){
-            return view('dashboards.TeamLeaders.attendances', compact('users','start','end','projects'));
+            return view('dashboards.TeamLeaders.attendances', compact('user','start','end','projects'));
         }
 
 

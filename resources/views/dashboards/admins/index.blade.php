@@ -40,13 +40,13 @@
             <div class="small-box bg-secondary">
                 <div class="inner">
                     <h3> @foreach($user->userAttendancesBerDays as $userAttendancesBerDay)
-                            {{floor($userAttendancesBerDay->totalHours)}} Hour
+                            {{floor($userAttendancesBerDay->totalHours)}}
                         @endforeach
                     </h3>
                     <p>Your Total Hours Today</p>
                 </div>
                 <div class="icon">
-                    <i class="nav-icon  fa-solid fa-user"></i>
+                    <i class="nav-icon  fa-sharp fa-solid fa-clock"></i>
                 </div>
             </div>
         </div>
@@ -123,11 +123,20 @@
                             <form method="GET" class="form-horizontal" action="{{ route('project.signout')}}">
                                 @csrf
                                 <div class="card card-secondary card-outline text-center">
-                                    <div class="card-body box-profile ">
+                                    <div class="card-body box-profile text-center ">
                                         <div class="text-center">
                                             <label for="project_name" class="visually-hidden h5" style="color:#343a40">Sign Out Your Project</label>
                                         </div>
-                                        <div class="text-center mt-3">
+                                        <div class="col-md-3 offset-4" >
+                                            <div class="card card-secondary card-outline text-center">
+                                                <h3>Your Spent Time On project
+                                                </h3>
+                                                <div class="card-body box-profile" style="font-size:30px;color: #1a174d;">
+                                                    <p id="demo"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" mt-3">
                                             <button type="submit" class="btn btn-secondary mb-4" style="width: 150px"  id="stop-btn" name="sign_out" >Sign Out</button>
                                         </div>
                                     </div>
@@ -137,17 +146,8 @@
                     </div>
                     <div class="active tab-pane" id="project_view">
                         <div class="row col-lg-12">
-                            <div class="col-md-3" >
-                                <div class="card card-secondary card-outline text-center">
-                                    <h3>Spent Time On project
-                                    </h3>
-                                    <div class="card-body box-profile" style="font-size:50px;color: #1a174d;">
-                                        <p id="demo"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            @if(isset($project,$chart,$chart_effort))
-                            <div class="col-md-3">
+                            @if(isset($project,$chart,$chart_effort)&&$user->active==1)
+                            <div class="col-md-12">
                                 <div class="card card-secondary card-outline text-center">
                                     <h3>{{$project->project_name}}</h3>
                                     <div class="card-body box-profile">
@@ -156,16 +156,6 @@
                                     </div>
                                 </div>
                             </div>
-
-{{--                            <div class="col-md-3">--}}
-{{--                                <div class="card card-secondary card-outline text-center">--}}
-{{--                                    <h3> {{$project->project_name}} </h3>--}}
-{{--                                    <div class="card-body box-profile">--}}
-{{--                                        {!! $chart_effort->container() !!}--}}
-{{--                                        {!! $chart_effort->script() !!}--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                             @endif
                         </div>
                     </div>

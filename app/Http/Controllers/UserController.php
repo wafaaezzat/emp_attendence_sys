@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Charts\AttendeeTotalHours;
+use App\Exports\UsersExport;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -73,7 +75,11 @@ class UserController extends Controller
         return  redirect('user/profile');
 
     }
+public function export(){
+    return Excel::download(new UsersExport(), 'users.xlsx');
 
+
+}
 
     function changePassword(Request $request){
         //Validate form

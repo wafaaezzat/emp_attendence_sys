@@ -2,14 +2,15 @@
 
 @section('content')
     <div class="container">
-        <h1>User list - Active User</h1>
-
         <table class="table table-bordered data-table">
             <thead>
             <tr>
-                <th>No</th>
+                <th>ID</th>
                 <th>Name</th>
+                <th>Role</th>
                 <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
                 <th>Last Seen</th>
                 <th>Status</th>
             </tr>
@@ -18,8 +19,11 @@
             @foreach($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->name}}</td>
+                    <td>{{ $user->role->name }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>{{ $user->phone }}</td>
+                    <td>{{ $user->address }}</td>
                     <td>
                         {{ Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}
                     </td>

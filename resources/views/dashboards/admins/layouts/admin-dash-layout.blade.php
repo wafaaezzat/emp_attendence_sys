@@ -100,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <li class="nav-item">
                 <a href="{{ route('users')}}" class="nav-link {{ (request()->is('admin/users*')) ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-user"></i>
+                  <i class="nav-icon fa-solid fa-users"></i>
                   <p>
                   Users
                   </p>

@@ -24,9 +24,6 @@
     </div>
     <!-- ./card-header -->
     <div class="card-body">
-        <div>
-            <a href="{{ route('adminAttendance.export') }}" class="btn btn-block btn-secondary btn-sm" style="width:120px">Export Excel Sheet</a>
-        </div>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -39,7 +36,7 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
+
                 <?php
                     $attendances = $start && $end != null ? ($user->attendances->whereBetween('created_at',[$start,$end])) : $user->attendances;
                     ?>
@@ -57,9 +54,13 @@
                         <td>{{floor($attendance->total_hours)}}</td>
                     </tr>
                 @endforeach
-            @endforeach
             </tbody>
         </table>
+{{--        <div>--}}
+{{--            @if(!(isset($user_name)||isset($user_id)||isset($start)||isset($end)))--}}
+{{--                {!!$users->links("pagination::bootstrap-5")!!}--}}
+{{--            @endif--}}
+{{--        </div>--}}
     </div>
     <!-- /.card-body -->
 @endsection
