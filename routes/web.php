@@ -16,6 +16,7 @@ use \App\Http\Controllers\AttendanceController;
 use \App\Http\Controllers\AttendanceProjectController;
 use \App\Http\Controllers\ClientController;
 use \App\Http\Controllers\TeamController;
+use \App\Http\Controllers\CheckUserStatusController;
 use \App\Http\Controllers\ExportsController;
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('edit.teamMember');
     Route::get('teams',[TeamController::class,'index'])->name('teams');
     Route::get('teams/{id}',[TeamController::class,'show'])->name('show.team');
+    Route::get('users',[CheckUserStatusController::class,'index'])->name('users');
     Route::post('add/team',[TeamController::class,'store'])->name('add.team');
     Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('destroy.member');
 

@@ -87,21 +87,21 @@
                         <form class="form-horizontal" action="{{ route('adminChangePassword') }}" method="POST" id="changePasswordAdminForm">
                           @csrf
                             <div class="form-group row">
-                            <label for="inputName" class="col-sm-2 col-form-label">Old Passord</label>
+                            <label for="inputPassword" class="col-sm-2 col-form-label">Old Passord</label>
                             <div class="col-sm-10">
-                              <input type="password" class="form-control" id="inputName" placeholder="Enter current password" name="oldpassword">
+                              <input type="password" class="form-control" id="inputPassword" placeholder="Enter current password" name="oldpassword">
                               <span class="text-danger error-text oldpassword_error"></span>
                             </div>
                           </div>
                           <div class="form-group row">
-                            <label for="inputName2" class="col-sm-2 col-form-label">New Password</label>
+                            <label for="newpassword" class="col-sm-2 col-form-label">New Password</label>
                             <div class="col-sm-10">
                               <input type="password" class="form-control" id="newpassword" placeholder="Enter new password" name="newpassword">
                               <span class="text-danger error-text newpassword_error"></span>
                             </div>
                           </div>
                           <div class="form-group row">
-                            <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
+                            <label for="cnewpassword" class="col-sm-2 col-form-label">Confirm New Password</label>
                             <div class="col-sm-10">
                               <input type="password" class="form-control" id="cnewpassword" placeholder="ReEnter new password" name="cnewpassword">
                               <span class="text-danger error-text cnewpassword_error"></span>

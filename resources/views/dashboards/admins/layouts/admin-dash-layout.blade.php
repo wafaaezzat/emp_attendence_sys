@@ -97,6 +97,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </p>
                 </a>
               </li>
+
+            <li class="nav-item">
+                <a href="{{ route('users')}}" class="nav-link {{ (request()->is('admin/users*')) ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>
+                  Users
+                  </p>
+                  </p>
+                </a>
+              </li>
             <li class="nav-item">
                 <a href="{{ route('company.clients')}}" class="nav-link {{ (request()->is('admin/clients*')) ? 'active' : '' }}">
                     <i class=" nav-icon  fa-solid fa-people-line"></i>
