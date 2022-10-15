@@ -1,6 +1,23 @@
 @extends('dashboards.admins.layouts.admin-dash-layout')
 @section('title','attendances ber day')
 @section('content')
+    @if (Session::has('success'))
+        <div class="alert alert-secondary alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            <strong>Success !</strong> {{ session('success') }}
+        </div>
+    @endif
+
+    @if (Session::has('error'))
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            <strong>Error !</strong> {{ session('error') }}
+        </div>
+    @endif
 
 <div class="card-body">
     <div class="col-md-12">
@@ -33,9 +50,6 @@
 </div>
 <!-- ./card-header -->
 <div class="card-body">
-    <div>
-        <a href="{{ route('allAttendances.export') }}" class="btn btn-block btn-secondary btn-sm" style="width:120px">Export Excel Sheet</a>
-    </div>
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -62,14 +76,14 @@
 {{--                    <td>{{$attendance->id}}</td>--}}
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}
-                        @if($attendance->firstSignIN==36000)
+                        @if(isset($attendance->firstSignIN)&&$attendance->firstSignIN==36000)
                         <h6><span class="badge badge-success">OnTime</span></h6>
                         @endif
-                        @if($attendance->firstSignIN>36000)
+                        @if(isset($attendance->firstSignIN)&&$attendance->firstSignIN>36000)
                         <h6><span class="badge badge-warning"> {{\Carbon\CarbonInterval::seconds($attendance->firstSignIN-36000)->cascade()->forHumans()}} Late</span></h6>
                         @endif
-                        @if($attendance->lastSignOut<68400)
-                        <h6><span class="badge badge-danger">Left {{\Carbon\CarbonInterval::seconds(68400-$attendance->lastSignOut)->cascade()->forHumans()}} Hours Earlier</span></h6>
+                        @if(isset($attendance->lastSignOut)&&$attendance->lastSignOut<68400)
+                            <h6><span class="badge badge-danger">Left {{\Carbon\CarbonInterval::seconds(68400-$attendance->lastSignOut)->cascade()->forHumans()}} Hours Earlier</span></h6>
                         @endif
 
                     </td>

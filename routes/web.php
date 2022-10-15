@@ -114,17 +114,17 @@ Route::group(['prefix'=>'TeamLeader', 'middleware'=>['auth','isTeamLeader']], fu
 //    Route::get('/users/attendances/filter', [UsersAtendanceController::class,'filter'])->name('users.filter');
 //    Route::get('/users/filter', [UsersAtendanceController::class,'usersBerDayFilter'])->name('usersBerDay.filter');
     Route::get('date/filter', [AttendanceController::class,'filter'])->name('TeamLeader.filter');
-    Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('update.attendance');
-    Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('edit.attendance');
+    Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('teamLeader.update.attendance');
+    Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('teamLeader.edit.attendance');
     Route::get('teamAttendance',[TeamController::class,'attendance'])->name('team.attendance');
-    Route::post('update/team',[TeamController::class,'update'])->name('update.team');
-    Route::get('edit/team/{id}',[TeamController::class,'edit'])->name('edit.team');
-    Route::post('update/member',[TeamController::class,'updateMember'])->name('update.teamMember');
-    Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('edit.teamMember');
+    Route::post('update/team',[TeamController::class,'update'])->name('update.my.team');
+    Route::get('edit/team/{id}',[TeamController::class,'edit'])->name('edit.my.team');
+    Route::post('update/member',[TeamController::class,'updateMember'])->name('teamLeader.update.teamMember');
+    Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('teamLeader.edit.teamMember');
     Route::get('teams',[TeamController::class,'index'])->name('teamLeader.teams');
-    Route::get('teams/{id}',[TeamController::class,'show'])->name('show.team');
-    Route::post('add/team',[TeamController::class,'store'])->name('add.team');
-    Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('destroy.member');
+    Route::get('teams/{id}',[TeamController::class,'show'])->name('teamLeader.show.team');
+//    Route::post('add/team',[TeamController::class,'store'])->name('add.team');
+    Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('teamLeader.destroy.member');
 
     Route::get('projects/attendances',[AttendanceProjectController::class,'index'])->name('TeamLeader.projects.attendance');
     Route::get('show/project',[ProjectController::class,'show'])->name('leader.show.project');

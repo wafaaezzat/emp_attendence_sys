@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-
+use Illuminate\Support\Facades\Auth;
 
 
 class flushSession extends Command
@@ -36,10 +36,18 @@ class flushSession extends Command
        foreach ($users as $user){
            $attendance=$user->attendances()->latest()->first();
            if (!isset($attendance->sign_out)){
+               $user->active=0;
+               $user->save();
                $attendance->update([
                    'sign_out'=>Carbon::now(),
                ]);
+               if (isset($_SESSION['previous'])) {
+                   if (basename($_SERVER['PHP_SELF']) != $_SESSION['previous']) {
+                       session_destroy();
+                   }
+               }
            }
        }
+
     }
 }

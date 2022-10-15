@@ -89,6 +89,11 @@ class ProjectController extends Controller
      */
     public function show(Request $request)
     {
+
+        $request->validate([
+            'project_id'=>'required'
+        ]);
+
         $keys=[];
         $sum=0;
         $users=User::all();
