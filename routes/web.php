@@ -32,7 +32,7 @@ use \App\Http\Controllers\ExportsController;
 Route::get('/', function () {
     return view('welcome');
 });
-//Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('attendances/records', [UsersAtendanceController::class, 'filter'])->name('attendances/records');
 Route::get('signin/project',[AttendanceProjectController::class,'store'])->name('project.signin')->middleware('auth');
@@ -168,5 +168,3 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth','isUser']], function(){
     Route::post('change-profile-picture',[UserController::class,'updatePicture'])->name('userPictureUpdate');
     Route::post('change-password',[UserController::class,'changePassword'])->name('userChangePassword');
 });
-
-
