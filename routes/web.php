@@ -44,7 +44,7 @@ Route::get('signout/project',[AttendanceProjectController::class,'signout'])->na
 
 
 Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
-    Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('verified');
+//    Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('verified');
     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
     Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
 
