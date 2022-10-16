@@ -211,7 +211,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+//         'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 //    'Timer' => Astatroth\LaravelTimer\Timer::class,
 
