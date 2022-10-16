@@ -32,6 +32,8 @@ use \App\Http\Controllers\ExportsController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+
 Auth::routes(['verify' => true]);
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
