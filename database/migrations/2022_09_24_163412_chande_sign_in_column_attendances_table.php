@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('attendances', function (Blueprint $table) {
-            $table->timeTz('sign_in')->nullable()->change();
-            $table->timeTz('sign_out')->nullable()->change();
+            $table->time('sign_in')->nullable()->change();
+            $table->time('sign_out')->nullable()->change();
         });
     }
 
