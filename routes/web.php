@@ -169,6 +169,6 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth','isUser']], function(){
     Route::post('change-password',[UserController::class,'changePassword'])->name('userChangePassword');
 });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
