@@ -168,11 +168,3 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth','isUser']], function(){
     Route::post('change-profile-picture',[UserController::class,'updatePicture'])->name('userPictureUpdate');
     Route::post('change-password',[UserController::class,'changePassword'])->name('userChangePassword');
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
