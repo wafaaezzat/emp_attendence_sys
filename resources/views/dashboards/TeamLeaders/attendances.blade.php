@@ -5,7 +5,7 @@
 
     <div class="card-body">
     <div class="col-md-12">
-    <form class="offset-3" method="GET" action="{{ route('admin.filter') }}">
+    <form class="offset-3" method="GET" action="{{ route('TeamLeader.filter') }}">
         <div class="form-row ">
             <div class="form-group col-md-4">
                 <label for="start_date" class="visually-hidden">Start Date</label>
@@ -39,7 +39,6 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
                 <?php
                     $attendances = $start && $end != null ? ($user->attendances->whereBetween('created_at',[$start,$end])) : $user->attendances;
                     ?>
@@ -57,7 +56,6 @@
                         <td>{{floor($attendance->total_hours)}}</td>
                     </tr>
                 @endforeach
-            @endforeach
             </tbody>
         </table>
     </div>

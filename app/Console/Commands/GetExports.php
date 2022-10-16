@@ -8,7 +8,10 @@ use App\Exports\MyExport;
 use App\Exports\ProjectAttendanceExport;
 use App\Exports\ProjectExport;
 use App\Exports\UserAttendanceBerDayExport;
+use App\Exports\UsersExport;
+use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class GetExports extends Command
@@ -34,11 +37,10 @@ class GetExports extends Command
      */
     public function handle()
     {
-        Excel::download(new AllUsersviewExport(), 'attendances.xlsx');
-//        Excel::download(new MyExport(), 'my_attendances.xlsx');
-//        Excel::download(new UserAttendanceBerDayExport(), 'attendancesBerDay.xlsx');
-//        Excel::download(new MyAttendanceBerDayExport(), 'attendancesBerDay.xlsx');
+        Excel::download(new AllUsersviewExport(), 'UsersAttendances.xlsx');
+        Excel::download(new UserAttendanceBerDayExport(), 'UsersAttendancesBerDay.xlsx');
         Excel::download(new ProjectExport(), 'projects.xlsx');
         Excel::download(new ProjectAttendanceExport(), 'project_attendances.xlsx');
+        Excel::download(new UsersExport(), 'users.xlsx');
     }
 }

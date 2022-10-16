@@ -65,14 +65,7 @@
         </div>
     </div>
         <div class="card">
-{{--            <div class="card-header p-2">--}}
-{{--                <ul class="nav nav-pills">--}}
-{{--                    <li class="nav-item"><a class="nav-link active" href="#signin_out" data-toggle="tab">SignIn/Out</a></li>--}}
-{{--                    <li class="nav-item"><a class="nav-link" href="#project_view" data-toggle="tab">Project View</a></li>--}}
-{{--                </ul>--}}
-{{--            </div><!-- /.card-header -->--}}
             <div class="card-body">
-{{--                <div class="tab-content">--}}
                     <div class="active tab-pane" id="signin_out">
                         @if($user->active==0)
                             <form method="GET" class="form-horizontal" action="{{ route('project.signin') }}">

@@ -80,7 +80,7 @@
                 <!-- small box -->
                 <div class="small-box bg-secondary p-4 m-2">
                     <div class="inner">
-                        <a href="{{ route('MyAttendanceBerDayExport.export') }}"style="text-decoration: none;color: #1a174d;font-size: 25px">Export Users Attendances ber day</a>
+                        <a href="{{ route('MyAttendanceBerDayExport.export') }}"style="text-decoration: none;color: #1a174d;font-size: 25px">Export Your Attendances ber day</a>
                     </div>
                     <div class="icon">
                         <i class="nav-icon fa-sharp fa-solid fa-cloud-arrow-down"></i>

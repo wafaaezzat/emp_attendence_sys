@@ -110,7 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
                 <li>
-                    <a href="{{ route('teams')}}" class="nav-link {{ (request()->is('TeamLeader/teams')) ? 'active' : '' }}">
+                    <a href="{{ route('TeamLeader.teams')}}" class="nav-link {{ (request()->is('TeamLeader/teams')) ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-people-group"></i>
                         <p>
                             My Teams
@@ -119,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
 
                     <li>
-                    <a href="{{ route('team.attendance')}}" class="nav-link {{ (request()->is('TeamLeader/teamAttendance')) ? 'active' : '' }}">
+                    <a href="{{ route('TeamLeader.teamAttendance')}}" class="nav-link {{ (request()->is('TeamLeader/teamAttendance')) ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-pen"></i>
                         <p>
                             Attendance
@@ -147,7 +147,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('TeamLeader.projects.attendance')}}" class="nav-link {{ (request()->is('TeamLeader/projects/attendances')) ? 'active' : '' }}">
+                        <a href="{{ route('TeamLeader.projectsAttendance')}}" class="nav-link {{ (request()->is('TeamLeader/projects/attendances')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-pen"></i>
                             <p>
                                 Project Attendance

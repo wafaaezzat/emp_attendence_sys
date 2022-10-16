@@ -44,15 +44,20 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('verified');
     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
     Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
+
+
+
     Route::get('attendances',[AttendanceController::class,'index'])->name('admin.attendance');
     Route::get('usersAttendances',[UsersAtendanceController::class,'index'])->name('users.attendance');
     Route::get('usersBerDAY',[UsersAtendanceController::class,'attendanceBerday'])->name('users.berDAY');
-    Route::get('allAttendancesExport',[UsersAtendanceController::class,'export'])->name('allAttendances.export');
-    Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('adminAttendance.export');
-    Route::get('users/info',[UserController::class,'export'])->name('usersInfo.export');
     Route::get('/users/attendances/filter', [UsersAtendanceController::class,'filter'])->name('users.filter');
     Route::get('/users/filter', [UsersAtendanceController::class,'usersBerDayFilter'])->name('usersBerDay.filter');
     Route::get('date/filter', [AttendanceController::class,'filter'])->name('admin.filter');
+    Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('update.attendance');
+    Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('edit.attendance');
+
+
+
     Route::get('projects',[ProjectController::class,'index'])->name('company.projects');
     Route::get('add/project',[ProjectController::class,'store'])->name('add.project');
     Route::get('show/project',[ProjectController::class,'show'])->name('show.project');
@@ -60,19 +65,21 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('edit/project/{id}',[ProjectController::class,'edit'])->name('edit.project');
     Route::delete('destroy/project/{id}',[ProjectController::class,'destroy'])->name('destroy.project');
     Route::get('projects/attendance',[AttendanceProjectController::class,'index'])->name('projects.attendance');
-    Route::get('projectAttendance/export',[AttendanceProjectController::class,'export'])->name('projects.attendance.export');
-    Route::get('project/export',[ProjectController::class,'export'])->name('project.export');
-    Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('update.attendance');
-    Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('edit.attendance');
+
+
+
     Route::post('update/team',[TeamController::class,'update'])->name('update.team');
     Route::get('edit/team/{id}',[TeamController::class,'edit'])->name('edit.team');
     Route::post('update/member',[TeamController::class,'updateMember'])->name('update.teamMember');
     Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('edit.teamMember');
     Route::get('teams',[TeamController::class,'index'])->name('teams');
     Route::get('teams/{id}',[TeamController::class,'show'])->name('show.team');
-    Route::get('users',[CheckUserStatusController::class,'index'])->name('users');
     Route::post('add/team',[TeamController::class,'store'])->name('add.team');
     Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('destroy.member');
+
+
+
+    Route::get('users',[CheckUserStatusController::class,'index'])->name('users');
 
 
 ///////////////clients/////////////////////////////
@@ -89,10 +96,14 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
     Route::get('exports',[ExportsController::class,'index'])->name('admin.exports');
     Route::get('UserAttendanceBerDayExport',[UsersAtendanceController::class,'exportone'])->name('UserAttendanceBerDayExport.export');
     Route::get('MyAttendanceBerDayExport',[UsersAtendanceController::class,'exporttwo'])->name('MyAttendanceBerDayExport.export');
+    Route::get('project/export',[ProjectController::class,'export'])->name('project.export');
+    Route::get('allAttendancesExport',[UsersAtendanceController::class,'export'])->name('allAttendances.export');
+    Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('adminAttendance.export');
+    Route::get('users/info',[UserController::class,'export'])->name('usersInfo.export');
+    Route::get('projectAttendance/export',[AttendanceProjectController::class,'export'])->name('projects.attendance.export');
 
 
-
-
+//////////////////AdminInfo/////////////////
     Route::post('update-profile-info',[AdminController::class,'updateInfo'])->name('adminUpdateInfo');
     Route::post('change-profile-picture',[AdminController::class,'updatePicture'])->name('adminPictureUpdate');
     Route::post('change-password',[AdminController::class,'changePassword'])->name('adminChangePassword');
@@ -109,29 +120,32 @@ Route::group(['prefix'=>'TeamLeader', 'middleware'=>['auth','isTeamLeader']], fu
     Route::get('dashboard',[TeamLeaderController::class,'index'])->name('TeamLeader.dashboard')->middleware('verified');
     Route::get('profile',[TeamLeaderController::class,'profile'])->name('TeamLeader.profile');
     Route::get('settings',[TeamLeaderController::class,'settings'])->name('TeamLeader.settings');
+
+
+
     Route::get('attendances',[AttendanceController::class,'index'])->name('TeamLeader.attendance');
-//    Route::get('usersAttendances',[UsersAtendanceController::class,'index'])->name('users.attendance');
-//    Route::get('usersBerDAY',[UsersAtendanceController::class,'attendanceBerday'])->name('users.berDAY');
-//    Route::get('allAttendancesExport',[UsersAtendanceController::class,'export'])->name('allAttendances.export');
-//    Route::get('myAttendancesExport',[AttendanceController::class,'export'])->name('TeamLeaderAttendance.export');
-//    Route::get('/users/attendances/filter', [UsersAtendanceController::class,'filter'])->name('users.filter');
-//    Route::get('/users/filter', [UsersAtendanceController::class,'usersBerDayFilter'])->name('usersBerDay.filter');
     Route::get('date/filter', [AttendanceController::class,'filter'])->name('TeamLeader.filter');
-    Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('teamLeader.update.attendance');
-    Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('teamLeader.edit.attendance');
-    Route::get('teamAttendance',[TeamController::class,'attendance'])->name('team.attendance');
-    Route::post('update/team',[TeamController::class,'update'])->name('update.my.team');
-    Route::get('edit/team/{id}',[TeamController::class,'edit'])->name('edit.my.team');
-    Route::post('update/member',[TeamController::class,'updateMember'])->name('teamLeader.update.teamMember');
-    Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('teamLeader.edit.teamMember');
-    Route::get('teams',[TeamController::class,'index'])->name('teamLeader.teams');
-    Route::get('teams/{id}',[TeamController::class,'show'])->name('teamLeader.show.team');
-//    Route::post('add/team',[TeamController::class,'store'])->name('add.team');
-    Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('teamLeader.destroy.member');
+    Route::post('update/attendance',[UsersAtendanceController::class,'update'])->name('TeamLeader.updateAttendance');
+    Route::get('edit/attendance/{id}',[UsersAtendanceController::class,'edit'])->name('TeamLeader.editAttendance');
+    Route::get('/users/filter', [UsersAtendanceController::class,'usersBerDayFilter'])->name('TeamLeader.membersBerDayFilter');
 
-    Route::get('projects/attendances',[AttendanceProjectController::class,'index'])->name('TeamLeader.projects.attendance');
-    Route::get('show/project',[ProjectController::class,'show'])->name('leader.show.project');
 
+    Route::get('teamAttendance',[TeamController::class,'attendance'])->name('TeamLeader.teamAttendance');
+    Route::post('update/team',[TeamController::class,'update'])->name('TeamLeader.updateTeam');
+    Route::get('edit/team/{id}',[TeamController::class,'edit'])->name('TeamLeader.editTeam');
+    Route::post('update/member',[TeamController::class,'updateMember'])->name('TeamLeader.updateTeamMember');
+    Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('TeamLeader.editTeamMember');
+    Route::get('teams',[TeamController::class,'index'])->name('TeamLeader.teams');
+    Route::get('teams/{id}',[TeamController::class,'show'])->name('TeamLeader.showTeam');
+    Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('TeamLeader.destroyMember');
+
+
+    Route::get('projects/attendances',[AttendanceProjectController::class,'index'])->name('TeamLeader.projectsAttendance');
+    Route::get('show/project',[ProjectController::class,'show'])->name('TeamLeader.showProject');
+
+
+
+    //////////////Team Leader Info/////////////////////
     Route::post('update-profile-info',[TeamLeaderController::class,'updateInfo'])->name('TeamLeaderUpdateInfo');
     Route::post('change-profile-picture',[TeamLeaderController::class,'updatePicture'])->name('TeamLeaderPictureUpdate');
     Route::post('change-password',[TeamLeaderController::class,'changePassword'])->name('TeamLeaderChangePassword');
@@ -147,10 +161,9 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth','isUser']], function(){
     Route::get('profile',[UserController::class,'profile'])->name('user.profile');
     Route::get('settings',[UserController::class,'settings'])->name('user.settings');
     Route::get('attendances',[AttendanceController::class,'index'])->name('user.attendance');
-    Route::get('usersAttendances',[AttendanceController::class,'export'])->name('userAttendance.export');
     Route::get('/user/date/filter', [AttendanceController::class,'filter'])->name('user.filter');
 
-
+///////////////////////////UserInfo//////////////
     Route::post('update-profile-info',[UserController::class,'updateInfo'])->name('userUpdateInfo');
     Route::post('change-profile-picture',[UserController::class,'updatePicture'])->name('userPictureUpdate');
     Route::post('change-password',[UserController::class,'changePassword'])->name('userChangePassword');

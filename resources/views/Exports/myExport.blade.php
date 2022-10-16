@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover">
+<table>
     <thead>
     <tr>
         <th>ID</th>
@@ -13,7 +13,7 @@
     <tbody>
 
         @foreach($user->attendances as $attendance)
-            <tr data-widget="expandable-table" aria-expanded="false">
+            <tr>
                 <td>{{$attendance->id}}</td>
                 <td>
                     @foreach($attendance->projects as $project)

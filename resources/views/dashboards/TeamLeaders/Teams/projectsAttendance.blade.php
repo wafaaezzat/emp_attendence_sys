@@ -5,7 +5,7 @@
 
     <div class="row ">
         <div class="col-md-6">
-            <form method="GET" class="form-horizontal" action="{{ route('leader.show.project') }}">
+            <form method="GET" class="form-horizontal" action="{{ route('TeamLeader.showProject') }}">
                 @csrf
                 <div class="card card-secondary card-outline text-center">
                     <div class="card-body box-profile ">
@@ -44,7 +44,6 @@
                 <div class="card card-secondary card-outline text-center" style="display: flex">
                     <di class="card-title"><h4>Employees Involved</h4></di>
                     @foreach($project->UserProjectAttendances as $attendance)
-                        {{--                @dd($project->UserProjectAttendances)--}}
                         <div class="col-sm-3">
                             <div class="card">
                                 <div class="card-body">
@@ -54,7 +53,6 @@
                             </div>
                         </div>
                     @endforeach
-
                 </div>
             </div >
         @endif

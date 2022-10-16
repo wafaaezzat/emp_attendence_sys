@@ -55,9 +55,6 @@
             </div>
             <!-- ./card-header -->
             <div class="card-body">
-{{--                <div>--}}
-{{--                    <a href="{{route('client.export')}}" class="btn btn-block btn-success btn-sm" style="width:100px">Export Excel Sheet</a>--}}
-{{--                </div>--}}
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>

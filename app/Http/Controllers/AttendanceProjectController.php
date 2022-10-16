@@ -82,10 +82,6 @@ class AttendanceProjectController extends Controller
         }
 
 
-//        if(!isset($user->attendances()->latest()->first()->sign_out)){
-//            return redirect('admin/dashboard')->with('error','you should sign out first ');
-//        }
-
         $project=Project::find($request->project_id);
         $request->validate([
             'project_id'=> 'required',

@@ -8,6 +8,7 @@ use App\Exports\MyAttendanceBerDayExport;
 use App\Exports\UserAttendanceBerDayExport;
 use App\Exports\UserAttendanceExport;
 use App\Models\Attendance;
+use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -87,7 +88,17 @@ class UsersAtendanceController extends Controller
         if (isset($request->user_id)){
             $users = $users->where('id','=',$request->user_id);
         }
-        return view('dashboards.admins.attendancesBerDay', compact('users','start','end','user_id','user_name'));
+
+
+        if (Auth::user()->role_id==1){
+            return view('dashboards.admins.attendancesBerDay', compact('users','start','end','user_id','user_name'));
+        }
+        elseif (Auth::user()->role_id==3){
+
+            $teams=Team::all();
+            $members= $teams->first()->members;
+            return view('dashboards.TeamLeaders.Teams.attendance',compact('users','members','start','end','user_id','user_name'));
+        }
     }
 
 

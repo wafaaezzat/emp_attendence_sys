@@ -30,9 +30,6 @@
     </div>
     <!-- ./card-header -->
     <div class="card-body">
-        <div>
-            <a href="{{ route('allAttendances.export') }}" class="btn btn-block btn-secondary btn-sm" style="width:120px">Export Excel Sheet</a>
-        </div>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>

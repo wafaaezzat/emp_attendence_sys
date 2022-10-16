@@ -9,7 +9,6 @@
         <th>Punch Out</th>
         <th>Date</th>
         <th>Total Hours</th>
-        <th>Status</th>
     </tr>
     </thead>
     <tbody>
@@ -24,11 +23,10 @@
                         {{$project->project_name}}
                     @endforeach
                 </td>
-                <td><{{$attendance->sign_in}}</td>
+                <td>{{$attendance->sign_in}}</td>
                 <td>{{$attendance->lastlogoutTime}}</td>
                 <td>{{$attendance->created_at->format('d/m/Y')}}</td>
                 <td>{{(int)$attendance->lastlogoutTime-(int)$attendance->firstlogin}}</td>
-                <td>{{$attendance->type}}</td>
             </tr>
         @endforeach
     @endforeach

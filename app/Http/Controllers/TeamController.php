@@ -52,13 +52,6 @@ class TeamController extends Controller
         $user=Auth::user();
         $teams=Team::all();
         $teams=$teams->where('team_leader',$user->id);
-//            foreach ($teams->first()->members as $member){
-//                foreach ($member->userAttendanceBerDays as $attendance){
-//                    dd($attendance);
-//                }
-//
-//            }
-//        $members= $teams->first()->members->first()->attendances;
         $members= $teams->first()->members;
         return view('dashboards.TeamLeaders.teams.attendance',compact('teams','members','start','end'));
     }
@@ -66,11 +59,6 @@ class TeamController extends Controller
 
     public function store(Request $request)
     {
-//        $request->validate([
-//            't_name'=> 'required|string',
-//            'leader_id' => 'required',
-//        ]);
-
 
         Team::create([
             'name'=>$request->t_name,

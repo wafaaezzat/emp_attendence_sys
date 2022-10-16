@@ -4,7 +4,7 @@
 
     <div class="card-body">
         <div class="col-md-12">
-            <form  method="GET" action="{{ route('usersBerDay.filter') }}">
+            <form  method="GET" action="{{ route('TeamLeader.membersBerDayFilter') }}">
                 <div class="form-row ">
                     <div class="form-group col-md-3">
                         <label for="start_date" class="visually-hidden">Start Date</label>
@@ -33,9 +33,6 @@
     </div>
     <!-- ./card-header -->
     <div class="card-body">
-        <div>
-            <a href="{{ route('allAttendances.export') }}" class="btn btn-block btn-secondary btn-sm" style="width:120px">Export Excel Sheet</a>
-        </div>
         <table class="table table-bordered table-hover">
             <thead>
             <tr>

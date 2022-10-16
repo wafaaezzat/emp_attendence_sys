@@ -118,7 +118,6 @@ class ProjectController extends Controller
 
         elseif (Auth::user()->role_id==3){
             $projects=Project::all();
-//            $projects=$projects->where();
             return view('dashboards.TeamLeaders.Teams.projectsAttendance',compact('chart','sum','project','projects','users'));
         }
 
