@@ -32,7 +32,7 @@ use \App\Http\Controllers\ExportsController;
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes(['verify' => true]);
+//Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('attendances/records', [UsersAtendanceController::class, 'filter'])->name('attendances/records');
 Route::get('signin/project',[AttendanceProjectController::class,'store'])->name('project.signin')->middleware('auth');
