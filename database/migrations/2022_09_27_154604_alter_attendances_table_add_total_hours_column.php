@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('attendances', function (Blueprint $table) {
-            $table->decimal('total_hours')->storedAs('(time_to_sec(sign_out)/(60*60))-(time_to_sec(sign_in)/(60*60))')->nullable();
+            $table->decimal('total_hours')->storedAs('time_to_sec(sign_out)/(60*60)-time_to_sec(sign_in)/(60*60)')->nullable();
         });
     }
 
