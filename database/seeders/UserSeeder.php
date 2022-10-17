@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-//        User::factory()->count(10)->create();
+        User::factory()->count(10)->create();
         User::insert([
             'name' => 'wafaa',
             'phone' => '01122655338',
