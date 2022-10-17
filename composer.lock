@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f1a6477a53eecb2765ee92a874ae13f",
+    "content-hash": "fa1f414aa9e9fc41c6248c44cf1b8915",
     "packages": [
         {
             "name": "astatroth/laravel-timer",
