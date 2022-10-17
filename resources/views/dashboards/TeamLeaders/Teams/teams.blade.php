@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h5 class="card-title" style="font: bolder;font-size: larger">{{$team->name}}</h5>
                         <p class="card-text">Team Leader : {{$users->find($team->team_leader)->name}}</p>
-                        <a href="{{route('show.team',$team->id)}}" class="btn btn-primary p-2 col-sm-3">Show</a>
+                        <a href="{{route('TeamLeader.showTeam',$team->id)}}" class="btn btn-primary p-2 col-sm-3">Show</a>
                     </div>
                 </div>
             </div>

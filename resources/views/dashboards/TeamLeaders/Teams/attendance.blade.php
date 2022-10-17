@@ -111,7 +111,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('update.attendance') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('TeamLeader.updateAttendance') }}">
                         @csrf
                         <input type="hidden" id="attendance_id" name="attendance_id">
                         <input type="hidden" id="date" name="date">

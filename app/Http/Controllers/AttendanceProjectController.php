@@ -29,6 +29,7 @@ class AttendanceProjectController extends Controller
             return  view('dashboards.admins.projects.attendance',compact('projects','users'));
         }
         elseif (Auth::user()->role_id==3){
+            $user=User::find(Auth::id());
             return  view('dashboards.TeamLeaders.Teams.projectsAttendance',compact('projects','users'));
         }
     }

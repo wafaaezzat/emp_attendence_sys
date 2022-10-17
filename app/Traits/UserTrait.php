@@ -25,7 +25,6 @@ trait UserTrait
         }
         return false;
     }
-
     public function projects()
     {
         return $this->belongsToMany(Project::class);

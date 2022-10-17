@@ -106,10 +106,6 @@ class TeamController extends Controller
      */
     public function update(UpdateTeamRequest $request)
     {
-        $request->validate([
-            'team_name'=> 'required',
-            'team_leader_id' => 'required',
-        ]);
 
         $team=Team::find($request->team_id);
         $team->update([
@@ -138,14 +134,6 @@ class TeamController extends Controller
     }
     public function updateMember(UpdateTeamRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'bio' => 'required|string|max:255',
-            'phone' => 'nullable|digits:11|regex:/(01)[0-9]{9}/',
-            'address' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'role_id' => 'required'
-        ]);
         $member=User::find($request->user_id);
         $member->role_id=$request->role_id;
         $member->name=$request->name;
@@ -154,13 +142,6 @@ class TeamController extends Controller
         $member->address=$request->address;
         $member->email=$request->email;
         $member->save();
-//        $member->update([
-//            'name' => $request->name,
-//            'bio' => $request->bio,
-//            'phone' => $request->phone,
-//            'address' => $request->address,
-//            'email' => $request->email
-//        ]);
         return Redirect::back();
     }
 

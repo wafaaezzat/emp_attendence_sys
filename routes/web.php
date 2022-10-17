@@ -33,7 +33,7 @@ Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+//Route::get('admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
@@ -44,7 +44,7 @@ Route::get('signout/project',[AttendanceProjectController::class,'signout'])->na
 
 
 Route::group(['prefix'=>'admin', 'middleware'=>['auth','isAdmin']], function(){
-//    Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('verified');
+    Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard')->middleware('verified');
     Route::get('profile',[AdminController::class,'profile'])->name('admin.profile');
     Route::get('settings',[AdminController::class,'settings'])->name('admin.settings');
 
@@ -137,10 +137,12 @@ Route::group(['prefix'=>'TeamLeader', 'middleware'=>['auth','isTeamLeader']], fu
     Route::post('update/team',[TeamController::class,'update'])->name('TeamLeader.updateTeam');
     Route::get('edit/team/{id}',[TeamController::class,'edit'])->name('TeamLeader.editTeam');
     Route::post('update/member',[TeamController::class,'updateMember'])->name('TeamLeader.updateTeamMember');
-    Route::get('edit/member/{id}',[TeamController::class,'editMember'])->name('TeamLeader.editTeamMember');
+    Route::get('edit/team-member/{id}',[TeamController::class,'editMember'])->name('TeamLeader.editTeamMember');
     Route::get('teams',[TeamController::class,'index'])->name('TeamLeader.teams');
     Route::get('teams/{id}',[TeamController::class,'show'])->name('TeamLeader.showTeam');
     Route::delete('destroy/member/{id}',[TeamController::class,'destroy'])->name('TeamLeader.destroyMember');
+    Route::get('teams/{id}',[TeamController::class,'show'])->name('TeamLeader.showTeam');
+
 
 
     Route::get('projects/attendances',[AttendanceProjectController::class,'index'])->name('TeamLeader.projectsAttendance');

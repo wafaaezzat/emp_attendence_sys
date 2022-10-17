@@ -38,7 +38,7 @@
                     </button>
                 </td>
                 <td>
-                    <form action="{{ route('destroy.member', $member->id)}}" method="post">
+                    <form action="{{ route('TeamLeader.destroyMember', $member->id)}}" method="post">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type="submit"><i class="fa-sharp fa-solid fa-trash"></i></button>
@@ -61,7 +61,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('update.teamMember') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('TeamLeader.updateTeamMember') }}">
                         @csrf
                         <input type="hidden" id="user_id" name="user_id">
 
@@ -138,7 +138,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
     <script>
         $(document).ready(function (){
             $(document).on('click','#editbtn',function (){
@@ -147,7 +146,7 @@
                 $('#editModal').modal('show');
                 $.ajax({
                     type:"GET",
-                    url:"/admin/edit/member/"+user_id,
+                    url:"/TeamLeader/edit/team-member/"+user_id,
                     success:function (response){
                         $('#name').val(response.member.name);
                         $('#phone').val(response.member.phone);
@@ -157,6 +156,8 @@
                         $('#role_id').val(response.member.role_id);
                         $('#user_id').val(response.member.id);
                         console.log(response.member.role_id);
+                    } , error:function (response){
+                        console.log('error');
                     }
 
                 });
@@ -166,4 +167,6 @@
         });
 
     </script>
+
+
 @endsection
