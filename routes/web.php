@@ -30,9 +30,6 @@ use \App\Http\Controllers\ExportsController;
 */
 
 Auth::routes(['verify' => true]);
-Route::get('auth/login', 'Auth/AuthController@getLogin');
-Route::post('auth/login', 'Auth/AuthController@postLogin');
-
 Route::get('/', function () {
     return view('welcome');
 });
